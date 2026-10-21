@@ -167,18 +167,20 @@ const W=[
 ["The sample letter template has which body paragraphs?","Intro, explain, close","Only one paragraph","Four summary paragraphs","No paragraphs"]]}
 ];
 const $=s=>document.querySelector(s),A=$("#app");
-let best={},S={},T;
+let best={},S={},T,leaderboardRefreshTimer=null,leaderboardViewToken=0;
 try{best=JSON.parse(localStorage.getItem("tca")||"{}")}catch(e){}
 const save=()=>{try{localStorage.setItem("tca",JSON.stringify(best))}catch(e){}};
 const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 function snd(f,d){try{const c=snd.c||(snd.c=new AudioContext()),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;g.gain.value=.05;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+d)}catch(e){}}
 function home(){
  clearInterval(T);
+ stopLeaderboardRefresh();
  A.innerHTML=`<h1>Tech Comm Arena</h1><p class="m">Choose a topic. You have 3 lives and 15 seconds per question. Consecutive correct answers raise your score multiplier.</p><div class="grid">`+
  W.map((w,i)=>`<button class="world" onclick="start(${i})"><span class="num">Topic ${i+1}</span><b>${w.n}</b><small>${w.q.length} questions &middot; Best ${best[i]||0}</small></button>`).join("")+
  `</div><button class="world boss" onclick="start(-1)"><b>Mixed Challenge</b><small>12 random questions from all topics &middot; Best ${best.b||0}</small></button><button class="btn alt" onclick="showLb()">View leaderboards</button>`;
 }
 function start(i){
+ stopLeaderboardRefresh();
  const qs=i<0?sh(W.flatMap((w,k)=>w.q.map(q=>[...q,k]))).slice(0,12):sh(W[i].q).map(q=>[...q,i]);
  S={i,qs,n:0,hp:3,sc:0,st:0,ok:0,miss:[]};ask();
 }
@@ -202,6 +204,7 @@ function pick(k){
  S.n++;$("#nx").innerHTML=`<button class="btn" onclick="ask()">${S.n>=S.qs.length||S.hp<=0?"See results":"Next"}</button>`;
 }
 function end(){
+ stopLeaderboardRefresh();
  const acc=Math.round(S.ok/S.n*100)||0,dead=S.hp<=0,k=S.i<0?"b":S.i;
  const nb=S.sc>(best[k]||0);if(nb){best[k]=S.sc;save()}
  const r=dead?"Out of lives":acc>=90?"Tech Comm Legend":acc>=70?"Report Pro":acc>=50?"Rising Writer":"Keep practicing";
@@ -217,24 +220,76 @@ function lbTable(rows){
  return rows.length?`<div style="overflow-x:auto"><table class="lb"><tr><th>#</th><th>Player</th><th>Device</th><th>IP</th><th>Score</th></tr>`+
  rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td>${esc(r.dev)}</td><td>${esc(r.ip)}</td><td>${r.score}</td></tr>`).join("")+`</table></div>`:`<p class="m">No scores yet.</p>`;
 }
+function stopLeaderboardRefresh(){
+ clearInterval(leaderboardRefreshTimer);
+ leaderboardRefreshTimer=null;
+ leaderboardViewToken++;
+}
+async function fetchLeaderboardRows(board){
+ const url="/api/leaderboard?board="+encodeURIComponent(board)+"&_="+Date.now();
+ const response=await fetch(url,{cache:"no-store"});
+ if(!response.ok)throw new Error("Leaderboard HTTP "+response.status);
+ const data=await response.json();
+ return Array.isArray(data.rows)?data.rows:[];
+}
+function startInlineLeaderboardRefresh(board,message){
+ stopLeaderboardRefresh();
+ const token=leaderboardViewToken;
+ const refresh=async()=>{
+  const el=$("#lb");
+  if(token!==leaderboardViewToken||!el||document.hidden)return;
+  try{
+   const rows=await fetchLeaderboardRows(board);
+   const target=$("#lb");
+   if(token===leaderboardViewToken&&target){
+    target.innerHTML=`<h3>Leaderboard</h3><p class="m">${message}</p>`+lbTable(rows);
+   }
+  }catch(e){
+   console.error("Leaderboard refresh failed:",e);
+  }
+ };
+ leaderboardRefreshTimer=setInterval(refresh,5000);
+}
 async function submitScore(name){
  name=(name||"").trim();if(!name)return;
  try{localStorage.setItem("tca_name",name)}catch(e){}
- const el=$("#lb");el.innerHTML=`<h3>Leaderboard</h3><p class="m">Submitting…</p>`;
+ const el=$("#lb");if(!el)return;
+ el.innerHTML=`<h3>Leaderboard</h3><p class="m">Submitting…</p>`;
+ const board=S.i<0?"b":String(S.i);
  try{
-  const r=await fetch("/api/leaderboard",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({board:S.i<0?"b":String(S.i),score:S.sc,name})});
-  const j=await r.json();if(!r.ok)throw 0;
-  const msg={new:"Added to the leaderboard.",improved:"Score improved for this device and IP.",same_ip:"This IP and device already has an equal or higher score here, so the board was not changed."}[j.status];
-  el.innerHTML=`<h3>Leaderboard</h3><p class="m">${msg}</p>`+lbTable(j.rows);
- }catch(e){el.innerHTML=`<h3>Leaderboard</h3><p class="m">Leaderboard unavailable right now.</p>`}
+  const r=await fetch("/api/leaderboard",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({board,score:S.sc,name}),cache:"no-store"});
+  const j=await r.json();if(!r.ok)throw new Error(j.error||"Score submission failed.");
+  const msg={new:"Added to the leaderboard.",improved:"Personal best updated for this IP and device.",same_ip:"Your existing personal best is equal or higher, so it was kept."}[j.status]||"Leaderboard updated.";
+  el.innerHTML=`<h3>Leaderboard</h3><p class="m">${msg}</p>`+lbTable(Array.isArray(j.rows)?j.rows:[]);
+  startInlineLeaderboardRefresh(board,msg);
+ }catch(e){
+  console.error("Leaderboard submission failed:",e);
+  el.innerHTML=`<h3>Leaderboard</h3><p class="m">Leaderboard unavailable right now.</p><button class="btn alt" onclick="submitScore($('#nm')?.value||localStorage.getItem('tca_name')||'')">Try again</button>`;
+ }
 }
 async function showLb(k="0"){
  clearInterval(T);
- A.innerHTML=`<h1>Leaderboards</h1><p class="m">Top 10 per topic. One entry per IP and device; a repeat entry only counts if the score is higher.</p><select id="sel" class="inp" onchange="showLb(this.value)">`+
+ stopLeaderboardRefresh();
+ A.innerHTML=`<h1>Leaderboards</h1><p class="m">Live leaderboard. One entry per IP and device; each player keeps their highest score. Refreshes every 5 seconds.</p><select id="sel" class="inp" onchange="showLb(this.value)">`+
  W.map((w,i)=>`<option value="${i}">${w.n}</option>`).join("")+`<option value="b">Mixed Challenge</option></select><div id="lbt"><p class="m">Loading…</p></div><button class="btn alt" onclick="home()">Back to topics</button>`;
  $("#sel").value=k;
- try{const r=await fetch("/api/leaderboard?board="+k);if(!r.ok)throw 0;$("#lbt").innerHTML=lbTable((await r.json()).rows)}
- catch(e){$("#lbt").innerHTML=`<p class="m">Leaderboard unavailable right now.</p>`}
+ const token=leaderboardViewToken;
+ const refresh=async()=>{
+  if(token!==leaderboardViewToken||!$("#lbt")||$("#sel")?.value!==k||document.hidden)return;
+  try{
+   const rows=await fetchLeaderboardRows(k);
+   if(token===leaderboardViewToken&&$("#lbt")&&$("#sel")?.value===k){
+    $("#lbt").innerHTML=lbTable(rows);
+   }
+  }catch(e){
+   console.error("Leaderboard refresh failed:",e);
+   if(token===leaderboardViewToken&&$("#lbt")&&!$("#lbt").querySelector("table")){
+    $("#lbt").innerHTML=`<p class="m">Leaderboard unavailable right now.</p>`;
+   }
+  }
+ };
+ await refresh();
+ leaderboardRefreshTimer=setInterval(refresh,5000);
 }
 // ===== Redo round: type the answers (fill in the blank + enumeration) =====
 // Item: [text, answer, optionalHowManyToList]. String answer = fill in the blank. Array = enumeration; "a|b" = accepted spellings.

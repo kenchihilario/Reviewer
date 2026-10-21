@@ -3,10 +3,10 @@
  // GET  /api/leaderboard?board=0..5|b
  // POST /api/leaderboard
  //
- // Upstash Redis REST API
- // One score per IP + device per board.
- // A new score replaces the old score only when it is higher.
- // No arbitrary score cap or leaderboard entry limit.
+ // Keeps each player's personal best per board.
+ // Returns all leaderboard entries.
+ // No arbitrary score cap.
+ // GET always reads the latest data from Redis.
 
 const URL_ =
   process.env.UPSTASH_REDIS_REST_URL_KV_REST_API_URL ||
@@ -136,7 +136,10 @@ function device(ua = "") {
 }
 
 function parseBoard(value) {
-  const raw = Array.isArray(value) ? value[0] ?? "" : value ?? "";
+  const raw = Array.isArray(value)
+    ? value[0] ?? ""
+    : value ?? "";
+
   return String(raw).trim();
 }
 
@@ -167,29 +170,31 @@ async function top(board) {
   for (let i = 0; i < flat.length; i += 2) {
     try {
       const row = JSON.parse(flat[i + 1]);
+      const score = Number(row?.score);
 
       if (
         row &&
         typeof row.name === "string" &&
         typeof row.dev === "string" &&
         typeof row.ip === "string" &&
-        Number.isSafeInteger(Number(row.score)) &&
-        Number(row.score) >= 0
+        Number.isSafeInteger(score) &&
+        score >= 0
       ) {
         rows.push({
           name: row.name,
           dev: row.dev,
           ip: row.ip,
-          score: Number(row.score),
+          score,
           t: Number(row.t) || 0,
         });
       }
     } catch {
-      // Ignore malformed entries.
+      // Skip malformed entries without breaking the leaderboard.
     }
   }
 
-  // No .slice(0, 10): return all valid leaderboard entries.
+  // Sort by highest score first.
+  // No entry-count limit.
   return rows
     .sort((a, b) => b.score - a.score || a.t - b.t)
     .map(({ name, dev, ip, score }) => ({
@@ -200,6 +205,8 @@ async function top(board) {
     }));
 }
 
+// Atomically preserve each player's personal best.
+// A lower or equal score never replaces the existing record.
 const SAVE_IF_BETTER = `
 local old = redis.call("HGET", KEYS[1], ARGV[1])
 
@@ -222,8 +229,12 @@ return "new"
 `;
 
 module.exports = async (req, res) => {
-  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+  res.setHeader(
+    "Cache-Control",
+    "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+  );
   res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
   res.setHeader("Vary", "User-Agent");
 
   if (!URL_ || !TOKEN) {
@@ -235,17 +246,21 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // GET /api/leaderboard?board=0
+    // Fetch the current leaderboard from Redis.
     if (req.method === "GET") {
       const board = parseBoard(req.query?.board);
 
       if (!validBoard(board, res)) return;
 
       const rows = await top(board);
-      return res.status(200).json({ rows });
+
+      return res.status(200).json({
+        rows,
+        updatedAt: Date.now(),
+      });
     }
 
-    // POST /api/leaderboard
+    // Submit a score while preserving the player's personal best.
     if (req.method === "POST") {
       let body = req.body;
 
@@ -310,11 +325,13 @@ module.exports = async (req, res) => {
         record,
       ]);
 
+      // Read the latest leaderboard after the write.
       const rows = await top(board);
 
       return res.status(200).json({
         status,
         rows,
+        updatedAt: Date.now(),
       });
     }
 
