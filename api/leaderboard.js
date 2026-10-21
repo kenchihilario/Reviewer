@@ -1,11 +1,12 @@
 
-// api/leaderboard.js
-// GET  /api/leaderboard?board=0..5|b
-// POST /api/leaderboard
-//
-// Supports Upstash Redis REST API.
-// One score per IP + device per board.
-// A new score replaces the old score only when it is higher.
+ // api/leaderboard.js
+ // GET  /api/leaderboard?board=0..5|b
+ // POST /api/leaderboard
+ //
+ // Upstash Redis REST API
+ // One score per IP + device per board.
+ // A new score replaces the old score only when it is higher.
+ // No arbitrary score cap or leaderboard entry limit.
 
 const URL_ =
   process.env.UPSTASH_REDIS_REST_URL_KV_REST_API_URL ||
@@ -48,14 +49,12 @@ async function redis(command, retries = 2) {
       });
 
       const text = await response.text();
-
       let data;
+
       try {
         data = JSON.parse(text);
       } catch {
-        throw new Error(
-          `Invalid Redis response: HTTP ${response.status}`
-        );
+        throw new Error(`Invalid Redis response: HTTP ${response.status}`);
       }
 
       if (!response.ok || data.error) {
@@ -65,12 +64,8 @@ async function redis(command, retries = 2) {
 
         error.status = response.status;
 
-        // Do not retry authentication, permission, or bad-request errors.
-        if (
-          response.status >= 400 &&
-          response.status < 500
-        ) {
-          throw Object.assign(error, { noRetry: true });
+        if (response.status >= 400 && response.status < 500) {
+          error.noRetry = true;
         }
 
         throw error;
@@ -140,6 +135,25 @@ function device(ua = "") {
   return `${os} · ${browser}`;
 }
 
+function parseBoard(value) {
+  const raw = Array.isArray(value) ? value[0] ?? "" : value ?? "";
+  return String(raw).trim();
+}
+
+function validBoard(board, res) {
+  if (!BOARDS.has(board)) {
+    res.status(400).json({
+      error: "Invalid leaderboard board.",
+      receivedBoard: board,
+      allowedBoards: [...BOARDS],
+    });
+
+    return false;
+  }
+
+  return true;
+}
+
 async function top(board) {
   const flat = await redis(["HGETALL", `lb:${board}`]);
   const rows = [];
@@ -150,16 +164,17 @@ async function top(board) {
     throw new Error("Unexpected Redis leaderboard data.");
   }
 
-  for (let i = 1; i < flat.length; i += 2) {
+  for (let i = 0; i < flat.length; i += 2) {
     try {
-      const row = JSON.parse(flat[i]);
+      const row = JSON.parse(flat[i + 1]);
 
       if (
         row &&
         typeof row.name === "string" &&
         typeof row.dev === "string" &&
         typeof row.ip === "string" &&
-        Number.isFinite(Number(row.score))
+        Number.isSafeInteger(Number(row.score)) &&
+        Number(row.score) >= 0
       ) {
         rows.push({
           name: row.name,
@@ -170,14 +185,13 @@ async function top(board) {
         });
       }
     } catch {
-      // Ignore malformed records so one bad entry
-      // does not take down the entire leaderboard.
+      // Ignore malformed entries.
     }
   }
 
+  // No .slice(0, 10): return all valid leaderboard entries.
   return rows
     .sort((a, b) => b.score - a.score || a.t - b.t)
-    .slice(0, 10)
     .map(({ name, dev, ip, score }) => ({
       name,
       dev,
@@ -186,7 +200,6 @@ async function top(board) {
     }));
 }
 
-// Atomically update a score only when it beats the previous score.
 const SAVE_IF_BETTER = `
 local old = redis.call("HGET", KEYS[1], ARGV[1])
 
@@ -209,10 +222,7 @@ return "new"
 `;
 
 module.exports = async (req, res) => {
-  res.setHeader(
-    "Cache-Control",
-    "no-store, no-cache, must-revalidate"
-  );
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
   res.setHeader("Pragma", "no-cache");
   res.setHeader("Vary", "User-Agent");
 
@@ -225,29 +235,17 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // GET leaderboard
+    // GET /api/leaderboard?board=0
     if (req.method === "GET") {
-      const rawBoard = req.query?.board;
+      const board = parseBoard(req.query?.board);
 
-      const board = String(
-        Array.isArray(rawBoard)
-          ? rawBoard[0] ?? ""
-          : rawBoard ?? ""
-      );
-
-      if (!BOARDS.has(board)) {
-        return res.status(400).json({
-          error: "Invalid leaderboard board.",
-          receivedBoard: board,
-        });
-      }
+      if (!validBoard(board, res)) return;
 
       const rows = await top(board);
-
       return res.status(200).json({ rows });
     }
 
-    // Submit score
+    // POST /api/leaderboard
     if (req.method === "POST") {
       let body = req.body;
 
@@ -266,7 +264,7 @@ module.exports = async (req, res) => {
           ? body
           : {};
 
-      const board = String(body.board ?? "");
+      const board = parseBoard(body.board);
       const score = Number(body.score);
 
       const name = String(body.name ?? "")
@@ -274,13 +272,9 @@ module.exports = async (req, res) => {
         .trim()
         .slice(0, 16);
 
-      if (!BOARDS.has(board)) {
-        return res.status(400).json({
-          error: "Invalid leaderboard board.",
-          receivedBoard: board,
-        });
-      }
+      if (!validBoard(board, res)) return;
 
+      // No arbitrary maximum score.
       if (!Number.isSafeInteger(score) || score < 0) {
         return res.status(400).json({
           error: "Score must be a non-negative safe integer.",
