@@ -217,8 +217,9 @@ function end(){
 }
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function lbTable(rows){
- return rows.length?`<div style="overflow-x:auto"><table class="lb"><tr><th>#</th><th>Player</th><th>Device</th><th>IP</th><th>Score</th></tr>`+
- rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td>${esc(r.dev)}</td><td>${esc(r.ip)}</td><td>${r.score}</td></tr>`).join("")+`</table></div>`:`<p class="m">No scores yet.</p>`;
+ const ranked=(Array.isArray(rows)?rows:[]).slice().sort((a,b)=>Number(b.score||0)-Number(a.score||0));
+ return ranked.length?`<div style="overflow-x:auto"><table class="lb"><tr><th>#</th><th>Player</th><th>Device</th><th>IP</th><th>Best Score</th></tr>`+
+ ranked.map((r,i)=>`<tr${i===0?' style="font-weight:700"':''}><td>${i+1}</td><td>${esc(r.name)}</td><td>${esc(r.dev)}</td><td>${esc(r.ip)}</td><td>${Number(r.score)||0}</td></tr>`).join("")+`</table></div>`:`<p class="m">No scores yet.</p>`;
 }
 function stopLeaderboardRefresh(){
  clearInterval(leaderboardRefreshTimer);
