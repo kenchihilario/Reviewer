@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tech Comm Arena</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fff;--tx:#1f2328;--mut:#656d76;--bd:#d0d7de;--sf:#f6f8fa;--ac:#24292f;--acx:#fff;--ok:#1a7f37;--okb:#dafbe1;--no:#cf222e;--nob:#ffebe9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1d21;--tx:#e6e8eb;--mut:#9aa1ab;--bd:#3a3f47;--sf:#24272c;--ac:#e6e8eb;--acx:#1b1d21;--ok:#56d364;--okb:#16301f;--no:#ff7b72;--nob:#3b1d1d}}
+:root[data-theme="dark"]{--bg:#1b1d21;--tx:#e6e8eb;--mut:#9aa1ab;--bd:#3a3f47;--sf:#24272c;--ac:#e6e8eb;--acx:#1b1d21;--ok:#56d364;--okb:#16301f;--no:#ff7b72;--nob:#3b1d1d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.app{max-width:600px;margin:auto;padding:28px 16px}
+h1{margin:0 0 6px;font-size:24px;font-weight:600}h3{font-size:15px;margin:24px 0 8px}
+.m{color:var(--mut);margin:0 0 20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.world,.opt,.btn{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:14px;cursor:pointer;text-align:left}
+.world{display:flex;flex-direction:column;gap:2px}
+.world:hover,.opt:hover:not(:disabled){border-color:var(--tx);background:var(--sf)}
+.world b{font-weight:600}.num,small,.tag{color:var(--mut);font-size:12px}
+.boss{width:100%;background:var(--sf)}
+.hud{display:flex;justify-content:space-between;color:var(--mut);font-size:13px;margin-bottom:10px}.hud b{color:var(--tx)}
+.bar{height:4px;background:var(--bd);border-radius:2px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:var(--ac);transition:width .1s linear}
+.tag{text-transform:uppercase;letter-spacing:.04em;margin-top:16px}
+.q{font-size:20px;font-weight:600;line-height:1.35;margin:8px 0 16px}
+.opt{display:block;width:100%;margin:8px 0}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--ok);background:var(--okb)}
+.opt.no{border-color:var(--no);background:var(--nob)}
+.btn{background:var(--ac);border-color:var(--ac);color:var(--acx);text-align:center;font-weight:600;width:100%;margin-top:10px}
+.btn.alt{background:var(--bg);color:var(--tx);border-color:var(--bd)}
+.fb{min-height:22px;color:var(--mut);font-size:14px;margin:8px 0 0}
+.miss{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:12px;margin:8px 0;font-size:14px}
+</style></head><body><div class="app" id="app"></div>
+<script>
+// Question format: [question, CORRECT, wrong, wrong, wrong]
+const W=[
+{n:"Tech Comm Intro",q:[
+["Technical communication is best described as…","A broad field for conveying complex info clearly, accurately and accessibly","Writing only user manuals","Marketing copy for gadgets","Casual chat about technology"],
+["How are technical writing and technical communication related?","Technical writing is a skill set within technical communication","Technical communication is a part of technical writing","They are completely unrelated","They are exactly the same thing"],
+["Which belongs to technical communication but is NOT technical writing?","Instructional videos","User manuals","White papers","Specifications"],
+["Why do technical communicators analyze their audience?","To tailor info to their knowledge level, needs and purpose","To make the text longer","To avoid doing research","To impress other experts"],
+["Which is NOT a purpose of technical communication?","Entertaining crowds with comedy","Providing instructions","Documenting processes","Persuading decision-makers"],
+["Technical communication bridges the gap between…","Technical experts and their intended audience","Writers and editors","Companies and competitors","Print and digital media"],
+["“All technical writing is technical communication, but…”","Not all technical communication is technical writing","All technical communication is technical writing","Technical writing is never communication","Neither is true"]]},
+{n:"Narrative Storytelling",q:[
+["Per the research, what share of attendees recalled the presenter’s story vs. specific data points?","63% vs 5%","20% vs 50%","5% vs 63%","90% vs 10%"],
+["Technique #1 for effective storytelling is to…","Start with a hook","Open with an apology","Read the slides aloud","List all the data first"],
+["A strong narrative arc has…","A clear beginning, middle and end, with a conflict that gets resolved","Only a long middle","Conflict with no resolution","A random order of events"],
+["“Show, don’t tell” means…","Use actions, dialogue and sensory details instead of just stating what happened","Show only slides, never speak","Tell the story twice","Use as many charts as possible"],
+["Why use analogies and metaphors?","They relate complex ideas to something familiar","They make the story longer","They replace all facts","They hide the main point"],
+["Pitfall: overloading with details. The solution is to…","Focus on key points and keep the story concise and relevant","Add more background","Speak faster","Remove the ending"],
+["Pitfall: monotone delivery. The solution is to…","Vary tone, pace and volume","Speak only in a whisper","Memorize the script word for word","Skip the practice"],
+["Pitfall: overuse of jargon. The solution is to…","Use simple language and explain necessary technical terms","Use even more jargon to sound smart","Avoid examples","Read definitions aloud"]]},
+{n:"The 7 C’s of Writing",q:[
+["Which is NOT one of the 7 C’s of technical writing?","Catchy","Concise","Coherent","Courteous"],
+["Simplify: “In order to”","To","In the case of","Along the lines of","With the result that"],
+["A coherent message is…","Logical, with connected, relevant points and a consistent tone and flow","Full of long sentences","Written only in formal words","As short as possible"],
+["A complete message gives the audience…","Everything they need to be informed and, if applicable, take action","Only the headline","Extra unrelated trivia","A mystery to solve"],
+["The more concrete your message is, the…","Clearer the picture your audience has","Longer it must be","More jargon it needs","Less correct it becomes"],
+["Courtesy means…","Avoiding offense, not avoiding the truth, and treating readers equally","Hiding bad news","Using flattery","Being vague"],
+["What defines technical writing vs. academic writing?","Definite purpose, strict format and appropriate language","Longer paragraphs","More footnotes","Poetic style"],
+["Concise writing means…","Brevity that ensures reading, without becoming curt","Cutting every polite word","Padding for length","Using big words"]]},
+{n:"Effective Reports",q:[
+["In the structure of an effective presentation, where should you spend most of your time?","So What: what the audience should do","Data (background)","Format (agenda)","Tag Ending"],
+["What does the Purpose section do?","Defines the task and describes the original problem","Lists the grading sheet","Summarizes action items","Gives the verbal hook"],
+["The Format section is where you…","Tell them what you are going to say (the agenda)","Present the final conclusion","Thank your clients","Show all raw data"],
+["The Data section is…","Background, so spend only the time you absolutely need","The most important section","The tag ending","Optional and always skipped"],
+["The Conclusion section is…","The setup: what the data tells you, not the final conclusion","The final wrap-up","A thank-you slide","The agenda"],
+["The Tag Ending is…","A verbal hook, vital in oral presentations, rare in formal written ones","A list of references","A required legal notice","A data table"],
+["Presentation keys say to use motion…","Sparingly, and sound never","Constantly, plus lots of sound","Only on the title","Only with music"],
+["Which is on the communication checklist?","Who is your audience, and what do you want them to remember?","How many slides can you fit?","What fonts are trending?","How fast can you talk?"]]},
+{n:"Report PPT Tips",q:[
+["An analytical report…","Explains the underlying “why” behind the facts","Only lists numbers","Is always one page","Is for emergencies only"],
+["Daily, monthly or annual updates in a set format are…","Periodic reports","Situational reports","Feasibility reports","Research reports"],
+["Which report is concise and used for emergencies or unique opportunities?","Situational report","Periodic report","Financial report","Research report"],
+["A feasibility report assesses…","The practicality of a plan: costs, risks and benefits","Last year’s revenue","Compliance with laws","Staff attendance"],
+["Which slide explains how you sourced and researched your information?","Methodology","Agenda","Acknowledgements","Tag line"],
+["Which report shows adherence to laws, regulations or standards?","Compliance report","Sales report","Progress report","Summary report"],
+["Step 1 of writing a report PPT is…","Understand your audience","Pick the colors","Write the conclusion","Add animations"],
+["Keeping slides concise means…","Limiting text, with one main idea per slide","Using tiny fonts to fit more","Writing paragraphs","Adding extra clip art"]]},
+{n:"Business Letters",q:[
+["How many essential parts does a business letter typically have?","Six","Three","Four","Ten"],
+["The heading contains…","The return address, with the date on the last line","The recipient’s address","The signature","The body paragraphs"],
+["The recipient’s address should be…","As complete as possible, always including title names such as Dr.","Only a city","Left out","Placed after the signature"],
+["The salutation of a business letter is…","Always formal, often “Dear {Person’s name}”","Casual, like “Hey!”","Optional","Written after the body"],
+["Unsure of the recipient’s title or gender? Use…","Their full name, e.g. “Dear Jordan Lee”","“Dear Sir”","“Hey you”","No greeting at all"],
+["For block and modified block formats, body paragraphs are…","Single-spaced and left-justified, with a blank line between them","Double-spaced and centered","Indented and right-aligned","Without breaks"],
+["The complimentary close…","Capitalizes only the first word and is followed by a comma","Is all caps","Has a period","Comes before the body"],
+["The signature line should leave…","At least four lines for the signature, in blue or black ink","No space","One line, in red ink","Two lines, in pencil"]]}
+];
+const $=s=>document.querySelector(s),A=$("#app");
+let best={},S={},T;
+try{best=JSON.parse(localStorage.getItem("tca")||"{}")}catch(e){}
+const save=()=>{try{localStorage.setItem("tca",JSON.stringify(best))}catch(e){}};
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+function snd(f,d){try{const c=snd.c||(snd.c=new AudioContext()),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;g.gain.value=.05;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+d)}catch(e){}}
+function home(){
+ clearInterval(T);
+ A.innerHTML=`<h1>Tech Comm Arena</h1><p class="m">Choose a topic. You have 3 lives and 15 seconds per question. Consecutive correct answers raise your score multiplier.</p><div class="grid">`+
+ W.map((w,i)=>`<button class="world" onclick="start(${i})"><span class="num">Topic ${i+1}</span><b>${w.n}</b><small>${w.q.length} questions &middot; Best ${best[i]||0}</small></button>`).join("")+
+ `</div><button class="world boss" onclick="start(-1)"><b>Mixed Challenge</b><small>12 random questions from all topics &middot; Best ${best.b||0}</small></button>`;
+}
+function start(i){
+ const qs=i<0?sh(W.flatMap((w,k)=>w.q.map(q=>[...q,k]))).slice(0,12):sh(W[i].q).map(q=>[...q,i]);
+ S={i,qs,n:0,hp:3,sc:0,st:0,ok:0,miss:[]};ask();
+}
+function ask(){
+ if(S.n>=S.qs.length||S.hp<=0)return end();
+ const q=S.qs[S.n],w=W[q[5]];S.o=sh(q.slice(1,5));S.t=15;S.lock=false;
+ A.innerHTML=`<div class="hud"><span>Lives <b>${S.hp}/3</b></span><span>Multiplier <b>x${Math.min(1+S.st*.5,3)}</b></span><span>Score <b>${S.sc}</b></span></div>
+ <div class="bar"><i style="width:${S.n/S.qs.length*100}%"></i></div>
+ <div class="bar"><i id="tm" style="width:100%"></i></div>
+ <div class="tag">${w.n} &middot; ${S.n+1} of ${S.qs.length} &middot; <span id="sec">15s</span></div><div class="q">${q[0]}</div>`+
+ S.o.map((o,k)=>`<button class="opt" onclick="pick(${k})">${o}</button>`).join("")+`<div class="fb" id="fb"></div><div id="nx"></div>`;
+ clearInterval(T);T=setInterval(()=>{S.t-=.1;const b=$("#tm");if(b){b.style.width=S.t/15*100+"%";if(S.t<5)b.style.background="var(--no)"}const c=$("#sec");if(c)c.textContent=Math.max(Math.ceil(S.t),0)+"s";if(S.t<=0)pick(-1)},100);
+}
+function pick(k){
+ if(S.lock)return;S.lock=true;clearInterval(T);
+ const q=S.qs[S.n],right=q[1],good=k>=0&&S.o[k]===right,bs=document.querySelectorAll(".opt");
+ bs.forEach((b,j)=>{b.disabled=true;if(S.o[j]===right)b.classList.add("ok");else if(j===k)b.classList.add("no")});
+ if(good){const m=Math.min(1+S.st*.5,3),p=Math.round((100+Math.max(S.t,0)*6)*m);S.sc+=p;S.st++;S.ok++;snd(660,.15);
+  $("#fb").textContent=(S.st>1?"Correct, streak bonus. ":"Correct. ")+"+"+p+" pts"}
+ else{S.hp--;S.st=0;S.miss.push([q[0],right]);snd(180,.3);$("#fb").textContent=k<0?"Time’s up. One life lost.":"Incorrect. One life lost."}
+ S.n++;$("#nx").innerHTML=`<button class="btn" onclick="ask()">${S.n>=S.qs.length||S.hp<=0?"See results":"Next"}</button>`;
+}
+function end(){
+ const acc=Math.round(S.ok/S.n*100)||0,dead=S.hp<=0,k=S.i<0?"b":S.i;
+ const nb=S.sc>(best[k]||0);if(nb){best[k]=S.sc;save()}
+ const r=dead?"Out of lives":acc>=90?"Tech Comm Legend":acc>=70?"Report Pro":acc>=50?"Rising Writer":"Keep practicing";
+ A.innerHTML=`<div class="tag" style="margin-top:0">Results</div><h1>${r}</h1><p class="m">Score <b>${S.sc}</b>${nb?" (new best)":""} &middot; ${S.ok} of ${S.n} correct (${acc}%)</p>`+
+ (S.miss.length?`<h3>Review</h3>`+S.miss.map(m=>`<div class="miss"><b>${m[0]}</b><br>Answer: ${m[1]}</div>`).join(""):`<p class="m">No mistakes to review.</p>`)+
+ `<button class="btn" onclick="start(${S.i})">Play again</button><button class="btn alt" onclick="home()">Back to topics</button>`;
+}
+home();
+</script></body></html>
