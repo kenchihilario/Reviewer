@@ -1,79 +1,291 @@
-// Vercel serverless function: GET /api/leaderboard?board=0..5|b   POST /api/leaderboard
-// Storage: Upstash Redis (Vercel Marketplace). Env vars are added automatically when you connect it.
-const URL_ = process.env.UPSTASH_REDIS_REST_URL_KV_REST_API_URL || process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-const TOKEN = process.env.UPSTASH_REDIS_REST_URL_KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-const BOARDS = ["0", "1", "2", "3", "4", "5", "b"];
+// api/leaderboard.js
+// GET /api/leaderboard?board=0..5|b
+// POST /api/leaderboard
 
-async function redis(cmd) {
-  const r = await fetch(URL_, {
-    method: "POST",
-    headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" },
-    body: JSON.stringify(cmd),
-  });
-  const j = await r.json();
-  if (j.error) throw new Error(j.error);
-  return j.result;
+const URL_ =
+  process.env.UPSTASH_REDIS_REST_URL_KV_REST_API_URL ||
+  process.env.UPSTASH_REDIS_REST_API_URL ||
+  process.env.KV_REST_API_URL ||
+  process.env.UPSTASH_REDIS_REST_URL ||
+  process.env.UPSTASH_REDIS_REST_URL_KV_URL ||
+  process.env.UPSTASH_REDIS_REST_URL_REDIS_URL;
+
+const TOKEN =
+  process.env.UPSTASH_REDIS_REST_URL_KV_REST_API_TOKEN ||
+  process.env.UPSTASH_REDIS_REST_API_TOKEN ||
+  process.env.KV_REST_API_TOKEN ||
+  process.env.UPSTASH_REDIS_REST_TOKEN;
+
+const BOARDS = new Set(["0", "1", "2", "3", "4", "5", "b"]);
+const MAX_SCORE = 6000;
+
+async function redis(command, retries = 2) {
+  if (!URL_ || !TOKEN) {
+    throw new Error("Redis environment variables are missing.");
+  }
+
+  let lastError;
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 7000);
+
+    try {
+      const response = await fetch(URL_, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(command),
+        cache: "no-store",
+        signal: controller.signal,
+      });
+
+      const text = await response.text();
+      let data;
+
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw new Error(`Invalid Redis response: HTTP ${response.status}`);
+      }
+
+      if (!response.ok || data.error) {
+        throw new Error(data.error || `Redis HTTP ${response.status}`);
+      }
+
+      return data.result;
+    } catch (error) {
+      lastError = error;
+
+      if (attempt < retries) {
+        await new Promise(resolve =>
+          setTimeout(resolve, 250 * (attempt + 1))
+        );
+      }
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  throw lastError || new Error("Redis request failed.");
 }
 
-const getIp = (req) =>
-  (req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
-  req.headers["x-real-ip"] ||
-  (req.socket && req.socket.remoteAddress) ||
-  "unknown";
+function getIp(req) {
+  const forwarded = req.headers["x-forwarded-for"];
 
-// Public display only shows part of the IP. Change this if you really want the full address shown.
-const maskIp = (ip) =>
-  ip.includes(":") ? ip.split(":").slice(0, 2).join(":") + ":…" : ip.split(".").slice(0, 2).join(".") + ".x.x";
+  return (
+    (typeof forwarded === "string"
+      ? forwarded.split(",")[0].trim()
+      : "") ||
+    req.headers["x-real-ip"] ||
+    req.socket?.remoteAddress ||
+    "unknown"
+  );
+}
+
+function maskIp(ip) {
+  if (ip.includes(":")) {
+    return ip.split(":").slice(0, 2).join(":") + ":…";
+  }
+
+  const parts = ip.split(".");
+  return parts.length === 4
+    ? `${parts[0]}.${parts[1]}.x.x`
+    : "unknown";
+}
 
 function device(ua = "") {
-  const os = /Windows/.test(ua) ? "Windows" : /Android/.test(ua) ? "Android" : /iPhone|iPad/.test(ua) ? "iOS"
-    : /Mac OS X/.test(ua) ? "macOS" : /Linux/.test(ua) ? "Linux" : "Unknown";
-  const br = /Edg\//.test(ua) ? "Edge" : /OPR\//.test(ua) ? "Opera" : /Chrome\//.test(ua) ? "Chrome"
-    : /Firefox\//.test(ua) ? "Firefox" : /Safari\//.test(ua) ? "Safari" : "Browser";
-  return os + " · " + br;
+  const os = /Windows/i.test(ua) ? "Windows"
+    : /Android/i.test(ua) ? "Android"
+    : /iPhone|iPad/i.test(ua) ? "iOS"
+    : /Mac OS X/i.test(ua) ? "macOS"
+    : /Linux/i.test(ua) ? "Linux"
+    : "Unknown";
+
+  const browser = /Edg\//.test(ua) ? "Edge"
+    : /OPR\//.test(ua) ? "Opera"
+    : /Chrome\//.test(ua) ? "Chrome"
+    : /Firefox\//.test(ua) ? "Firefox"
+    : /Safari\//.test(ua) ? "Safari"
+    : "Browser";
+
+  return `${os} · ${browser}`;
 }
 
 async function top(board) {
-  const flat = (await redis(["HGETALL", "lb:" + board])) || [];
-  const rows = [];
-  for (let i = 1; i < flat.length; i += 2) {
-    try { rows.push(JSON.parse(flat[i])); } catch (e) {}
+  const flat = (await redis(["HGETALL", `lb:${board}`])) || [];
+
+  if (!Array.isArray(flat)) {
+    throw new Error("Unexpected Redis leaderboard data.");
   }
-  return rows.sort((a, b) => b.score - a.score || a.t - b.t).slice(0, 10)
-    .map(({ name, dev, ip, score }) => ({ name, dev, ip, score }));
+
+  const rows = [];
+
+  for (let i = 1; i < flat.length; i += 2) {
+    try {
+      const row = JSON.parse(flat[i]);
+
+      if (
+        row &&
+        typeof row.name === "string" &&
+        typeof row.dev === "string" &&
+        typeof row.ip === "string" &&
+        Number.isFinite(Number(row.score))
+      ) {
+        rows.push({
+          name: row.name,
+          dev: row.dev,
+          ip: row.ip,
+          score: Number(row.score),
+          t: Number(row.t) || 0,
+        });
+      }
+    } catch {
+      // Skip corrupted entries instead of breaking the entire leaderboard.
+    }
+  }
+
+  return rows
+    .sort((a, b) => b.score - a.score || a.t - b.t)
+    .slice(0, 10)
+    .map(({ name, dev, ip, score }) => ({
+      name,
+      dev,
+      ip,
+      score,
+    }));
 }
 
+// Atomically save a score only if it beats the existing score.
+const SAVE_IF_BETTER = `
+local old = redis.call("HGET", KEYS[1], ARGV[1])
+
+if old then
+  local ok, previous = pcall(cjson.decode, old)
+
+  if ok and tonumber(previous.score)
+     and tonumber(ARGV[2]) <= tonumber(previous.score) then
+    return "same_ip"
+  end
+end
+
+redis.call("HSET", KEYS[1], ARGV[1], ARGV[3])
+
+if old then
+  return "improved"
+end
+
+return "new"
+`;
+
 module.exports = async (req, res) => {
-  res.setHeader("Cache-Control", "no-store");
-  if (!URL_ || !TOKEN) return res.status(503).json({ error: "Leaderboard storage not configured" });
+  res.setHeader(
+    "Cache-Control",
+    "no-store, no-cache, must-revalidate"
+  );
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Vary", "User-Agent");
+
+  if (!URL_ || !TOKEN) {
+    return res.status(503).json({
+      error: "Leaderboard storage is not configured.",
+    });
+  }
+
   try {
     if (req.method === "GET") {
-      const b = String(req.query.board || "");
-      if (!BOARDS.includes(b)) return res.status(400).json({ error: "bad board" });
-      return res.status(200).json({ rows: await top(b) });
+      const board = String(req.query?.board ?? "");
+
+      if (!BOARDS.has(board)) {
+        return res.status(400).json({
+          error: "Invalid leaderboard board.",
+        });
+      }
+
+      return res.status(200).json({
+        rows: await top(board),
+      });
     }
+
     if (req.method === "POST") {
-      const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body || {};
-      const b = String(body.board);
-      const score = Math.floor(Number(body.score));
-      const name = String(body.name || "").replace(/[^\w .-]/g, "").trim().slice(0, 16);
-      if (!BOARDS.includes(b) || !(score >= 0 && score <= 6000) || !name)
-        return res.status(400).json({ error: "invalid" });
+      let body = req.body;
 
-      const ip = getIp(req), dev = device(req.headers["user-agent"]);
-      const field = ip + "|" + dev, key = "lb:" + b;
+      if (typeof body === "string") {
+        try {
+          body = JSON.parse(body);
+        } catch {
+          return res.status(400).json({
+            error: "Invalid JSON body.",
+          });
+        }
+      }
 
-      // Different IP/device? -> new entry. Same IP/device? -> only replace if the score is higher.
-      const old = await redis(["HGET", key, field]);
-      const prev = old ? JSON.parse(old) : null;
-      let status = "new";
-      if (prev) status = score > prev.score ? "improved" : "same_ip";
-      if (!prev || score > prev.score)
-        await redis(["HSET", key, field, JSON.stringify({ name, dev, ip: maskIp(ip), score, t: Date.now() })]);
-      return res.status(200).json({ status, rows: await top(b) });
+      body = body && typeof body === "object" ? body : {};
+
+      const board = String(body.board ?? "");
+      const score = Number(body.score);
+      const name = String(body.name ?? "")
+        .replace(/[^\w .-]/g, "")
+        .trim()
+        .slice(0, 16);
+
+      if (
+        !BOARDS.has(board) ||
+        !Number.isSafeInteger(score) ||
+        score < 0 ||
+        score > MAX_SCORE ||
+        !name
+      ) {
+        return res.status(400).json({
+          error: "Invalid board, score, or name.",
+        });
+      }
+
+      const ip = getIp(req);
+      const dev = device(req.headers["user-agent"] || "");
+      const field = `${ip}|${dev}`;
+      const key = `lb:${board}`;
+
+      const record = JSON.stringify({
+        name,
+        dev,
+        ip: maskIp(ip),
+        score,
+        t: Date.now(),
+      });
+
+      const status = await redis([
+        "EVAL",
+        SAVE_IF_BETTER,
+        "1",
+        key,
+        field,
+        String(score),
+        record,
+      ]);
+
+      return res.status(200).json({
+        status,
+        rows: await top(board),
+      });
     }
-    return res.status(405).end();
-  } catch (e) {
-    return res.status(500).json({ error: "Server error" });
+
+    res.setHeader("Allow", "GET, POST");
+
+    return res.status(405).json({
+      error: "Method not allowed.",
+    });
+  } catch (error) {
+    console.error(
+      "[leaderboard] Request failed:",
+      error?.message || error
+    );
+
+    return res.status(503).json({
+      error: "Leaderboard temporarily unavailable. Please try again.",
+    });
   }
 };
