@@ -30,7 +30,14 @@ h1{margin:0 0 6px;font-size:24px;font-weight:600}h3{font-size:15px;margin:24px 0
 .btn.alt{background:var(--bg);color:var(--tx);border-color:var(--bd)}
 .fb{min-height:22px;color:var(--mut);font-size:14px;margin:8px 0 0}
 .miss{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:12px;margin:8px 0;font-size:14px}
-</style></head><body><div class="app" id="app"></div>
+.inp{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;width:100%;margin:8px 0}
+.lb{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.lb th,.lb td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--bd);white-space:nowrap}
+.lb th{color:var(--mut);font-weight:600}
+</style> <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script></head><body><div class="app" id="app"></div>
 <script>
 // Question format: [question, CORRECT, wrong, wrong, wrong]
 const W=[
@@ -98,7 +105,7 @@ function home(){
  clearInterval(T);
  A.innerHTML=`<h1>Tech Comm Arena</h1><p class="m">Choose a topic. You have 3 lives and 15 seconds per question. Consecutive correct answers raise your score multiplier.</p><div class="grid">`+
  W.map((w,i)=>`<button class="world" onclick="start(${i})"><span class="num">Topic ${i+1}</span><b>${w.n}</b><small>${w.q.length} questions &middot; Best ${best[i]||0}</small></button>`).join("")+
- `</div><button class="world boss" onclick="start(-1)"><b>Mixed Challenge</b><small>12 random questions from all topics &middot; Best ${best.b||0}</small></button>`;
+ `</div><button class="world boss" onclick="start(-1)"><b>Mixed Challenge</b><small>12 random questions from all topics &middot; Best ${best.b||0}</small></button><button class="btn alt" onclick="showLb()">View leaderboards</button>`;
 }
 function start(i){
  const qs=i<0?sh(W.flatMap((w,k)=>w.q.map(q=>[...q,k]))).slice(0,12):sh(W[i].q).map(q=>[...q,i]);
@@ -129,7 +136,36 @@ function end(){
  const r=dead?"Out of lives":acc>=90?"Tech Comm Legend":acc>=70?"Report Pro":acc>=50?"Rising Writer":"Keep practicing";
  A.innerHTML=`<div class="tag" style="margin-top:0">Results</div><h1>${r}</h1><p class="m">Score <b>${S.sc}</b>${nb?" (new best)":""} &middot; ${S.ok} of ${S.n} correct (${acc}%)</p>`+
  (S.miss.length?`<h3>Review</h3>`+S.miss.map(m=>`<div class="miss"><b>${m[0]}</b><br>Answer: ${m[1]}</div>`).join(""):`<p class="m">No mistakes to review.</p>`)+
- `<button class="btn" onclick="start(${S.i})">Play again</button><button class="btn alt" onclick="home()">Back to topics</button>`;
+ `<div id="lb"></div><button class="btn" onclick="start(${S.i})">Play again</button><button class="btn alt" onclick="home()">Back to topics</button>`;
+ let nm="";try{nm=localStorage.getItem("tca_name")||""}catch(e){}
+ if(nm)submitScore(nm);
+ else $("#lb").innerHTML=`<h3>Leaderboard</h3><input id="nm" class="inp" maxlength="16" placeholder="Your name"><button class="btn" onclick="submitScore($('#nm').value)">Submit score</button>`;
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function lbTable(rows){
+ return rows.length?`<div style="overflow-x:auto"><table class="lb"><tr><th>#</th><th>Player</th><th>Device</th><th>IP</th><th>Score</th></tr>`+
+ rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td>${esc(r.dev)}</td><td>${esc(r.ip)}</td><td>${r.score}</td></tr>`).join("")+`</table></div>`:`<p class="m">No scores yet.</p>`;
+}
+async function submitScore(name){
+ name=(name||"").trim();if(!name)return;
+ try{localStorage.setItem("tca_name",name)}catch(e){}
+ const el=$("#lb");el.innerHTML=`<h3>Leaderboard</h3><p class="m">Submitting…</p>`;
+ try{
+  const r=await fetch("/api/leaderboard",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({board:S.i<0?"b":String(S.i),score:S.sc,name})});
+  const j=await r.json();if(!r.ok)throw 0;
+  const msg={new:"Added to the leaderboard.",improved:"Score improved for this device and IP.",same_ip:"This IP and device already has an equal or higher score here, so the board was not changed."}[j.status];
+  el.innerHTML=`<h3>Leaderboard</h3><p class="m">${msg}</p>`+lbTable(j.rows);
+ }catch(e){el.innerHTML=`<h3>Leaderboard</h3><p class="m">Leaderboard unavailable right now.</p>`}
+}
+async function showLb(k="0"){
+ clearInterval(T);
+ A.innerHTML=`<h1>Leaderboards</h1><p class="m">Top 10 per topic. One entry per IP and device; a repeat entry only counts if the score is higher.</p><select id="sel" class="inp" onchange="showLb(this.value)">`+
+ W.map((w,i)=>`<option value="${i}">${w.n}</option>`).join("")+`<option value="b">Mixed Challenge</option></select><div id="lbt"><p class="m">Loading…</p></div><button class="btn alt" onclick="home()">Back to topics</button>`;
+ $("#sel").value=k;
+ try{const r=await fetch("/api/leaderboard?board="+k);if(!r.ok)throw 0;$("#lbt").innerHTML=lbTable((await r.json()).rows)}
+ catch(e){$("#lbt").innerHTML=`<p class="m">Leaderboard unavailable right now.</p>`}
 }
 home();
+
+
 </script></body></html>
