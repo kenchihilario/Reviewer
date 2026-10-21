@@ -1,6 +1,11 @@
+
 // api/leaderboard.js
-// GET /api/leaderboard?board=0..5|b
+// GET  /api/leaderboard?board=0..5|b
 // POST /api/leaderboard
+//
+// Supports Upstash Redis REST API.
+// One score per IP + device per board.
+// A new score replaces the old score only when it is higher.
 
 const URL_ =
   process.env.UPSTASH_REDIS_REST_URL_KV_REST_API_URL ||
@@ -17,7 +22,6 @@ const TOKEN =
   process.env.UPSTASH_REDIS_REST_TOKEN;
 
 const BOARDS = new Set(["0", "1", "2", "3", "4", "5", "b"]);
-const MAX_SCORE = 6000;
 
 async function redis(command, retries = 2) {
   if (!URL_ || !TOKEN) {
@@ -44,27 +48,45 @@ async function redis(command, retries = 2) {
       });
 
       const text = await response.text();
-      let data;
 
+      let data;
       try {
         data = JSON.parse(text);
       } catch {
-        throw new Error(`Invalid Redis response: HTTP ${response.status}`);
+        throw new Error(
+          `Invalid Redis response: HTTP ${response.status}`
+        );
       }
 
       if (!response.ok || data.error) {
-        throw new Error(data.error || `Redis HTTP ${response.status}`);
+        const error = new Error(
+          data.error || `Redis HTTP ${response.status}`
+        );
+
+        error.status = response.status;
+
+        // Do not retry authentication, permission, or bad-request errors.
+        if (
+          response.status >= 400 &&
+          response.status < 500
+        ) {
+          throw Object.assign(error, { noRetry: true });
+        }
+
+        throw error;
       }
 
       return data.result;
     } catch (error) {
       lastError = error;
 
-      if (attempt < retries) {
-        await new Promise(resolve =>
-          setTimeout(resolve, 250 * (attempt + 1))
-        );
+      if (error.noRetry || attempt >= retries) {
+        break;
       }
+
+      await new Promise(resolve =>
+        setTimeout(resolve, 250 * (attempt + 1))
+      );
     } finally {
       clearTimeout(timer);
     }
@@ -92,37 +114,41 @@ function maskIp(ip) {
   }
 
   const parts = ip.split(".");
+
   return parts.length === 4
     ? `${parts[0]}.${parts[1]}.x.x`
     : "unknown";
 }
 
 function device(ua = "") {
-  const os = /Windows/i.test(ua) ? "Windows"
-    : /Android/i.test(ua) ? "Android"
-    : /iPhone|iPad/i.test(ua) ? "iOS"
-    : /Mac OS X/i.test(ua) ? "macOS"
-    : /Linux/i.test(ua) ? "Linux"
-    : "Unknown";
+  const os =
+    /Windows/i.test(ua) ? "Windows" :
+    /Android/i.test(ua) ? "Android" :
+    /iPhone|iPad/i.test(ua) ? "iOS" :
+    /Mac OS X/i.test(ua) ? "macOS" :
+    /Linux/i.test(ua) ? "Linux" :
+    "Unknown";
 
-  const browser = /Edg\//.test(ua) ? "Edge"
-    : /OPR\//.test(ua) ? "Opera"
-    : /Chrome\//.test(ua) ? "Chrome"
-    : /Firefox\//.test(ua) ? "Firefox"
-    : /Safari\//.test(ua) ? "Safari"
-    : "Browser";
+  const browser =
+    /Edg\//.test(ua) ? "Edge" :
+    /OPR\//.test(ua) ? "Opera" :
+    /Chrome\//.test(ua) ? "Chrome" :
+    /Firefox\//.test(ua) ? "Firefox" :
+    /Safari\//.test(ua) ? "Safari" :
+    "Browser";
 
   return `${os} · ${browser}`;
 }
 
 async function top(board) {
-  const flat = (await redis(["HGETALL", `lb:${board}`])) || [];
+  const flat = await redis(["HGETALL", `lb:${board}`]);
+  const rows = [];
+
+  if (!flat) return rows;
 
   if (!Array.isArray(flat)) {
     throw new Error("Unexpected Redis leaderboard data.");
   }
-
-  const rows = [];
 
   for (let i = 1; i < flat.length; i += 2) {
     try {
@@ -144,7 +170,8 @@ async function top(board) {
         });
       }
     } catch {
-      // Skip corrupted entries instead of breaking the entire leaderboard.
+      // Ignore malformed records so one bad entry
+      // does not take down the entire leaderboard.
     }
   }
 
@@ -159,7 +186,7 @@ async function top(board) {
     }));
 }
 
-// Atomically save a score only if it beats the existing score.
+// Atomically update a score only when it beats the previous score.
 const SAVE_IF_BETTER = `
 local old = redis.call("HGET", KEYS[1], ARGV[1])
 
@@ -190,26 +217,37 @@ module.exports = async (req, res) => {
   res.setHeader("Vary", "User-Agent");
 
   if (!URL_ || !TOKEN) {
+    console.error("[leaderboard] Redis environment variables are missing.");
+
     return res.status(503).json({
       error: "Leaderboard storage is not configured.",
     });
   }
 
   try {
+    // GET leaderboard
     if (req.method === "GET") {
-      const board = String(req.query?.board ?? "");
+      const rawBoard = req.query?.board;
+
+      const board = String(
+        Array.isArray(rawBoard)
+          ? rawBoard[0] ?? ""
+          : rawBoard ?? ""
+      );
 
       if (!BOARDS.has(board)) {
         return res.status(400).json({
           error: "Invalid leaderboard board.",
+          receivedBoard: board,
         });
       }
 
-      return res.status(200).json({
-        rows: await top(board),
-      });
+      const rows = await top(board);
+
+      return res.status(200).json({ rows });
     }
 
+    // Submit score
     if (req.method === "POST") {
       let body = req.body;
 
@@ -223,24 +261,35 @@ module.exports = async (req, res) => {
         }
       }
 
-      body = body && typeof body === "object" ? body : {};
+      body =
+        body && typeof body === "object" && !Array.isArray(body)
+          ? body
+          : {};
 
       const board = String(body.board ?? "");
       const score = Number(body.score);
+
       const name = String(body.name ?? "")
         .replace(/[^\w .-]/g, "")
         .trim()
         .slice(0, 16);
 
-      if (
-        !BOARDS.has(board) ||
-        !Number.isSafeInteger(score) ||
-        score < 0 ||
-        score > MAX_SCORE ||
-        !name
-      ) {
+      if (!BOARDS.has(board)) {
         return res.status(400).json({
-          error: "Invalid board, score, or name.",
+          error: "Invalid leaderboard board.",
+          receivedBoard: board,
+        });
+      }
+
+      if (!Number.isSafeInteger(score) || score < 0) {
+        return res.status(400).json({
+          error: "Score must be a non-negative safe integer.",
+        });
+      }
+
+      if (!name) {
+        return res.status(400).json({
+          error: "Please provide a valid player name.",
         });
       }
 
@@ -267,9 +316,11 @@ module.exports = async (req, res) => {
         record,
       ]);
 
+      const rows = await top(board);
+
       return res.status(200).json({
         status,
-        rows: await top(board),
+        rows,
       });
     }
 
