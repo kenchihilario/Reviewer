@@ -1,7 +1,7 @@
 // Vercel serverless function: GET /api/leaderboard?board=0..5|b   POST /api/leaderboard
 // Storage: Upstash Redis (Vercel Marketplace). Env vars are added automatically when you connect it.
-const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+const URL_ = process.env.UPSTASH_REDIS_REST_URL_KV_REST_API_URL || process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+const TOKEN = process.env.UPSTASH_REDIS_REST_URL_KV_REST_API_TOKEN || process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 const BOARDS = ["0", "1", "2", "3", "4", "5", "b"];
 
 async function redis(cmd) {
