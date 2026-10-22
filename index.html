@@ -1,373 +1,678 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tech Comm Arena</title>
-<style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fff;--tx:#1f2328;--mut:#656d76;--bd:#d0d7de;--sf:#f6f8fa;--ac:#24292f;--acx:#fff;--ok:#1a7f37;--okb:#dafbe1;--no:#cf222e;--nob:#ffebe9}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1d21;--tx:#e6e8eb;--mut:#9aa1ab;--bd:#3a3f47;--sf:#24272c;--ac:#e6e8eb;--acx:#1b1d21;--ok:#56d364;--okb:#16301f;--no:#ff7b72;--nob:#3b1d1d}}
-:root[data-theme="dark"]{--bg:#1b1d21;--tx:#e6e8eb;--mut:#9aa1ab;--bd:#3a3f47;--sf:#24272c;--ac:#e6e8eb;--acx:#1b1d21;--ok:#56d364;--okb:#16301f;--no:#ff7b72;--nob:#3b1d1d}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-.app{max-width:600px;margin:auto;padding:28px 16px}
-h1{margin:0 0 6px;font-size:24px;font-weight:600}h3{font-size:15px;margin:24px 0 8px}
-.m{color:var(--mut);margin:0 0 20px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.world,.opt,.btn{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:14px;cursor:pointer;text-align:left}
-.world{display:flex;flex-direction:column;gap:2px}
-.world:hover,.opt:hover:not(:disabled){border-color:var(--tx);background:var(--sf)}
-.world b{font-weight:600}.num,small,.tag{color:var(--mut);font-size:12px}
-.boss{width:100%;background:var(--sf)}
-.hud{display:flex;justify-content:space-between;color:var(--mut);font-size:13px;margin-bottom:10px}.hud b{color:var(--tx)}
-.bar{height:4px;background:var(--bd);border-radius:2px;overflow:hidden;margin:6px 0}
-.bar i{display:block;height:100%;background:var(--ac);transition:width .1s linear}
-.tag{text-transform:uppercase;letter-spacing:.04em;margin-top:16px}
-.q{font-size:20px;font-weight:600;line-height:1.35;margin:8px 0 16px}
-.opt{display:block;width:100%;margin:8px 0}
-.opt:disabled{cursor:default}
-.opt.ok{border-color:var(--ok);background:var(--okb)}
-.opt.no{border-color:var(--no);background:var(--nob)}
-.btn{background:var(--ac);border-color:var(--ac);color:var(--acx);text-align:center;font-weight:600;width:100%;margin-top:10px}
-.btn.alt{background:var(--bg);color:var(--tx);border-color:var(--bd)}
-.fb{min-height:22px;color:var(--mut);font-size:14px;margin:8px 0 0}
-.miss{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:12px;margin:8px 0;font-size:14px}
-.inp{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;width:100%;margin:8px 0}
-.lb{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
-.lb th,.lb td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--bd);white-space:nowrap}
-.lb th{color:var(--mut);font-weight:600}
-</style> <script>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Tech Comm Arena</title>
+  <style>
+    :root {
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      --bg: #fff;
+      --tx: #1f2328;
+      --mut: #656d76;
+      --bd: #d0d7de;
+      --sf: #f6f8fa;
+      --ac: #24292f;
+      --acx: #fff;
+      --ok: #1a7f37;
+      --okb: #dafbe1;
+      --no: #cf222e;
+      --nob: #ffebe9
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #1b1d21;
+        --tx: #e6e8eb;
+        --mut: #9aa1ab;
+        --bd: #3a3f47;
+        --sf: #24272c;
+        --ac: #e6e8eb;
+        --acx: #1b1d21;
+        --ok: #56d364;
+        --okb: #16301f;
+        --no: #ff7b72;
+        --nob: #3b1d1d
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #1b1d21;
+      --tx: #e6e8eb;
+      --mut: #9aa1ab;
+      --bd: #3a3f47;
+      --sf: #24272c;
+      --ac: #e6e8eb;
+      --acx: #1b1d21;
+      --ok: #56d364;
+      --okb: #16301f;
+      --no: #ff7b72;
+      --nob: #3b1d1d
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--tx);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif
+    }
+
+    .app {
+      max-width: 600px;
+      margin: auto;
+      padding: 28px 16px
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      font-weight: 600
+    }
+
+    h3 {
+      font-size: 15px;
+      margin: 24px 0 8px
+    }
+
+    .m {
+      color: var(--mut);
+      margin: 0 0 20px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px
+    }
+
+    .world,
+    .opt,
+    .btn {
+      font: inherit;
+      color: var(--tx);
+      background: var(--bg);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      padding: 14px;
+      cursor: pointer;
+      text-align: left
+    }
+
+    .world {
+      display: flex;
+      flex-direction: column;
+      gap: 2px
+    }
+
+    .world:hover,
+    .opt:hover:not(:disabled) {
+      border-color: var(--tx);
+      background: var(--sf)
+    }
+
+    .world b {
+      font-weight: 600
+    }
+
+    .num,
+    small,
+    .tag {
+      color: var(--mut);
+      font-size: 12px
+    }
+
+    .boss {
+      width: 100%;
+      background: var(--sf)
+    }
+
+    .hud {
+      display: flex;
+      justify-content: space-between;
+      color: var(--mut);
+      font-size: 13px;
+      margin-bottom: 10px
+    }
+
+    .hud b {
+      color: var(--tx)
+    }
+
+    .bar {
+      height: 4px;
+      background: var(--bd);
+      border-radius: 2px;
+      overflow: hidden;
+      margin: 6px 0
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      background: var(--ac);
+      transition: width .1s linear
+    }
+
+    .tag {
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-top: 16px
+    }
+
+    .q {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.35;
+      margin: 8px 0 16px
+    }
+
+    .opt {
+      display: block;
+      width: 100%;
+      margin: 8px 0
+    }
+
+    .opt:disabled {
+      cursor: default
+    }
+
+    .opt.ok {
+      border-color: var(--ok);
+      background: var(--okb)
+    }
+
+    .opt.no {
+      border-color: var(--no);
+      background: var(--nob)
+    }
+
+    .btn {
+      background: var(--ac);
+      border-color: var(--ac);
+      color: var(--acx);
+      text-align: center;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 10px
+    }
+
+    .btn.alt {
+      background: var(--bg);
+      color: var(--tx);
+      border-color: var(--bd)
+    }
+
+    .fb {
+      min-height: 22px;
+      color: var(--mut);
+      font-size: 14px;
+      margin: 8px 0 0
+    }
+
+    .miss {
+      background: var(--sf);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 14px
+    }
+
+    .inp {
+      font: inherit;
+      color: var(--tx);
+      background: var(--bg);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      padding: 10px 12px;
+      width: 100%;
+      margin: 8px 0
+    }
+
+    .lb {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 8px 0
+    }
+
+    .lb th,
+    .lb td {
+      text-align: left;
+      padding: 8px 6px;
+      border-bottom: 1px solid var(--bd);
+      white-space: nowrap
+    }
+
+    .lb th {
+      color: var(--mut);
+      font-weight: 600
+    }
+
+    .q img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 10px 0
+    }
+  </style>
+  <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
-  <script defer src="/_vercel/insights/script.js"></script></head><body><div class="app" id="app"></div>
-<script>
-// Question format: [question, CORRECT, wrong, wrong, wrong]
-const W=[
-{n:"Tech Comm Intro",q:[
-["Technical communication is best described as…","Conveying complex info well","Writing only user manuals","Marketing copy for gadgets","Casual chat about technology"],
-["How are technical writing and technical communication related?","Writing is a skill within communication","Technical communication is a part of technical writing","They are completely unrelated","They are exactly the same thing"],
-["Which belongs to technical communication but is NOT technical writing?","Videos","User manuals","White papers","Specifications"],
-["Why do technical communicators analyze their audience?","To fit info to readers","To make the text longer","To avoid doing research","To impress other experts"],
-["Which is NOT a purpose of technical communication?","Comedy shows","Providing instructions","Documenting processes","Persuading decision-makers"],
-["Technical communication bridges the gap between…","Experts and readers","Writers and editors","Companies and competitors","Print and digital media"],
-["“All technical writing is technical communication, but…”","Not all of it is writing","All technical communication is technical writing","Technical writing is never communication","Neither is true"],
-["Which two qualities does technical communication put first?","Clarity and accuracy","Speed and humor","Length and decoration","Fame and profit"],
-["Why is accuracy called paramount in technical communication?","So info can be trusted","So the text looks longer","So experts feel smart","So it sounds formal"],
-["An audience-centered approach considers the audience’s…","Expertise and purpose","Age and favorite color","Job title only","Home town only"],
-["Which list shows forms of technical communication?","Written documents, visual aids, oral presentations and digital media","Only printed books and brochures","Only spoken speeches and talks","Written documents and visual aids only"],
-["Which is an example of digital media in technical communication?","Web pages","Paper memos","Handwritten notes","Typewritten letters"],
-["Technical writing mainly focuses on…","Written documents","Giving live speeches","Making videos only","Designing logos"],
-["Which industries need technical communication?","Science and tech","Only entertainment","Only sports","Only farming"],
-["Technical communication conveys information to a specific audience…","Any medium","Only through print","Only through speech","Only through email"],
-["Which is an objective of this lesson?","To tell the two apart","To memorize every manual","To avoid using visuals","To write poems"]]},
-{n:"Narrative Storytelling",q:[
-["Per the research, what share of attendees recalled the presenter’s story vs. specific data points?","63% vs 5%","20% vs 50%","5% vs 63%","90% vs 10%"],
-["Technique #1 for effective storytelling is to…","Start with a hook","Open with an apology","Read the slides aloud","List all the data first"],
-["A strong narrative arc has…","A clear beginning, middle and end","Only a long middle","Conflict with no resolution","A random order of events"],
-["“Show, don’t tell” means…","Use actions and details","Show only slides, never speak","Tell the story twice","Use as many charts as possible"],
-["Why use analogies and metaphors?","They make ideas familiar","They make the story longer","They replace all facts","They hide the main point"],
-["Pitfall: overloading with details. The solution is to…","Cut to key points","Add more background","Speak faster","Remove the ending"],
-["Pitfall: monotone delivery. The solution is to…","Vary tone, pace and volume","Speak only in a whisper","Memorize the script word for word","Skip the practice"],
-["Pitfall: overuse of jargon. The solution is to…","Use simple words, explain terms","Use even more jargon to sound smart","Avoid examples","Read definitions aloud"],
-["Narrative storytelling in presentations is about…","Making a connection","Only listing facts","Making slides longer","Avoiding emotion"],
-["Storytelling helps presenters by…","Context and emotion","Hiding the data","Replacing the topic","Skipping the audience"],
-["A good hook can be…","A surprising fact","A long definition","A list of references","An apology"],
-["Using vivid descriptions means…","Painting a picture with words","Using only numbers","Using the fewest words possible","Reading from the slide"],
-["How do you incorporate emotions in a story?","Share personal experiences","Stay completely neutral","Avoid personal examples","Use only statistics"],
-["Why use dialogue in a story?","It makes characters live","It makes the story shorter","It replaces the conclusion","It hides the characters"],
-["Pacing your story means…","Pausing and varying speed","Speaking as fast as possible","Never pausing","Speaking at one speed"],
-["How should you end a story?","Leave a clear takeaway","Stop without a conclusion","Add a new unrelated topic","Apologize"],
-["When practicing a story, pay attention to your…","Tone and timing","Font size only","Slide count only","Clothing brand"],
-["Pitfall: lack of structure. The solution is to…","Give it a clear arc","Add more characters","Remove the beginning","Tell it in random order"],
-["Pitfall: ignoring the audience. The solution is to…","Tailor the story to them","Use the same story for everyone","Talk only about yourself","Skip their interests"],
-["Pitfall: being too abstract. The solution is to…","Use specific examples","Use more abstract ideas","Remove all examples","Add more jargon"],
-["Pitfall: ignoring visuals. The solution is to…","Add images or video","Use only spoken words","Remove all slides","Read slides word for word"],
-["Pitfall: lack of emotional connection. The solution is to…","Add a personal story","Remove every anecdote","Use only charts","Speak in a monotone"],
-["Pitfall: inconsistent messaging. The solution is to…","Keep it consistent","Change the message midway","Add contradictions","Remove the main point"],
-["Pitfall: rushing through the story. The solution is to…","Pace and pause","Speak faster","Skip the ending","Cut all pauses"],
-["Pitfall: lack of practice. The solution is to…","Rehearse many times","Improvise everything","Read it once","Skip rehearsal"]]},
-{n:"The 7 C’s of Writing",q:[
-["Which is NOT one of the 7 C’s of technical writing?","Catchy","Concise","Coherent","Courteous"],
-["Simplify: “In order to”","To","In the case of","Along the lines of","With the result that"],
-["A coherent message is…","Logical and consistent","Full of long sentences","Written only in formal words","As short as possible"],
-["A complete message gives the audience…","All they need to act","Only the headline","Extra unrelated trivia","A mystery to solve"],
-["The more concrete your message is, the…","Clearer the picture","Longer it must be","More jargon it needs","Less correct it becomes"],
-["Courtesy means…","Equal respect","Hiding bad news","Using flattery","Being vague"],
-["What defines technical writing vs. academic writing?","Strict format","Longer paragraphs","More footnotes","Poetic style"],
-["Concise writing means…","Brief but not curt","Cutting every polite word","Padding for length","Using big words"],
-["Technical writing is…","Reader-focused writing","Writing for fun","Writing only for teachers","Writing without a purpose"],
-["What are the basic design elements of all technical documents?","Format, language","Colors and music","Jokes and slang","Photos and videos"],
-["Which pair are both among the 7 C’s?","Clear and Correct","Catchy and Cute","Casual and Calm","Creative and Colorful"],
-["“Clarity of message” provides…","Understanding","Decoration for the page","Extra length for the text","Confusion among readers"],
-["Simplify: “With reference to”","About","In case of","By means of","Along with"],
-["Simplify: “With the result that”","So that","Due to the fact that","In addition to","As a result of"],
-["Simplify: “Along the lines of”","Like","About","To","For"],
-["How can you fix a long, tangled sentence?","Split it up","Add more clauses","Add more jargon","Make it longer"],
-["Correct writing means…","Wording and usage are right","Only the spelling is correct","Using long words","Using old-fashioned phrases"],
-["Which book is listed in the lesson’s references?","Technical Report Writing Today by Riordan","The Art of Poetry and Verse Writing","Basic Cooking Skills for Beginners","Modern Sports Medicine and Therapy"]]},
-{n:"Effective Reports",q:[
-["In the structure of an effective presentation, where should you spend most of your time?","So What","Data (background)","Format (agenda)","Tag Ending"],
-["What does the Purpose section do?","Defines the task","Lists the grading sheet","Summarizes action items","Gives the verbal hook"],
-["The Format section is where you…","Tell them the agenda","Present the final conclusion","Thank your clients","Show all raw data"],
-["The Data section is…","Background, kept brief","The most important section","The tag ending","Optional and always skipped"],
-["The Conclusion section is…","The setup","The final wrap-up","A thank-you slide","The agenda"],
-["The Tag Ending is…","A verbal hook","A list of references","A required legal notice","A data table"],
-["Presentation keys say to use motion…","Sparingly, and sound never","Constantly, plus lots of sound","Only on the title","Only with music"],
-["Which is on the communication checklist?","Who is your audience?","How many slides can you fit?","What fonts are trending?","How fast can you talk?"],
-["Which is a key point for effective reports?","Bullets and graphics","Long, dense paragraphs","No summaries","Complex sentences"],
-["Tables and figures should…","Stand on their own","Need the text to make sense","Be hidden","Be removed"],
-["Each chapter should include…","Intro, summary","Only a title","Only references","No summary"],
-["What is the correct order of the components?","Purpose, Format, Data, Conclusion, So What, Restate, Tag Ending","Data, Purpose, Format, Tag Ending, Restate, So What, Conclusion, Thanks","So What, Purpose, Data, Format, Restate, Conclusion, Tag Ending, Q&A","Format, Purpose, Conclusion, Data, Tag Ending, So What, Restate"],
-["Which sample phrase starts the Purpose section?","“The purpose of this presentation is…”","“In summary…”","“This means that we must…”","“In one sentence we say…”"],
-["Which sample phrase belongs to So What?","“This means that we must…”","“The purpose is simply to…”","“You should note the following facts…”","“In one sentence we say…”"],
-["What goes in the Restate section?","A short recap","New data","A new problem","Only the agenda"],
-["About graphics, the presentation keys say…","They stick, but clutter easily","Use as many as possible","Never use any","Use them only in written reports"],
-["Before presenting, you should…","Rehearse in the same room","Skip practice","Change rooms at the last minute","Only read the slides"],
-["The closing slide says it’s not what you said but…","What they heard","What you planned","What you wrote","What you showed"]]},
-{n:"Report PPT Tips",q:[
-["An analytical report…","Explains the why","Only lists numbers","Is always one page","Is for emergencies only"],
-["Daily, monthly or annual updates in a set format are…","Periodic reports","Situational reports","Feasibility reports","Research reports"],
-["Which report is concise and used for emergencies or unique opportunities?","Situational report","Periodic update report","Financial summary report","Research and study report"],
-["A feasibility report assesses…","Costs and risks","Last year’s revenue","Compliance with laws","Staff attendance"],
-["Which slide explains how you sourced and researched your information?","Methodology","Agenda","Acknowledgements","Tag line"],
-["Which report shows adherence to laws, regulations or standards?","Compliance report","Sales performance report","Progress update report","Summary of findings report"],
-["Step 1 of writing a report PPT is…","Know your audience","Pick the colors","Write the conclusion","Add animations"],
-["Keeping slides concise means…","One main idea per slide","Using tiny fonts to fit more","Writing paragraphs","Adding extra clip art"],
-["A business report PPT is…","A visual business summary","A long essay with no images","A company logo","A private diary"],
-["Which report is a detailed study with extensive data collection?","Research report","Situational report","Summary report","Progress report"],
-["Financial reports cover…","Revenue, profits","Only staff names","Only slogans","Only meeting dates"],
-["Which report tracks product or service performance over a time period?","Sales report","Compliance report","Explanatory report","Feasibility report"],
-["A progress report focuses on…","Done, doing and next","Only the final result","Only the budget","Laws and rules"],
-["Which report condenses longer reports into the most crucial information?","Summary report","Research report","Analytical report","Periodic report"],
-["Which report evaluates options and suggests the best one?","Recommendation report","Periodic update report","Sales performance report","Compliance and audit report"],
-["Explanatory reports are…","They teach and explain","Only emergency updates","Only financial statements","Only legal documents"],
-["Which slide shows the presenter’s name and the date?","Title slide","Agenda and outline slide","Findings and results slide","References and sources slide"],
-["Which slide highlights hurdles met during the project?","Challenges","Objectives","Introduction","Acknowledgements"],
-["Which slide lists sources to give credibility?","References","Case studies","Agenda","Title slide"],
-["Step 4 says to organize content with…","Intro, body, end","Random slides","Only a conclusion","Only charts"],
-["Step 7 (Maintain Consistency) means using uniform…","Fonts, colors","Slide sizes only","Speakers","Page counts"],
-["Before finalizing, you should show your PPT to…","A mentor","No one","Only competitors","Only yourself"]]},
-{n:"Business Letters",q:[
-["How many essential parts does a business letter typically have?","Six","Three","Four","Ten"],
-["The heading contains…","Return address, date","The recipient’s address","The signature","The body paragraphs"],
-["The recipient’s address should be…","Complete, with titles","Only a city","Left out","Placed after the signature"],
-["The salutation of a business letter is…","Formal, “Dear …”","Casual, like “Hey!”","Optional","Written after the body"],
-["Unsure of the recipient’s title or gender? Use…","First name only","“Dear Sir”","“Hey you”","No greeting at all"],
-["For block and modified block formats, body paragraphs are…","Single-spaced, flush left","Double-spaced and centered","Indented and right-aligned","Without breaks"],
-["The complimentary close…","Ends with a comma","Is all caps","Has a period","Comes before the body"],
-["The signature line should leave…","Four or more lines","No space","One line, in red ink","Two lines, in pencil"],
-["Unlike a résumé or cover letter, a business letter can be…","Multiple pages","Exactly one page","Handwritten only","Without parts"],
-["Where should the heading be placed?","On the left margin","Centered","On the right margin","After the body"],
-["What may be added before the date in the heading?","A phone line","The signature","The body","A logo"],
-["How is the recipient’s address spaced?","Skip a line either side","No blank lines","Skip five lines","Place it beside the date"],
-["Which lines must you skip around the body?","One before and one after","None","Only before the salutation","Only after the signature"],
-["The complimentary close begins…","Lined up with the date","On the far right","In the center","Before the body"],
-["How many lines go between the close and the sender’s name?","Four lines","No blank lines at all","Only one line","Ten or more lines"],
-["The signature line usually includes…","First and last name","Only a nickname","Only initials in red","The recipient’s name"],
-["Why may you put a title like Ms. or Dr. before your name?","To show your preference","To make the letter longer","It is required by law","To replace the signature"],
-["In the sample letter, who is being recommended?","Ashley Singer","Rachel Gomez","Vincent Prasad","Jordan Lee"],
-["The sample letter template has which body paragraphs?","Intro, explain, close","Only one paragraph","Four summary paragraphs","No paragraphs"]]}
-];
-const $=s=>document.querySelector(s),A=$("#app");
-let best={},S={},T,leaderboardRefreshTimer=null,leaderboardViewToken=0;
-try{best=JSON.parse(localStorage.getItem("tca")||"{}")}catch(e){}
-const save=()=>{try{localStorage.setItem("tca",JSON.stringify(best))}catch(e){}};
-const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
-function snd(f,d){try{const c=snd.c||(snd.c=new AudioContext()),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;g.gain.value=.05;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+d)}catch(e){}}
-function home(){
- clearInterval(T);
- stopLeaderboardRefresh();
- A.innerHTML=`<h1>Tech Comm Arena</h1><p class="m">Choose a topic. You have 3 lives and 15 seconds per question. Consecutive correct answers raise your score multiplier.</p><div class="grid">`+
- W.map((w,i)=>`<button class="world" onclick="start(${i})"><span class="num">Topic ${i+1}</span><b>${w.n}</b><small>${w.q.length} questions &middot; Best ${best[i]||0}</small></button>`).join("")+
- `</div><button class="world boss" onclick="start(-1)"><b>Mixed Challenge</b><small>12 random questions from all topics &middot; Best ${best.b||0}</small></button><button class="btn alt" onclick="showLb()">View leaderboards</button>`;
-}
-function start(i){
- stopLeaderboardRefresh();
- const qs=i<0?sh(W.flatMap((w,k)=>w.q.map(q=>[...q,k]))).slice(0,12):sh(W[i].q).map(q=>[...q,i]);
- S={i,qs,n:0,hp:3,sc:0,st:0,ok:0,miss:[]};ask();
-}
-function ask(){
- if(S.n>=S.qs.length||S.hp<=0)return end();
- const q=S.qs[S.n],w=W[q[5]];S.o=sh(q.slice(1,5));S.t=15;S.lock=false;
- A.innerHTML=`<div class="hud"><span>Lives <b>${S.hp}/3</b></span><span>Multiplier <b>x${Math.min(1+S.st*.5,3)}</b></span><span>Score <b>${S.sc}</b></span></div>
- <div class="bar"><i style="width:${S.n/S.qs.length*100}%"></i></div>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+
+<body>
+  <div class="app" id="app"></div>
+  <script>
+    // Question format: [question, CORRECT, wrong, wrong, wrong]
+    let W = [
+      {
+        n: "Tech Comm Intro", q: [
+          ["Technical communication is best described as…", "Conveying complex info well", "Writing only user manuals", "Marketing copy for gadgets", "Casual chat about technology"],
+          ["How are technical writing and technical communication related?", "Writing is a skill within communication", "Technical communication is a part of technical writing", "They are completely unrelated", "They are exactly the same thing"],
+          ["Which belongs to technical communication but is NOT technical writing?", "Videos", "User manuals", "White papers", "Specifications"],
+          ["Why do technical communicators analyze their audience?", "To fit info to readers", "To make the text longer", "To avoid doing research", "To impress other experts"],
+          ["Which is NOT a purpose of technical communication?", "Comedy shows", "Providing instructions", "Documenting processes", "Persuading decision-makers"],
+          ["Technical communication bridges the gap between…", "Experts and readers", "Writers and editors", "Companies and competitors", "Print and digital media"],
+          ["“All technical writing is technical communication, but…”", "Not all of it is writing", "All technical communication is technical writing", "Technical writing is never communication", "Neither is true"],
+          ["Which two qualities does technical communication put first?", "Clarity and accuracy", "Speed and humor", "Length and decoration", "Fame and profit"],
+          ["Why is accuracy called paramount in technical communication?", "So info can be trusted", "So the text looks longer", "So experts feel smart", "So it sounds formal"],
+          ["An audience-centered approach considers the audience’s…", "Expertise and purpose", "Age and favorite color", "Job title only", "Home town only"],
+          ["Which list shows forms of technical communication?", "Written documents, visual aids, oral presentations and digital media", "Only printed books and brochures", "Only spoken speeches and talks", "Written documents and visual aids only"],
+          ["Which is an example of digital media in technical communication?", "Web pages", "Paper memos", "Handwritten notes", "Typewritten letters"],
+          ["Technical writing mainly focuses on…", "Written documents", "Giving live speeches", "Making videos only", "Designing logos"],
+          ["Which industries need technical communication?", "Science and tech", "Only entertainment", "Only sports", "Only farming"],
+          ["Technical communication conveys information to a specific audience…", "Any medium", "Only through print", "Only through speech", "Only through email"],
+          ["Which is an objective of this lesson?", "To tell the two apart", "To memorize every manual", "To avoid using visuals", "To write poems"]]
+      },
+      {
+        n: "Narrative Storytelling", q: [
+          ["Per the research, what share of attendees recalled the presenter’s story vs. specific data points?", "63% vs 5%", "20% vs 50%", "5% vs 63%", "90% vs 10%"],
+          ["Technique #1 for effective storytelling is to…", "Start with a hook", "Open with an apology", "Read the slides aloud", "List all the data first"],
+          ["A strong narrative arc has…", "A clear beginning, middle and end", "Only a long middle", "Conflict with no resolution", "A random order of events"],
+          ["“Show, don’t tell” means…", "Use actions and details", "Show only slides, never speak", "Tell the story twice", "Use as many charts as possible"],
+          ["Why use analogies and metaphors?", "They make ideas familiar", "They make the story longer", "They replace all facts", "They hide the main point"],
+          ["Pitfall: overloading with details. The solution is to…", "Cut to key points", "Add more background", "Speak faster", "Remove the ending"],
+          ["Pitfall: monotone delivery. The solution is to…", "Vary tone, pace and volume", "Speak only in a whisper", "Memorize the script word for word", "Skip the practice"],
+          ["Pitfall: overuse of jargon. The solution is to…", "Use simple words, explain terms", "Use even more jargon to sound smart", "Avoid examples", "Read definitions aloud"],
+          ["Narrative storytelling in presentations is about…", "Making a connection", "Only listing facts", "Making slides longer", "Avoiding emotion"],
+          ["Storytelling helps presenters by…", "Context and emotion", "Hiding the data", "Replacing the topic", "Skipping the audience"],
+          ["A good hook can be…", "A surprising fact", "A long definition", "A list of references", "An apology"],
+          ["Using vivid descriptions means…", "Painting a picture with words", "Using only numbers", "Using the fewest words possible", "Reading from the slide"],
+          ["How do you incorporate emotions in a story?", "Share personal experiences", "Stay completely neutral", "Avoid personal examples", "Use only statistics"],
+          ["Why use dialogue in a story?", "It makes characters live", "It makes the story shorter", "It replaces the conclusion", "It hides the characters"],
+          ["Pacing your story means…", "Pausing and varying speed", "Speaking as fast as possible", "Never pausing", "Speaking at one speed"],
+          ["How should you end a story?", "Leave a clear takeaway", "Stop without a conclusion", "Add a new unrelated topic", "Apologize"],
+          ["When practicing a story, pay attention to your…", "Tone and timing", "Font size only", "Slide count only", "Clothing brand"],
+          ["Pitfall: lack of structure. The solution is to…", "Give it a clear arc", "Add more characters", "Remove the beginning", "Tell it in random order"],
+          ["Pitfall: ignoring the audience. The solution is to…", "Tailor the story to them", "Use the same story for everyone", "Talk only about yourself", "Skip their interests"],
+          ["Pitfall: being too abstract. The solution is to…", "Use specific examples", "Use more abstract ideas", "Remove all examples", "Add more jargon"],
+          ["Pitfall: ignoring visuals. The solution is to…", "Add images or video", "Use only spoken words", "Remove all slides", "Read slides word for word"],
+          ["Pitfall: lack of emotional connection. The solution is to…", "Add a personal story", "Remove every anecdote", "Use only charts", "Speak in a monotone"],
+          ["Pitfall: inconsistent messaging. The solution is to…", "Keep it consistent", "Change the message midway", "Add contradictions", "Remove the main point"],
+          ["Pitfall: rushing through the story. The solution is to…", "Pace and pause", "Speak faster", "Skip the ending", "Cut all pauses"],
+          ["Pitfall: lack of practice. The solution is to…", "Rehearse many times", "Improvise everything", "Read it once", "Skip rehearsal"]]
+      },
+      {
+        n: "The 7 C’s of Writing", q: [
+          ["Which is NOT one of the 7 C’s of technical writing?", "Catchy", "Concise", "Coherent", "Courteous"],
+          ["Simplify: “In order to”", "To", "In the case of", "Along the lines of", "With the result that"],
+          ["A coherent message is…", "Logical and consistent", "Full of long sentences", "Written only in formal words", "As short as possible"],
+          ["A complete message gives the audience…", "All they need to act", "Only the headline", "Extra unrelated trivia", "A mystery to solve"],
+          ["The more concrete your message is, the…", "Clearer the picture", "Longer it must be", "More jargon it needs", "Less correct it becomes"],
+          ["Courtesy means…", "Equal respect", "Hiding bad news", "Using flattery", "Being vague"],
+          ["What defines technical writing vs. academic writing?", "Strict format", "Longer paragraphs", "More footnotes", "Poetic style"],
+          ["Concise writing means…", "Brief but not curt", "Cutting every polite word", "Padding for length", "Using big words"],
+          ["Technical writing is…", "Reader-focused writing", "Writing for fun", "Writing only for teachers", "Writing without a purpose"],
+          ["What are the basic design elements of all technical documents?", "Format, language", "Colors and music", "Jokes and slang", "Photos and videos"],
+          ["Which pair are both among the 7 C’s?", "Clear and Correct", "Catchy and Cute", "Casual and Calm", "Creative and Colorful"],
+          ["“Clarity of message” provides…", "Understanding", "Decoration for the page", "Extra length for the text", "Confusion among readers"],
+          ["Simplify: “With reference to”", "About", "In case of", "By means of", "Along with"],
+          ["Simplify: “With the result that”", "So that", "Due to the fact that", "In addition to", "As a result of"],
+          ["Simplify: “Along the lines of”", "Like", "About", "To", "For"],
+          ["How can you fix a long, tangled sentence?", "Split it up", "Add more clauses", "Add more jargon", "Make it longer"],
+          ["Correct writing means…", "Wording and usage are right", "Only the spelling is correct", "Using long words", "Using old-fashioned phrases"],
+          ["Which book is listed in the lesson’s references?", "Technical Report Writing Today by Riordan", "The Art of Poetry and Verse Writing", "Basic Cooking Skills for Beginners", "Modern Sports Medicine and Therapy"]]
+      },
+      {
+        n: "Effective Reports", q: [
+          ["In the structure of an effective presentation, where should you spend most of your time?", "So What", "Data (background)", "Format (agenda)", "Tag Ending"],
+          ["What does the Purpose section do?", "Defines the task", "Lists the grading sheet", "Summarizes action items", "Gives the verbal hook"],
+          ["The Format section is where you…", "Tell them the agenda", "Present the final conclusion", "Thank your clients", "Show all raw data"],
+          ["The Data section is…", "Background, kept brief", "The most important section", "The tag ending", "Optional and always skipped"],
+          ["The Conclusion section is…", "The setup", "The final wrap-up", "A thank-you slide", "The agenda"],
+          ["The Tag Ending is…", "A verbal hook", "A list of references", "A required legal notice", "A data table"],
+          ["Presentation keys say to use motion…", "Sparingly, and sound never", "Constantly, plus lots of sound", "Only on the title", "Only with music"],
+          ["Which is on the communication checklist?", "Who is your audience?", "How many slides can you fit?", "What fonts are trending?", "How fast can you talk?"],
+          ["Which is a key point for effective reports?", "Bullets and graphics", "Long, dense paragraphs", "No summaries", "Complex sentences"],
+          ["Tables and figures should…", "Stand on their own", "Need the text to make sense", "Be hidden", "Be removed"],
+          ["Each chapter should include…", "Intro, summary", "Only a title", "Only references", "No summary"],
+          ["What is the correct order of the components?", "Purpose, Format, Data, Conclusion, So What, Restate, Tag Ending", "Data, Purpose, Format, Tag Ending, Restate, So What, Conclusion, Thanks", "So What, Purpose, Data, Format, Restate, Conclusion, Tag Ending, Q&A", "Format, Purpose, Conclusion, Data, Tag Ending, So What, Restate"],
+          ["Which sample phrase starts the Purpose section?", "“The purpose of this presentation is…”", "“In summary…”", "“This means that we must…”", "“In one sentence we say…”"],
+          ["Which sample phrase belongs to So What?", "“This means that we must…”", "“The purpose is simply to…”", "“You should note the following facts…”", "“In one sentence we say…”"],
+          ["What goes in the Restate section?", "A short recap", "New data", "A new problem", "Only the agenda"],
+          ["About graphics, the presentation keys say…", "They stick, but clutter easily", "Use as many as possible", "Never use any", "Use them only in written reports"],
+          ["Before presenting, you should…", "Rehearse in the same room", "Skip practice", "Change rooms at the last minute", "Only read the slides"],
+          ["The closing slide says it’s not what you said but…", "What they heard", "What you planned", "What you wrote", "What you showed"]]
+      },
+      {
+        n: "Report PPT Tips", q: [
+          ["An analytical report…", "Explains the why", "Only lists numbers", "Is always one page", "Is for emergencies only"],
+          ["Daily, monthly or annual updates in a set format are…", "Periodic reports", "Situational reports", "Feasibility reports", "Research reports"],
+          ["Which report is concise and used for emergencies or unique opportunities?", "Situational report", "Periodic update report", "Financial summary report", "Research and study report"],
+          ["A feasibility report assesses…", "Costs and risks", "Last year’s revenue", "Compliance with laws", "Staff attendance"],
+          ["Which slide explains how you sourced and researched your information?", "Methodology", "Agenda", "Acknowledgements", "Tag line"],
+          ["Which report shows adherence to laws, regulations or standards?", "Compliance report", "Sales performance report", "Progress update report", "Summary of findings report"],
+          ["Step 1 of writing a report PPT is…", "Know your audience", "Pick the colors", "Write the conclusion", "Add animations"],
+          ["Keeping slides concise means…", "One main idea per slide", "Using tiny fonts to fit more", "Writing paragraphs", "Adding extra clip art"],
+          ["A business report PPT is…", "A visual business summary", "A long essay with no images", "A company logo", "A private diary"],
+          ["Which report is a detailed study with extensive data collection?", "Research report", "Situational report", "Summary report", "Progress report"],
+          ["Financial reports cover…", "Revenue, profits", "Only staff names", "Only slogans", "Only meeting dates"],
+          ["Which report tracks product or service performance over a time period?", "Sales report", "Compliance report", "Explanatory report", "Feasibility report"],
+          ["A progress report focuses on…", "Done, doing and next", "Only the final result", "Only the budget", "Laws and rules"],
+          ["Which report condenses longer reports into the most crucial information?", "Summary report", "Research report", "Analytical report", "Periodic report"],
+          ["Which report evaluates options and suggests the best one?", "Recommendation report", "Periodic update report", "Sales performance report", "Compliance and audit report"],
+          ["Explanatory reports are…", "They teach and explain", "Only emergency updates", "Only financial statements", "Only legal documents"],
+          ["Which slide shows the presenter’s name and the date?", "Title slide", "Agenda and outline slide", "Findings and results slide", "References and sources slide"],
+          ["Which slide highlights hurdles met during the project?", "Challenges", "Objectives", "Introduction", "Acknowledgements"],
+          ["Which slide lists sources to give credibility?", "References", "Case studies", "Agenda", "Title slide"],
+          ["Step 4 says to organize content with…", "Intro, body, end", "Random slides", "Only a conclusion", "Only charts"],
+          ["Step 7 (Maintain Consistency) means using uniform…", "Fonts, colors", "Slide sizes only", "Speakers", "Page counts"],
+          ["Before finalizing, you should show your PPT to…", "A mentor", "No one", "Only competitors", "Only yourself"]]
+      },
+      {
+        n: "Business Letters", q: [
+          ["How many essential parts does a business letter typically have?", "Six", "Three", "Four", "Ten"],
+          ["The heading contains…", "Return address, date", "The recipient’s address", "The signature", "The body paragraphs"],
+          ["The recipient’s address should be…", "Complete, with titles", "Only a city", "Left out", "Placed after the signature"],
+          ["The salutation of a business letter is…", "Formal, “Dear …”", "Casual, like “Hey!”", "Optional", "Written after the body"],
+          ["Unsure of the recipient’s title or gender? Use…", "First name only", "“Dear Sir”", "“Hey you”", "No greeting at all"],
+          ["For block and modified block formats, body paragraphs are…", "Single-spaced, flush left", "Double-spaced and centered", "Indented and right-aligned", "Without breaks"],
+          ["The complimentary close…", "Ends with a comma", "Is all caps", "Has a period", "Comes before the body"],
+          ["The signature line should leave…", "Four or more lines", "No space", "One line, in red ink", "Two lines, in pencil"],
+          ["Unlike a résumé or cover letter, a business letter can be…", "Multiple pages", "Exactly one page", "Handwritten only", "Without parts"],
+          ["Where should the heading be placed?", "On the left margin", "Centered", "On the right margin", "After the body"],
+          ["What may be added before the date in the heading?", "A phone line", "The signature", "The body", "A logo"],
+          ["How is the recipient’s address spaced?", "Skip a line either side", "No blank lines", "Skip five lines", "Place it beside the date"],
+          ["Which lines must you skip around the body?", "One before and one after", "None", "Only before the salutation", "Only after the signature"],
+          ["The complimentary close begins…", "Lined up with the date", "On the far right", "In the center", "Before the body"],
+          ["How many lines go between the close and the sender’s name?", "Four lines", "No blank lines at all", "Only one line", "Ten or more lines"],
+          ["The signature line usually includes…", "First and last name", "Only a nickname", "Only initials in red", "The recipient’s name"],
+          ["Why may you put a title like Ms. or Dr. before your name?", "To show your preference", "To make the letter longer", "It is required by law", "To replace the signature"],
+          ["In the sample letter, who is being recommended?", "Ashley Singer", "Rachel Gomez", "Vincent Prasad", "Jordan Lee"],
+          ["The sample letter template has which body paragraphs?", "Intro, explain, close", "Only one paragraph", "Four summary paragraphs", "No paragraphs"]]
+      }
+    ];
+    // ===== Mechatronics (second subject). Same format: [question, CORRECT, wrong, wrong, wrong] =====
+    // To add a topic: copy the whole {n:"...",q:[...]} block, add a comma after it, and paste a new one.
+    // For a picture question, put an <img src="img/name.png"> tag inside the question text.
+    const MW = [
+      {
+        n: "Mechatronics Quiz 1", q: [
+          ["Which is NOT an example of an Open Loop System?", "Refrigeration System", "Washing Machine Operation", "Water Sprinkler System", "Automatic Star-Delta System"],
+          ["The polarity of the output signal of a PNP sensor is…", "Positive", "Negative", "Neutral", "Alternate signal"],
+          ["Which field of study does NOT belong to Mechatronics Technology?", "Chemistry", "Electronics", "Mechanical", "Computers"],
+          ["Protective clothing, helmets, goggles or other equipment designed to protect the wearer’s body from injury is called…", "Personal Protective Equipment", "Lab gown", "Gloves", "Protective apron"],
+          ["Which electrical device has two jaws that open to clamp around a conductor to measure electric current?", "Clamp Ammeter", "Analog Multimeter", "Digital Multimeter", "Clamp Voltmeter"],
+          ["Which devices are configured to detect when a system’s element has moved to a certain position?", "Limit Switch", "Selector Switch", "Normally Open Switch", "Auxiliary Contact"],
+          ["Which component regulates the system pressure?", "Air pressure regulator", "Cylinder", "Solenoid valve", "Power supply"],
+          ["Which electromechanical switches can count and store the number of signal occurrences in a system?", "Counters", "Timers", "Relay", "Solid State Relay"],
+          ["Which switch or contact can break a flowing current in a live circuit?", "Normally Closed Contact", "Normally Open Contact", "Normal Contact", "None of the above"],
+          ["Which TWO sources of energy are needed for an Electropneumatic Controller System?", "Compressed air and electrical energy", "Compressed air and nuclear energy", "Electrical energy and nuclear energy", "Nuclear energy only"],
+          ["Which is defined as the synergistic combination of mechanical engineering, electronic engineering and software engineering?", "Mechatronics", "Engineering", "Motor Controllers", "Computer Systems Engineering"],
+          ["Which can be used as a switch with no movable contact and normally has 3 electrical contacts (supply voltage, ground, output signal)?", "Electronic Sensor", "Selector Switch", "Transducer", "Auxiliary Contact"]]
+      }
+    ];
+    const $ = s => document.querySelector(s), A = $("#app");
+    let best = {}, S = {}, T, leaderboardRefreshTimer = null, leaderboardViewToken = 0, SUB;
+    try { best = JSON.parse(localStorage.getItem("tca") || "{}") } catch (e) { }
+    const save = () => { try { localStorage.setItem(SUB.bk, JSON.stringify(best)) } catch (e) { } };
+    const sh = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0;[a[i], a[j]] = [a[j], a[i]] } return a };
+    function snd(f, d) { try { const c = snd.c || (snd.c = new AudioContext()), o = c.createOscillator(), g = c.createGain(); o.frequency.value = f; g.gain.value = .05; o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + d) } catch (e) { } }
+    function home() {
+      document.title = SUB.title;
+      clearInterval(T);
+      stopLeaderboardRefresh();
+      A.innerHTML = `<h1>${SUB.title}</h1><p class="m">Choose a topic. You have 3 lives and 15 seconds per question. Consecutive correct answers raise your score multiplier.</p><div class="grid">` +
+        W.map((w, i) => `<button class="world" onclick="start(${i})"><span class="num">Topic ${i + 1}</span><b>${w.n}</b><small>${w.q.length} questions &middot; Best ${best[i] || 0}</small></button>`).join("") +
+        `</div>` + (W.length > 1 ? `<button class="world boss" onclick="start(-1)"><b>Mixed Challenge</b><small>12 random questions from all topics &middot; Best ${best.b || 0}</small></button>` : "") + `<button class="btn alt" onclick="showLb()">View leaderboards</button><button class="btn alt" onclick="subjects()">Change subject</button>`;
+    }
+    function start(i) {
+      stopLeaderboardRefresh();
+      const qs = i < 0 ? sh(W.flatMap((w, k) => w.q.map(q => [...q, k]))).slice(0, 12) : sh(W[i].q).map(q => [...q, i]);
+      S = { i, qs, n: 0, hp: 3, sc: 0, st: 0, ok: 0, miss: [] }; ask();
+    }
+    function ask() {
+      if (S.n >= S.qs.length || S.hp <= 0) return end();
+      const q = S.qs[S.n], w = W[q[5]]; S.o = sh(q.slice(1, 5)); S.t = 15; S.lock = false;
+      A.innerHTML = `<div class="hud"><span>Lives <b>${S.hp}/3</b></span><span>Multiplier <b>x${Math.min(1 + S.st * .5, 3)}</b></span><span>Score <b>${S.sc}</b></span></div>
+ <div class="bar"><i style="width:${S.n / S.qs.length * 100}%"></i></div>
  <div class="bar"><i id="tm" style="width:100%"></i></div>
- <div class="tag">${w.n} &middot; ${S.n+1} of ${S.qs.length} &middot; <span id="sec">15s</span></div><div class="q">${q[0]}</div>`+
- S.o.map((o,k)=>`<button class="opt" onclick="pick(${k})">${o}</button>`).join("")+`<div class="fb" id="fb"></div><div id="nx"></div>`;
- clearInterval(T);T=setInterval(()=>{S.t-=.1;const b=$("#tm");if(b){b.style.width=S.t/15*100+"%";if(S.t<5)b.style.background="var(--no)"}const c=$("#sec");if(c)c.textContent=Math.max(Math.ceil(S.t),0)+"s";if(S.t<=0)pick(-1)},100);
-}
-function pick(k){
- if(S.lock)return;S.lock=true;clearInterval(T);
- const q=S.qs[S.n],right=q[1],good=k>=0&&S.o[k]===right,bs=document.querySelectorAll(".opt");
- bs.forEach((b,j)=>{b.disabled=true;if(S.o[j]===right)b.classList.add("ok");else if(j===k)b.classList.add("no")});
- if(good){const m=Math.min(1+S.st*.5,3),p=Math.round((100+Math.max(S.t,0)*6)*m);S.sc+=p;S.st++;S.ok++;snd(660,.15);
-  $("#fb").textContent=(S.st>1?"Correct, streak bonus. ":"Correct. ")+"+"+p+" pts"}
- else{S.hp--;S.st=0;S.miss.push([q[0],right]);snd(180,.3);$("#fb").textContent=k<0?"Time’s up. One life lost.":"Incorrect. One life lost."}
- S.n++;$("#nx").innerHTML=`<button class="btn" onclick="ask()">${S.n>=S.qs.length||S.hp<=0?"See results":"Next"}</button>`;
-}
-function end(){
- stopLeaderboardRefresh();
- const acc=Math.round(S.ok/S.n*100)||0,dead=S.hp<=0,k=S.i<0?"b":S.i;
- const nb=S.sc>(best[k]||0);if(nb){best[k]=S.sc;save()}
- const r=dead?"Out of lives":acc>=90?"Tech Comm Legend":acc>=70?"Report Pro":acc>=50?"Rising Writer":"Keep practicing";
- A.innerHTML=`<div class="tag" style="margin-top:0">Results</div><h1>${r}</h1><p class="m">Score <b>${S.sc}</b>${nb?" (new best)":""} &middot; ${S.ok} of ${S.n} correct (${acc}%)</p>`+
- (S.miss.length?`<h3>Review</h3>`+S.miss.map(m=>`<div class="miss"><b>${m[0]}</b><br>Answer: ${m[1]}</div>`).join(""):`<p class="m">No mistakes to review.</p>`)+
- `<div id="lb"></div><p class="m">Next: redo this topic from memory. No choices this time, you type the answers (fill in the blanks and enumerations).</p><button class="btn" onclick="startT(${S.i})">Start redo: type the answers</button><button class="btn alt" onclick="start(${S.i})">Play multiple choice again</button><button class="btn alt" onclick="home()">Back to topics</button>`;
- let nm="";try{nm=localStorage.getItem("tca_name")||""}catch(e){}
- if(nm)submitScore(nm);
- else $("#lb").innerHTML=`<h3>Leaderboard</h3><input id="nm" class="inp" maxlength="16" placeholder="Your name"><button class="btn" onclick="submitScore($('#nm').value)">Submit score</button>`;
-}
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-function lbTable(rows){
- const ranked=(Array.isArray(rows)?rows:[]).slice().sort((a,b)=>Number(b.score||0)-Number(a.score||0));
- return ranked.length?`<div style="overflow-x:auto"><table class="lb"><tr><th>#</th><th>Player</th><th>Device</th><th>IP</th><th>Best Score</th></tr>`+
- ranked.map((r,i)=>`<tr${i===0?' style="font-weight:700"':''}><td>${i+1}</td><td>${esc(r.name)}</td><td>${esc(r.dev)}</td><td>${esc(r.ip)}</td><td>${Number(r.score)||0}</td></tr>`).join("")+`</table></div>`:`<p class="m">No scores yet.</p>`;
-}
-function stopLeaderboardRefresh(){
- clearInterval(leaderboardRefreshTimer);
- leaderboardRefreshTimer=null;
- leaderboardViewToken++;
-}
-async function fetchLeaderboardRows(board){
- const url="/api/leaderboard?board="+encodeURIComponent(board)+"&_="+Date.now();
- const response=await fetch(url,{cache:"no-store"});
- if(!response.ok)throw new Error("Leaderboard HTTP "+response.status);
- const data=await response.json();
- return Array.isArray(data.rows)?data.rows:[];
-}
-function startInlineLeaderboardRefresh(board,message){
- stopLeaderboardRefresh();
- const token=leaderboardViewToken;
- const refresh=async()=>{
-  const el=$("#lb");
-  if(token!==leaderboardViewToken||!el||document.hidden)return;
-  try{
-   const rows=await fetchLeaderboardRows(board);
-   const target=$("#lb");
-   if(token===leaderboardViewToken&&target){
-    target.innerHTML=`<h3>Leaderboard</h3><p class="m">${message}</p>`+lbTable(rows);
-   }
-  }catch(e){
-   console.error("Leaderboard refresh failed:",e);
-  }
- };
- leaderboardRefreshTimer=setInterval(refresh,5000);
-}
-async function submitScore(name){
- name=(name||"").trim();if(!name)return;
- try{localStorage.setItem("tca_name",name)}catch(e){}
- const el=$("#lb");if(!el)return;
- el.innerHTML=`<h3>Leaderboard</h3><p class="m">Submitting…</p>`;
- const board=S.i<0?"b":String(S.i);
- try{
-  const r=await fetch("/api/leaderboard",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({board,score:S.sc,name}),cache:"no-store"});
-  const j=await r.json();if(!r.ok)throw new Error(j.error||"Score submission failed.");
-  const msg={new:"Added to the leaderboard.",improved:"Personal best updated for this IP and device.",same_ip:"Your existing personal best is equal or higher, so it was kept."}[j.status]||"Leaderboard updated.";
-  el.innerHTML=`<h3>Leaderboard</h3><p class="m">${msg}</p>`+lbTable(Array.isArray(j.rows)?j.rows:[]);
-  startInlineLeaderboardRefresh(board,msg);
- }catch(e){
-  console.error("Leaderboard submission failed:",e);
-  el.innerHTML=`<h3>Leaderboard</h3><p class="m">Leaderboard unavailable right now.</p><button class="btn alt" onclick="submitScore($('#nm')?.value||localStorage.getItem('tca_name')||'')">Try again</button>`;
- }
-}
-async function showLb(k="0"){
- clearInterval(T);
- stopLeaderboardRefresh();
- A.innerHTML=`<h1>Leaderboards</h1><p class="m">Live leaderboard. One entry per IP and device; each player keeps their highest score. Refreshes every 5 seconds.</p><select id="sel" class="inp" onchange="showLb(this.value)">`+
- W.map((w,i)=>`<option value="${i}">${w.n}</option>`).join("")+`<option value="b">Mixed Challenge</option></select><div id="lbt"><p class="m">Loading…</p></div><button class="btn alt" onclick="home()">Back to topics</button>`;
- $("#sel").value=k;
- const token=leaderboardViewToken;
- const refresh=async()=>{
-  if(token!==leaderboardViewToken||!$("#lbt")||$("#sel")?.value!==k||document.hidden)return;
-  try{
-   const rows=await fetchLeaderboardRows(k);
-   if(token===leaderboardViewToken&&$("#lbt")&&$("#sel")?.value===k){
-    $("#lbt").innerHTML=lbTable(rows);
-   }
-  }catch(e){
-   console.error("Leaderboard refresh failed:",e);
-   if(token===leaderboardViewToken&&$("#lbt")&&!$("#lbt").querySelector("table")){
-    $("#lbt").innerHTML=`<p class="m">Leaderboard unavailable right now.</p>`;
-   }
-  }
- };
- await refresh();
- leaderboardRefreshTimer=setInterval(refresh,5000);
-}
-// ===== Redo round: type the answers (fill in the blank + enumeration) =====
-// Item: [text, answer, optionalHowManyToList]. String answer = fill in the blank. Array = enumeration; "a|b" = accepted spellings.
-const F=[
-[["Technical communication is a ____ field that conveys complex information clearly, accurately and accessibly.","broad"],
-["Technical ____ is a skill set within technical communication.","writing"],
-["List 4 forms of technical communication.",["written|documents","visual","oral|presentations","digital|media|web"]],
-["List 4 purposes of technical communication.",["instructions","explaining","documenting","persuading"]],
-["List 4 examples of technical writing documents.",["manuals","reports","white papers","specifications|specs"]],
-["List the 5 industries named in the lesson.",["technology","engineering","healthcare","science","business"]]],
-[["____% of attendees recalled the story, versus 5% who recalled data points.","63"],
-["Begin a story with a ____ to grab attention.","hook"],
-["A strong narrative arc has a clear beginning, ____ and end.","middle"],
-["“Show, don’t ____.”","tell"],
-["List any 5 storytelling techniques.",["start with a hook|hook","narrative arc|arc","vivid","emotion","keep it simple|simple","dialogue","show dont tell","analog|metaphor","pace|pacing","strong conclusion|conclusion","practice|rehearse"],5],
-["List any 5 storytelling pitfalls.",["overload|too many details","structure","audience","abstract","jargon","monotone","emotional","inconsistent","visuals","rushing","practice"],5]],
-[["Simplify: “In order to” → ____","to"],
-["Simplify: “In the case of” → ____","for"],
-["Simplify: “In accordance” → ____","by"],
-["The more ____ your message is, the clearer picture your audience has.","concrete"],
-["Brevity ensures reading, but does not degenerate into ____.","curtness|curt"],
-["Technical writing differs from academic writing by definite purpose, strict ____ and appropriate language.","format"],
-["List the 7 C’s of technical writing (any order).",["clear","concise","concrete","correct","coherent","complete","courteous"]]],
-[["The ____ section is where you should spend most of your time.","so what"],
-["The Data section is just ____; spend only the time you need.","background"],
-["The ____ ending is a verbal hook, vital in oral presentations.","tag"],
-["It’s not what you said but what they ____.","heard"],
-["Use motion ____ and sound never.","sparingly"],
-["List the 3 questions in the communication checklist.",["audience","interested","remember"]],
-["List the 7 components of an effective presentation (any order).",["purpose","format","data","conclusion","so what","restate","tag ending|tag"]]],
-[["A ____ report is concise and used for emergencies or unique opportunities.","situational"],
-["The ____ slide explains how you sourced and researched your information.","methodology"],
-["A ____ report assesses the practicality of a plan: costs, risks and benefits.","feasibility"],
-["List Steps 1 to 3 of writing a report PPT.",["audience","objective","research"]],
-["List any 6 types of business report.",["analytical","periodic","research","financial","sales","progress","situational","summary","compliance","feasibility","explanatory","recommendation"],6],
-["List any 5 valuable slides in a report PPT.",["title","agenda","introduction|intro","objectives","methodology","findings","challenges","recommendation","case stud","conclusion","questions","acknowledg","references"],5]],
-[["The salutation is always ____ and often begins with “Dear”.","formal"],
-["Leave ____ lines for the signature after the close.","four|4"],
-["The signature should be in blue or ____ ink.","black"],
-["The heading is placed on the ____ margin.","left"],
-["A ____ should follow the complimentary close.","comma"],
-["List the 3 body paragraphs in the sample template.",["introductory|introduction","explanatory","closing"]],
-["List the 6 parts of a business letter.",["heading","address","salutation|greeting","body","close|closing","signature"]]]];
-const norm=s=>String(s).toLowerCase().replace(/[“”"’'‘.,;:!?()%]/g,"").replace(/[-&]/g," ").replace(/\s+/g," ").trim();
-function lev(a,b){const d=[];for(let i=0;i<=a.length;i++)d[i]=[i];for(let j=1;j<=b.length;j++)d[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]==b[j-1]?0:1));return d[a.length][b.length]}
-const hit=(v,acc)=>{v=norm(v);return v&&acc.split("|").some(a=>{a=norm(a);return v===a||(a.length>3&&v.includes(a))||(a.length>5&&lev(v,a)<2)})};
-function startT(i){
- const pool=(i<0?F.flatMap((a,k)=>a.map(x=>({x,k}))):F[i].map(x=>({x,k:i}))).map(({x,k})=>({q:x[0],a:x[1],n:x[2]||(Array.isArray(x[1])?x[1].length:1),t:k}));
- S={i,T:1,qs:sh(pool).slice(0,i<0?10:99),n:0,sc:0,ok:0,tot:0,miss:[],lock:false};askT();
-}
-function kd(e,el){if(e.key!=="Enter")return;const n=el.nextElementSibling;if(n&&n.classList.contains("ans"))n.focus();else checkT()}
-function askT(){
- if(S.n>=S.qs.length)return endT();
- const q=S.qs[S.n],en=Array.isArray(q.a);S.lock=false;
- A.innerHTML=`<div class="hud"><span>Redo round</span><span>Score <b>${S.sc}</b></span></div><div class="bar"><i style="width:${S.n/S.qs.length*100}%"></i></div><div class="tag">${W[q.t].n} &middot; ${S.n+1} of ${S.qs.length} &middot; ${en?"Enumeration":"Fill in the blank"}</div><div class="q">${q.q}</div>`+
- Array.from({length:q.n},(_,k)=>`<input class="inp ans" onkeydown="kd(event,this)" placeholder="${en?(k+1)+'.':'Type your answer'}">`).join("")+`<div class="fb" id="fb"></div><div id="nx"><button class="btn" onclick="checkT()">Check</button></div>`;
- $(".ans").focus();
-}
-function checkT(){
- if(S.lock)return;S.lock=true;
- const q=S.qs[S.n],en=Array.isArray(q.a),ins=[...document.querySelectorAll(".ans")],u=new Set();let got=0;
- ins.forEach(e=>{const k=en?q.a.findIndex((a,j)=>!u.has(j)&&hit(e.value,a)):(hit(e.value,q.a)?0:-1);if(k>=0){u.add(k);got++}e.style.borderColor=k>=0?"var(--ok)":"var(--no)";e.disabled=true});
- S.sc+=got*100;S.ok+=got;S.tot+=q.n;snd(got==q.n?660:180,.2);
- const ans=(en?q.a:[q.a]).map(a=>a.split("|")[0]).join(", ");
- if(got<q.n)S.miss.push([q.q,en&&q.n<q.a.length?"Examples: "+ans:ans]);
- $("#fb").textContent=(got==q.n?"Correct. ":got?got+" of "+q.n+" right. ":"Not quite. ")+(got<q.n?(en&&q.n<q.a.length?"Examples: ":"Answer: ")+ans+". ":"")+"+"+got*100+" pts";
- S.n++;$("#nx").innerHTML=`<button class="btn" onclick="askT()">${S.n>=S.qs.length?"See results":"Next"}</button>`;
-}
-function endT(){
- const k="t"+(S.i<0?"b":S.i),nb=S.sc>(best[k]||0);if(nb){best[k]=S.sc;save()}
- const acc=Math.round(S.ok/S.tot*100)||0;
- A.innerHTML=`<div class="tag" style="margin-top:0">Redo results</div><h1>${acc}% correct</h1><p class="m">Score <b>${S.sc}</b>${nb?" (new best)":""} &middot; ${S.ok} of ${S.tot} answers right. Redo scores are saved on this device only.</p>`+
- (S.miss.length?`<h3>Review</h3>`+S.miss.map(m=>`<div class="miss"><b>${m[0]}</b><br>${m[1]}</div>`).join(""):`<p class="m">No mistakes to review.</p>`)+
- `<button class="btn" onclick="startT(${S.i})">Redo again</button><button class="btn alt" onclick="start(${S.i})">Play multiple choice</button><button class="btn alt" onclick="home()">Back to topics</button>`;
-}
+ <div class="tag">${w.n} &middot; ${S.n + 1} of ${S.qs.length} &middot; <span id="sec">15s</span></div><div class="q">${q[0]}</div>` +
+        S.o.map((o, k) => `<button class="opt" onclick="pick(${k})">${o}</button>`).join("") + `<div class="fb" id="fb"></div><div id="nx"></div>`;
+      clearInterval(T); T = setInterval(() => { S.t -= .1; const b = $("#tm"); if (b) { b.style.width = S.t / 15 * 100 + "%"; if (S.t < 5) b.style.background = "var(--no)" } const c = $("#sec"); if (c) c.textContent = Math.max(Math.ceil(S.t), 0) + "s"; if (S.t <= 0) pick(-1) }, 100);
+    }
+    function pick(k) {
+      if (S.lock) return; S.lock = true; clearInterval(T);
+      const q = S.qs[S.n], right = q[1], good = k >= 0 && S.o[k] === right, bs = document.querySelectorAll(".opt");
+      bs.forEach((b, j) => { b.disabled = true; if (S.o[j] === right) b.classList.add("ok"); else if (j === k) b.classList.add("no") });
+      if (good) {
+        const m = Math.min(1 + S.st * .5, 3), p = Math.round((100 + Math.max(S.t, 0) * 6) * m); S.sc += p; S.st++; S.ok++; snd(660, .15);
+        $("#fb").textContent = (S.st > 1 ? "Correct, streak bonus. " : "Correct. ") + "+" + p + " pts"
+      }
+      else { S.hp--; S.st = 0; S.miss.push([q[0], right]); snd(180, .3); $("#fb").textContent = k < 0 ? "Time’s up. One life lost." : "Incorrect. One life lost." }
+      S.n++; $("#nx").innerHTML = `<button class="btn" onclick="ask()">${S.n >= S.qs.length || S.hp <= 0 ? "See results" : "Next"}</button>`;
+    }
+    function end() {
+      stopLeaderboardRefresh();
+      const acc = Math.round(S.ok / S.n * 100) || 0, dead = S.hp <= 0, k = S.i < 0 ? "b" : S.i;
+      const nb = S.sc > (best[k] || 0); if (nb) { best[k] = S.sc; save() }
+      const r = dead ? "Out of lives" : acc >= 90 ? SUB.ranks[0] : acc >= 70 ? SUB.ranks[1] : acc >= 50 ? SUB.ranks[2] : "Keep practicing";
+      A.innerHTML = `<div class="tag" style="margin-top:0">Results</div><h1>${r}</h1><p class="m">Score <b>${S.sc}</b>${nb ? " (new best)" : ""} &middot; ${S.ok} of ${S.n} correct (${acc}%)</p>` +
+        (S.miss.length ? `<h3>Review</h3>` + S.miss.map(m => `<div class="miss"><b>${m[0]}</b><br>Answer: ${m[1]}</div>`).join("") : `<p class="m">No mistakes to review.</p>`) +
+        `<div id="lb"></div><p class="m">Next: redo this topic from memory. No choices this time, you type the answers (fill in the blanks and enumerations).</p><button class="btn" onclick="startT(${S.i})">Start redo: type the answers</button><button class="btn alt" onclick="start(${S.i})">Play multiple choice again</button><button class="btn alt" onclick="home()">Back to topics</button>`;
+      let nm = ""; try { nm = localStorage.getItem("tca_name") || "" } catch (e) { }
+      if (nm) submitScore(nm);
+      else $("#lb").innerHTML = `<h3>Leaderboard</h3><input id="nm" class="inp" maxlength="16" placeholder="Your name"><button class="btn" onclick="submitScore($('#nm').value)">Submit score</button>`;
+    }
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    function lbTable(rows) {
+      const ranked = (Array.isArray(rows) ? rows : []).slice().sort((a, b) => Number(b.score || 0) - Number(a.score || 0));
+      return ranked.length ? `<div style="overflow-x:auto"><table class="lb"><tr><th>#</th><th>Player</th><th>Device</th><th>IP</th><th>Best Score</th></tr>` +
+        ranked.map((r, i) => `<tr${i === 0 ? ' style="font-weight:700"' : ''}><td>${i + 1}</td><td>${esc(r.name)}</td><td>${esc(r.dev)}</td><td>${esc(r.ip)}</td><td>${Number(r.score) || 0}</td></tr>`).join("") + `</table></div>` : `<p class="m">No scores yet.</p>`;
+    }
+    function stopLeaderboardRefresh() {
+      clearInterval(leaderboardRefreshTimer);
+      leaderboardRefreshTimer = null;
+      leaderboardViewToken++;
+    }
+    async function fetchLeaderboardRows(board) {
+      const url = "/api/leaderboard?board=" + encodeURIComponent(board) + "&_=" + Date.now();
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) throw new Error("Leaderboard HTTP " + response.status);
+      const data = await response.json();
+      return Array.isArray(data.rows) ? data.rows : [];
+    }
+    function startInlineLeaderboardRefresh(board, message) {
+      stopLeaderboardRefresh();
+      const token = leaderboardViewToken;
+      const refresh = async () => {
+        const el = $("#lb");
+        if (token !== leaderboardViewToken || !el || document.hidden) return;
+        try {
+          const rows = await fetchLeaderboardRows(board);
+          const target = $("#lb");
+          if (token === leaderboardViewToken && target) {
+            target.innerHTML = `<h3>Leaderboard</h3><p class="m">${message}</p>` + lbTable(rows);
+          }
+        } catch (e) {
+          console.error("Leaderboard refresh failed:", e);
+        }
+      };
+      leaderboardRefreshTimer = setInterval(refresh, 5000);
+    }
+    async function submitScore(name) {
+      name = (name || "").trim(); if (!name) return;
+      try { localStorage.setItem("tca_name", name) } catch (e) { }
+      const el = $("#lb"); if (!el) return;
+      el.innerHTML = `<h3>Leaderboard</h3><p class="m">Submitting…</p>`;
+      const board = SUB.bp + (S.i < 0 ? "b" : String(S.i));
+      try {
+        const r = await fetch("/api/leaderboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ board, score: S.sc, name }), cache: "no-store" });
+        const j = await r.json(); if (!r.ok) throw new Error(j.error || "Score submission failed.");
+        const msg = { new: "Added to the leaderboard.", improved: "Personal best updated for this IP and device.", same_ip: "Your existing personal best is equal or higher, so it was kept." }[j.status] || "Leaderboard updated.";
+        el.innerHTML = `<h3>Leaderboard</h3><p class="m">${msg}</p>` + lbTable(Array.isArray(j.rows) ? j.rows : []);
+        startInlineLeaderboardRefresh(board, msg);
+      } catch (e) {
+        console.error("Leaderboard submission failed:", e);
+        el.innerHTML = `<h3>Leaderboard</h3><p class="m">Leaderboard unavailable right now.</p><button class="btn alt" onclick="submitScore($('#nm')?.value||localStorage.getItem('tca_name')||'')">Try again</button>`;
+      }
+    }
+    async function showLb(k = SUB.bp + "0") {
+      clearInterval(T);
+      stopLeaderboardRefresh();
+      A.innerHTML = `<h1>${SUB.name} Leaderboards</h1><p class="m">Live leaderboard. One entry per IP and device; each player keeps their highest score. Refreshes every 5 seconds.</p><select id="sel" class="inp" onchange="showLb(this.value)">` +
+        W.map((w, i) => `<option value="${SUB.bp}${i}">${w.n}</option>`).join("") + (W.length > 1 ? `<option value="${SUB.bp}b">Mixed Challenge</option>` : "") + `</select><div id="lbt"><p class="m">Loading…</p></div><button class="btn alt" onclick="home()">Back to topics</button>`;
+      $("#sel").value = k;
+      const token = leaderboardViewToken;
+      const refresh = async () => {
+        if (token !== leaderboardViewToken || !$("#lbt") || $("#sel")?.value !== k || document.hidden) return;
+        try {
+          const rows = await fetchLeaderboardRows(k);
+          if (token === leaderboardViewToken && $("#lbt") && $("#sel")?.value === k) {
+            $("#lbt").innerHTML = lbTable(rows);
+          }
+        } catch (e) {
+          console.error("Leaderboard refresh failed:", e);
+          if (token === leaderboardViewToken && $("#lbt") && !$("#lbt").querySelector("table")) {
+            $("#lbt").innerHTML = `<p class="m">Leaderboard unavailable right now.</p>`;
+          }
+        }
+      };
+      await refresh();
+      leaderboardRefreshTimer = setInterval(refresh, 5000);
+    }
+    // ===== Redo round: type the answers (fill in the blank + enumeration) =====
+    // Item: [text, answer, optionalHowManyToList]. String answer = fill in the blank. Array = enumeration; "a|b" = accepted spellings.
+    let F = [
+      [["Technical communication is a ____ field that conveys complex information clearly, accurately and accessibly.", "broad"],
+      ["Technical ____ is a skill set within technical communication.", "writing"],
+      ["List 4 forms of technical communication.", ["written|documents", "visual", "oral|presentations", "digital|media|web"]],
+      ["List 4 purposes of technical communication.", ["instructions", "explaining", "documenting", "persuading"]],
+      ["List 4 examples of technical writing documents.", ["manuals", "reports", "white papers", "specifications|specs"]],
+      ["List the 5 industries named in the lesson.", ["technology", "engineering", "healthcare", "science", "business"]]],
+      [["____% of attendees recalled the story, versus 5% who recalled data points.", "63"],
+      ["Begin a story with a ____ to grab attention.", "hook"],
+      ["A strong narrative arc has a clear beginning, ____ and end.", "middle"],
+      ["“Show, don’t ____.”", "tell"],
+      ["List any 5 storytelling techniques.", ["start with a hook|hook", "narrative arc|arc", "vivid", "emotion", "keep it simple|simple", "dialogue", "show dont tell", "analog|metaphor", "pace|pacing", "strong conclusion|conclusion", "practice|rehearse"], 5],
+      ["List any 5 storytelling pitfalls.", ["overload|too many details", "structure", "audience", "abstract", "jargon", "monotone", "emotional", "inconsistent", "visuals", "rushing", "practice"], 5]],
+      [["Simplify: “In order to” → ____", "to"],
+      ["Simplify: “In the case of” → ____", "for"],
+      ["Simplify: “In accordance” → ____", "by"],
+      ["The more ____ your message is, the clearer picture your audience has.", "concrete"],
+      ["Brevity ensures reading, but does not degenerate into ____.", "curtness|curt"],
+      ["Technical writing differs from academic writing by definite purpose, strict ____ and appropriate language.", "format"],
+      ["List the 7 C’s of technical writing (any order).", ["clear", "concise", "concrete", "correct", "coherent", "complete", "courteous"]]],
+      [["The ____ section is where you should spend most of your time.", "so what"],
+      ["The Data section is just ____; spend only the time you need.", "background"],
+      ["The ____ ending is a verbal hook, vital in oral presentations.", "tag"],
+      ["It’s not what you said but what they ____.", "heard"],
+      ["Use motion ____ and sound never.", "sparingly"],
+      ["List the 3 questions in the communication checklist.", ["audience", "interested", "remember"]],
+      ["List the 7 components of an effective presentation (any order).", ["purpose", "format", "data", "conclusion", "so what", "restate", "tag ending|tag"]]],
+      [["A ____ report is concise and used for emergencies or unique opportunities.", "situational"],
+      ["The ____ slide explains how you sourced and researched your information.", "methodology"],
+      ["A ____ report assesses the practicality of a plan: costs, risks and benefits.", "feasibility"],
+      ["List Steps 1 to 3 of writing a report PPT.", ["audience", "objective", "research"]],
+      ["List any 6 types of business report.", ["analytical", "periodic", "research", "financial", "sales", "progress", "situational", "summary", "compliance", "feasibility", "explanatory", "recommendation"], 6],
+      ["List any 5 valuable slides in a report PPT.", ["title", "agenda", "introduction|intro", "objectives", "methodology", "findings", "challenges", "recommendation", "case stud", "conclusion", "questions", "acknowledg", "references"], 5]],
+      [["The salutation is always ____ and often begins with “Dear”.", "formal"],
+      ["Leave ____ lines for the signature after the close.", "four|4"],
+      ["The signature should be in blue or ____ ink.", "black"],
+      ["The heading is placed on the ____ margin.", "left"],
+      ["A ____ should follow the complimentary close.", "comma"],
+      ["List the 3 body paragraphs in the sample template.", ["introductory|introduction", "explanatory", "closing"]],
+      ["List the 6 parts of a business letter.", ["heading", "address", "salutation|greeting", "body", "close|closing", "signature"]]]];
+    // Mechatronics redo round. Same format as F above: one list of items per topic.
+    const MF = [
+      [["The polarity of the output signal of a PNP sensor is ____.", "positive"],
+      ["____ is the synergistic combination of mechanical engineering, electronic engineering and software engineering.", "mechatronics"],
+      ["List the 3 fields combined in mechatronics.", ["mechanical", "electronic|electronics", "software|computer|computers"]],
+      ["A ____ switch detects when a system’s element has moved to a certain position.", "limit"],
+      ["A ____ ammeter has two jaws that open to clamp around a conductor to measure current.", "clamp"],
+      ["____ are electromechanical switches that count and store the number of signal occurrences.", "counters|counter"],
+      ["The air pressure ____ is the component that regulates the system pressure.", "regulator"],
+      ["A refrigeration system is not open loop. It is a ____ loop system.", "closed"],
+      ["List 3 examples of open loop systems from the quiz.", ["washing machine", "water sprinkler|sprinkler", "star delta"]],
+      ["List the 2 sources of energy for an electropneumatic controller system.", ["compressed air|air", "electrical|electric"]],
+      ["A ____ contact can break a flowing current in a live circuit.", "normally closed|closed"],
+      ["Personal ____ Equipment (PPE) protects the wearer’s body from injury.", "protective"],
+      ["An electronic ____ can act as a switch with no movable contact.", "sensor"],
+      ["List the 3 electrical contacts of an electronic sensor.", ["supply|voltage", "ground", "output|signal"]]]];
+    const norm = s => String(s).toLowerCase().replace(/[“”"’'‘.,;:!?()%]/g, "").replace(/[-&]/g, " ").replace(/\s+/g, " ").trim();
+    function lev(a, b) { const d = []; for (let i = 0; i <= a.length; i++)d[i] = [i]; for (let j = 1; j <= b.length; j++)d[0][j] = j; for (let i = 1; i <= a.length; i++)for (let j = 1; j <= b.length; j++)d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] == b[j - 1] ? 0 : 1)); return d[a.length][b.length] }
+    const hit = (v, acc) => { v = norm(v); return v && acc.split("|").some(a => { a = norm(a); return v === a || (a.length > 3 && v.includes(a)) || (a.length > 5 && lev(v, a) < 2) }) };
+    function startT(i) {
+      const pool = (i < 0 ? F.flatMap((a, k) => a.map(x => ({ x, k }))) : F[i].map(x => ({ x, k: i }))).map(({ x, k }) => ({ q: x[0], a: x[1], n: x[2] || (Array.isArray(x[1]) ? x[1].length : 1), t: k }));
+      S = { i, T: 1, qs: sh(pool).slice(0, i < 0 ? 10 : 99), n: 0, sc: 0, ok: 0, tot: 0, miss: [], lock: false }; askT();
+    }
+    function kd(e, el) { if (e.key !== "Enter") return; const n = el.nextElementSibling; if (n && n.classList.contains("ans")) n.focus(); else checkT() }
+    function askT() {
+      if (S.n >= S.qs.length) return endT();
+      const q = S.qs[S.n], en = Array.isArray(q.a); S.lock = false;
+      A.innerHTML = `<div class="hud"><span>Redo round</span><span>Score <b>${S.sc}</b></span></div><div class="bar"><i style="width:${S.n / S.qs.length * 100}%"></i></div><div class="tag">${W[q.t].n} &middot; ${S.n + 1} of ${S.qs.length} &middot; ${en ? "Enumeration" : "Fill in the blank"}</div><div class="q">${q.q}</div>` +
+        Array.from({ length: q.n }, (_, k) => `<input class="inp ans" onkeydown="kd(event,this)" placeholder="${en ? (k + 1) + '.' : 'Type your answer'}">`).join("") + `<div class="fb" id="fb"></div><div id="nx"><button class="btn" onclick="checkT()">Check</button></div>`;
+      $(".ans").focus();
+    }
+    function checkT() {
+      if (S.lock) return; S.lock = true;
+      const q = S.qs[S.n], en = Array.isArray(q.a), ins = [...document.querySelectorAll(".ans")], u = new Set(); let got = 0;
+      ins.forEach(e => { const k = en ? q.a.findIndex((a, j) => !u.has(j) && hit(e.value, a)) : (hit(e.value, q.a) ? 0 : -1); if (k >= 0) { u.add(k); got++ } e.style.borderColor = k >= 0 ? "var(--ok)" : "var(--no)"; e.disabled = true });
+      S.sc += got * 100; S.ok += got; S.tot += q.n; snd(got == q.n ? 660 : 180, .2);
+      const ans = (en ? q.a : [q.a]).map(a => a.split("|")[0]).join(", ");
+      if (got < q.n) S.miss.push([q.q, en && q.n < q.a.length ? "Examples: " + ans : ans]);
+      $("#fb").textContent = (got == q.n ? "Correct. " : got ? got + " of " + q.n + " right. " : "Not quite. ") + (got < q.n ? (en && q.n < q.a.length ? "Examples: " : "Answer: ") + ans + ". " : "") + "+" + got * 100 + " pts";
+      S.n++; $("#nx").innerHTML = `<button class="btn" onclick="askT()">${S.n >= S.qs.length ? "See results" : "Next"}</button>`;
+    }
+    function endT() {
+      const k = "t" + (S.i < 0 ? "b" : S.i), nb = S.sc > (best[k] || 0); if (nb) { best[k] = S.sc; save() }
+      const acc = Math.round(S.ok / S.tot * 100) || 0;
+      A.innerHTML = `<div class="tag" style="margin-top:0">Redo results</div><h1>${acc}% correct</h1><p class="m">Score <b>${S.sc}</b>${nb ? " (new best)" : ""} &middot; ${S.ok} of ${S.tot} answers right. Redo scores are saved on this device only.</p>` +
+        (S.miss.length ? `<h3>Review</h3>` + S.miss.map(m => `<div class="miss"><b>${m[0]}</b><br>${m[1]}</div>`).join("") : `<p class="m">No mistakes to review.</p>`) +
+        `<button class="btn" onclick="startT(${S.i})">Redo again</button><button class="btn alt" onclick="start(${S.i})">Play multiple choice</button><button class="btn alt" onclick="home()">Back to topics</button>`;
+    }
 
-home();
+    // ===== Subjects: choose Tech Comm or Mechatronics. Each has its own topics, best scores and leaderboards. =====
+    const SUBJECTS = [
+      { id: "tc", name: "Tech Comm", title: "Tech Comm Arena", W: W, F: F, bk: "tca", bp: "", ranks: ["Tech Comm Legend", "Report Pro", "Rising Writer"] },
+      { id: "mt", name: "Mechatronics", title: "Mechatronics Arena", W: MW, F: MF, bk: "tca_mt", bp: "m", ranks: ["Mechatronics Master", "Control Pro", "Rising Technician"] }
+    ];
+    function subjects() {
+      clearInterval(T);
+      stopLeaderboardRefresh();
+      document.title = "Reviewer Arena";
+      A.innerHTML = `<h1>Reviewer Arena</h1><p class="m">Choose a subject. Each subject has its own topics, best scores and leaderboards.</p><div class="grid">` +
+        SUBJECTS.map((s, i) => `<button class="world" onclick="pickSubject(${i})"><span class="num">Subject ${i + 1}</span><b>${s.name}</b><small>${s.W.length} topic${s.W.length > 1 ? "s" : ""} &middot; ${s.W.reduce((n, w) => n + w.q.length, 0)} questions</small></button>`).join("") + `</div>`;
+    }
+    function pickSubject(i) {
+      SUB = SUBJECTS[i]; W = SUB.W; F = SUB.F;
+      best = {}; try { best = JSON.parse(localStorage.getItem(SUB.bk) || "{}") } catch (e) { }
+      home();
+    }
+    subjects();
 
 
-</script></body></html>
+  </script>
+</body>
+
+</html>

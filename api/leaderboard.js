@@ -1,12 +1,12 @@
 
- // api/leaderboard.js
- // GET  /api/leaderboard?board=0..5|b
- // POST /api/leaderboard
- //
- // Keeps each player's personal best per board.
- // Returns all leaderboard entries.
- // No arbitrary score cap.
- // GET always reads the latest data from Redis.
+// api/leaderboard.js
+// GET  /api/leaderboard?board=0..5|b
+// POST /api/leaderboard
+//
+// Keeps each player's personal best per board.
+// Returns all leaderboard entries.
+// No arbitrary score cap.
+// GET always reads the latest data from Redis.
 
 const URL_ =
   process.env.UPSTASH_REDIS_REST_URL_KV_REST_API_URL ||
@@ -22,7 +22,12 @@ const TOKEN =
   process.env.KV_REST_API_TOKEN ||
   process.env.UPSTASH_REDIS_REST_TOKEN;
 
+// Tech Comm boards: 0-5 and b (mixed).
 const BOARDS = new Set(["0", "1", "2", "3", "4", "5", "b"]);
+
+// Mechatronics boards: m0-m9 and mb (mixed). Saved separately from Tech Comm.
+for (let i = 0; i <= 9; i++) BOARDS.add(`m${i}`);
+BOARDS.add("mb");
 
 async function redis(command, retries = 2) {
   if (!URL_ || !TOKEN) {
@@ -118,19 +123,19 @@ function maskIp(ip) {
 function device(ua = "") {
   const os =
     /Windows/i.test(ua) ? "Windows" :
-    /Android/i.test(ua) ? "Android" :
-    /iPhone|iPad/i.test(ua) ? "iOS" :
-    /Mac OS X/i.test(ua) ? "macOS" :
-    /Linux/i.test(ua) ? "Linux" :
-    "Unknown";
+      /Android/i.test(ua) ? "Android" :
+        /iPhone|iPad/i.test(ua) ? "iOS" :
+          /Mac OS X/i.test(ua) ? "macOS" :
+            /Linux/i.test(ua) ? "Linux" :
+              "Unknown";
 
   const browser =
     /Edg\//.test(ua) ? "Edge" :
-    /OPR\//.test(ua) ? "Opera" :
-    /Chrome\//.test(ua) ? "Chrome" :
-    /Firefox\//.test(ua) ? "Firefox" :
-    /Safari\//.test(ua) ? "Safari" :
-    "Browser";
+      /OPR\//.test(ua) ? "Opera" :
+        /Chrome\//.test(ua) ? "Chrome" :
+          /Firefox\//.test(ua) ? "Firefox" :
+            /Safari\//.test(ua) ? "Safari" :
+              "Browser";
 
   return `${os} · ${browser}`;
 }
