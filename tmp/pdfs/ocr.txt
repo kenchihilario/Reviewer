@@ -1,0 +1,51 @@
+===== hi-01.jpg =====
+QUIZ 1.1 AI Status Started Completed Duration Finished Saturday, 17 October 2026, PM Saturday. 17 October 2026.1125 PM 1 min 30 secs 1 cut at g—stian out 3 out or g—stian 4 Out Of out or Digital Outputs receive the Status reem switches and contact inputs- SéetL u False @ Analog outputs sigtuls LO devices like IIP con•erter. operated valves Séect one: True @ Part or the PLC the programs Select ore: cpu @ 10 cards Supp&y Yout answer is correct- Digital Inputs recei'.-e the Tram switches relay Séect one: True @ False Most digital inputs have optoelectronic protection which isolate fieid from entering the data bus or backplane. Séect one: True @ False
+
+===== hi-02.jpg =====
+5 out or p Fug 6 cut ar out ar 8 cut ot g—stian page Lime review Most digital inputs optoelectronic protection which isolate the fiei•d voltage entering the data bus or backplane. Select one: True @ Select analog Standard Signals. Fieldbus 1-5 VOC. @ RTD Modbus 420 @ Yout is were". You have cottectly selected 2. II Surge protection, the card an external quick blow ruse equiv"ent to the current consumption c' the load. Select one: True False @ Nl would cause a graces Shutdown. üCtPT two. one: gateway @ SL4*y. IO ordS Your answer is incorrect- review
+
+===== hi-03.jpg =====
+QUIZ 1.2 AI reatures Status Started Duration Marks Grade Sisc•w page a Li Rt•ish revieß' Finished Saturday. 17 October 2026, PM Saturday. 17 October 2026. PM 1 min 43 8.ocv8.oo 100.00 100.00 '.00 out p nag 2 I.ooout 3 VÄ t.OOout g—stion 4 '.00 Out 5 '.00 out cttLC PID blacks provide a reguawry control "Lian LO variables pressure. ternperat•re. etc Select True @ A software runaion which an output to switch on or Off a ptese< time- a. Covuer T b. On delay timer @ ZZ OTT delay tirnet @ d. Memory Your answer is correct. The output or an itværtet is O if the input is 1 - Select a True @ False The Output or an OR gate is O ir one the itpu•s is 1. Seiect True v False @ The Output or an ANO gate iS 1 if au the inputs are 1- Select u True @
+
+===== hi-04.jpg =====
+5 1.00 out p Fug 6 Vat* '.00 out 7 '.OOout out cttLC The or an ANO gate iS 1 ir all the inputs are 1- one: u True @ False IZC 61131 •3 suruard gravides methods ror the PLC SéecL one: True @ Progrartvning methods that be used roe PLC. Structured text @ Symbolic rorms Voice Function block @ Ladder di•gtam @ Your answer is correct- A software runction which causes an OUtPUt to switch an or a one: • True @ False Rnish review
+
+===== hi-05.jpg =====
+0103.02 L02: Check and Configure / 2.1 QUIZ 2.1 Quiz nnigation Show one page a time finish re.•i.ew Status Started Corrvdeted Duration Marks Grade Finished 22 October 2026, 9:57 PM 22 October 2026, PM 2 mins 15 secs 5.00/5.00 100.00 out or Question 1 or too Question 2 or 100 p nag Question 3 Mai 1 Question 4 ur 100 W nag Question 5 or too W nag PLC digital cardS can be configured as either sinking or sourcing- Seleu one: v True @ Stroke bength or Should match requirement. Seleu one: ' True@ In most PLCS dÜanloading to a CPU require that CPU be sopped- Seleu J True @ Berate, downlo•ditg the ptogtarn, PLC Should ha•æ 'Ottfigured IP Seleu one: J True @ sensor is NPN, PLC DI urd Should be conrg•uted as PNP- Select one • True@ finish review
+
+===== hi-06.jpg =====
+QUIZ 3.1 ASI v Status Started Duration Marks Grade Quiz navigation Show one page al a time finish resew Finished Thursday, 22 October 2026, 1000 PM Thursday, 22 October 2026, 1001 PM 37 100.00 aut or Question 1 Correct or too Question 2 Correct or 100 Question 3 Correct Question 4 Correct or 100 Question S Correct or 100 que.lix•u AS-b'Ä documentation needs to be signed the ergineer Ot technician and validated Lhe Cantrollet. one: True After the Project has been cornmissioned. the documer•as need to be updated to the actual details or installation. one: True Functionality testing should be witnessed a QAIQC otficer Ot validated a specialist and/or expen- Seleu one True @ Functionality testing requires that belore commissioning the PLC. the program needs to be thoroughly Checked and deb.»gged. Sel«t one: True @ Site tesüng iS "O a form Ot runctWtaIity lhling. Select • True @ finish
+
+===== hi-07.jpg =====
+01.03.01 / / QUIZ 1 QUIZ 1 Status Started Completed Quiz naviÆ Show Finished Thursday. 15 October 2026, 2:21 PM Thursday. 15 October 2026, 2:30 PM 9 mins 7 2 3 4 Part or fieu or technology integt to may SQLitjdynarnZ Character iStics which purposely interacts with its environmem- These elements requite physical to produce heat, Select one ar more: T Hydraulics Linkages Robotics Egineeting Pneumatics Yout answer is correct. iS OT the Ot Sect , True False TechnoZgical advances in deign. manufacturing. and operation or engineered be traced through: tnrurrnatian r e.'0butiett re•.ulutiun Computer revolution Your answer is correct. 1. Sensors to detect Status or the System Input Clerv.ents 2. Indicators to indicate process statuS. ALLuanors to perroem (he actual or System Oulgut 3. rot stoting the program and exeCute Ot make decisions Controllers
+
+===== hi-08.jpg =====
+5 exstian 6 q•stion Which fie4d diSCipline NOT belonging to TechtX11agy? one: Electronics Qctronits Computers answer is correct synergistic or engineering, engineering. and sortware engineeritg- one: Engineering Computer Systems Engineering CorntOOers Yout answer is correct- Which or the rc•IJÜNing iS NOT a part Ot Electronics within the integrated in mechatronics Select one: (proximity and reed) MiL rococurallers Tt (wired and optics) Photo voaaic Modules Your answer iS 'Orrett. All ate positive effect or autotnaoo,n. EXCEPT ane- one: are needed for autamaed producban. Specialized required to operate auurt•.ation system rehe•es people of physically heavy ar tuzardous •Kirk. Production can run 20'7 (24 h0Lrs a day, 7 days a week) excepZ ror a rew maintenance periods. Yout answer is correct- Quiz navigati St'.c•.•.• pa•
+
+===== hi-09.jpg =====
+The modern buzzword is associated or Synonyrtuus electrart•.echat'ie-al eetgineetit•.g , rubot*-s • Should be arranged synergistic engineering technology Yout answer iS correct- Enish
+
+===== hi-10.jpg =====
+Post Test/ Institutional Exam for Install Mechatronics and Automation System AI Status Started Completed Duration Marks Grade Finished Saturday, 17 October 2026. 1120 PM Saturday, 17 October 2026. 1125 PM 4 mins 54 secs 26.03/27.00 96.30 out or 1 ono 22 Show page reviea 1.00 out 2 1.00 out exstian 3 1.00 out Which is NOT an or an Open Loop System? a. Washing b. Water Svinklet Sy•saetn Refrigeration System @ d- Automatic Sur-Delta System Your answer iS correct. The polarity the output Signal Of PNP is? a. neutral b- nego.•e positive @ d. alternate signal Yout is Which field discipline NOT belonging to Mechanical Chemistry @ Computers Your answer iS correct.
+
+===== hi-11.jpg =====
+4 1.00 p Fug 2.00 out 2J2C q-e•soon 6 '.00 out exstion Refers gaggles Ot garment or designed to protect the wearer'S body tram injury. one: Lab gown Personal Equignent @ apron Your answer iS correct. Drag labels rot equiprnerW accordingly Your answer iS correct- Which electrical device having two jaws which open to •Dow cJ.arrgfng around an electrical IO allow the Ot current Select one: ClartV Ammeter @ Analog Digital Multimeter Clamp Your answer is Correct. Quiz navigati 22 Show pa• review
+
+===== hi-12.jpg =====
+7 '.00 out 8 '.00 out exstion are configured detect when a Systems has LO a certain position Séect one: 15 22 Siv. d. Selector Switch NOtmally Open Switch Limit Switch @ Auxiliary Contact Your answer iS arrect- In the application or control what is thiS caned? +2 ZIV 2 A2 a. d. Normally open contact Auxiliary NONE the abm•e Latching @ Yout answer is correct-
+
+===== hi-13.jpg =====
+9 vm out 10 1.00 out g—stian 11 '.00 out 12 1.00 out Ider•nity this electrical symbol Sect Electronic Relay Variat* FrequenCy Drive Timer @ Yout answer is incorrect. is the that regulates the System presure? a. Air pressure regulator @ b. Cylinder Solenoid valve d. Power supply Yout answer iS correct. They are electromechanical switches that are capoe ar counting and stoting the number 01 Signal in System one: C,mzuers @ Relay Solid State Relay Yout answer is correct. A Switch Ot that can beeA a 'lowing current in a Circuit. Quiz 22 d. Closed @ Nctmally Open Contact Ndtrnal Contact Yout answer iS correct.
+
+===== hi-14.jpg =====
+13 Vaü '.00 out cttLC 14 1.00 out p Fug 15 '.00 Out Choose 2 SourceS or energy needed roe an Oectropneurnaüt Controller System o a. Cotnpresed air @ 6 b. energy @ energy Yout answer is correct. Iderwry this Check valve Air reguator control valve @ Air filte Yout answer is correct. Ider•wry is this ele«riQl Symbol? 4 Select one: Circuit Breaker ' tetrnally Open pushbutton @ Not malty Open Contact Netmally Open Auxiliary Your answer is correct.
+
+===== hi-15.jpg =====
+16 vm 1.00 out 17 1.00 out g—stian 18 1.00 out as synergisoc corrunation mechanical engineering, &ctronic engineering, and software engineeritg. Sebect one: Engineering Mechattot•iß @ Motoe Controlkrs Cctnputer Systems Engineering Yout answer is correct. Which or the 2 electtital Circuits are wired grapetly? Select in the given Circuits Both Circuit 1 and 2 Your answer iS correct. Iderwry the Symbol W malty Open Contact Net rnalty Closed Contact @ coa Yout answer is correct.
+
+===== hi-16.jpg =====
+19 1.00 out 20 '.00 out 21 out q-estian Identity this Symbol: Select one: 512 way valve. spring return Pneumatic val•æ Coa - Valve @ coa - Relay Your answer is correct. Iderwry this one'. Variabk Frequency Drive Electronic Relay Your answer is correct- Drag label for the symbols accordingly .tdrg 32 nun Quit navig 22
+
+===== hi-17.jpg =====
+'.00 out g—stian Can be used as a switch with no contact and has 3 electrical Supply voltage, Ground. OULPUt Sigrid) Switch Transducer Auxiliary Contact Electronic Sensor @ Your answer is correct- 7tish review.'
+

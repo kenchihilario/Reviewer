@@ -454,6 +454,30 @@
           ["Devices installed and configured to detect when a system’s element has moved to a certain position:", "Limit Switch", "Auxiliary Switch", "Optical Sensor", "Latching Switch"],
           ["Are electromechanical valves that controls the flow of liquid or gas by running or stopping an electric current through magnetic assembly:", "Solenoid valve", "Pressure regulating valve", "Motorized valve", "Gate valve"]
         ]
+      },
+      {
+        n: "PLC & Automation Systems", q: [
+          ["Which PLC elements receive status information from switches and contacts?", "Digital inputs", "Digital outputs", "Analog outputs", "CPU modules"],
+          ["Digital outputs receive status signals from switches and contact inputs.", "False", "True", "Only in analog systems", "Only when PLC is stopped"],
+          ["Analog outputs can send signals to devices such as I/P converters and motor-operated valves.", "True", "False", "Only digital signals can control them", "Only when using a timer"],
+          ["Which part of a PLC contains and executes the program?", "CPU", "Communication ports", "I/O cards", "Power supply"],
+          ["What protection on many digital input cards isolates field voltage from the PLC data bus or backplane?", "Optoelectronic isolation", "A mechanical fuse only", "A pneumatic regulator", "A timer relay"],
+          ["Which is a common analog instrumentation signal range?", "4-20 mA", "0-2 Hz", "120-240 VAC only", "1-5 ohms"],
+          ["A PLC PID block provides regulatory control for variables such as pressure and temperature.", "True", "False", "Only for counting pulses", "Only for motor direction"],
+          ["Which timer turns an output on after its preset delay has elapsed?", "On-delay timer", "Off-delay timer", "Counter", "One-shot relay"],
+          ["A NOT gate outputs 0 when its input is 1.", "True", "False", "Only with two inputs", "Only in analog logic"],
+          ["An OR gate outputs 0 when one of its inputs is 1.", "False", "True", "Only when every input is 1", "Only with analog signals"],
+          ["When does an AND gate output 1?", "When all inputs are 1", "When any input is 1", "When all inputs are 0", "Only after a preset delay"],
+          ["Which is a PLC programming language included in IEC 61131-3?", "Ladder Diagram", "HTML", "SQL", "BASIC Stamp"],
+          ["Before downloading a program to many PLC CPUs, what is typically required?", "Stop the CPU", "Remove the I/O cards", "Disconnect the grounding conductor", "Set every output permanently on"],
+          ["PLC digital I/O cards can be configured for sinking or sourcing operation.", "True", "False", "Only analog cards can be configured", "Only after commissioning"],
+          ["Before downloading a PLC program over a network, the PLC should have its IP address configured.", "True", "False", "Only the HMI needs an address", "IP addresses are not used with PLCs"],
+          ["A cylinder's stroke length should be selected to match the application requirement.", "True", "False", "Stroke length is always the same", "Stroke length depends only on wire size"],
+          ["Before commissioning, a PLC program should be thoroughly checked and debugged.", "True", "False", "Only after site acceptance", "Only if the PLC has analog inputs"],
+          ["Who may witness or validate functionality testing, according to the exam review?", "A QA/QC officer or a qualified specialist", "Only the equipment supplier", "Only the operator", "No witness is required"],
+          ["After a project is commissioned, what should happen to its documentation?", "Update it to match the installation as built", "Delete the draft and keep no records", "Leave it unchanged", "Replace it with the PLC source code only"],
+          ["Site testing is part of functionality testing.", "True", "False", "Only for mechanical equipment", "Only after the system is decommissioned"]
+        ]
       }
     ];
     const $ = s => document.querySelector(s), A = $("#app");
@@ -655,7 +679,23 @@
       ["A ____ valve controls fluid or gas flow by running electric current through a magnetic assembly.", "solenoid"],
       ["A magnetic ____ is an electromechanical switch used to control power to motors.", "contactor"],
       ["In an opposed optical sensor arrangement, the transmitter and receiver are ____ each other.", "facing|opposite|opposed"],
-      ["Terminals 3 and 4 with an open contact represent a normally open ____.", "pushbutton"]]
+      ["Terminals 3 and 4 with an open contact represent a normally open ____.", "pushbutton"]],
+      [["A PLC digital input receives status information from a field ____.", "switch|contact"],
+      ["Digital outputs can operate devices such as motor-operated ____.", "valves"],
+      ["A PLC's ____ executes its control program.", "cpu"],
+      ["Many PLC digital inputs use optoelectronic ____ to isolate field voltage.", "isolation|protection"],
+      ["A common analog current signal range is 4 to 20 ____.", "ma|milliamp"],
+      ["A PLC ____ block can regulate pressure or temperature.", "pid"],
+      ["A timer that delays turning an output on is an ____-delay timer.", "on"],
+      ["An ____ gate outputs 1 when at least one input is 1.", "or"],
+      ["A ____ gate outputs 1 only when all its inputs are 1.", "and"],
+      ["Name one IEC 61131-3 PLC programming language.", "ladder|structured text|function block"],
+      ["Before downloading a program, a PLC CPU may need to be ____.", "stopped|stop"],
+      ["Digital I/O cards may be configured as sinking or ____.", "sourcing"],
+      ["A PLC network address commonly configured before download is its ____ address.", "ip"],
+      ["Before commissioning, a PLC program should be checked and ____.", "debugged|debug"],
+      ["After commissioning, documentation should reflect the actual ____ details.", "installation|as built"],
+      ["QA/QC or a qualified specialist may witness functionality ____.", "testing"]]
     ];
     const norm = s => String(s).toLowerCase().replace(/[“”"’'‘.,;:!?()%]/g, "").replace(/[-&]/g, " ").replace(/\s+/g, " ").trim();
     function lev(a, b) { const d = []; for (let i = 0; i <= a.length; i++)d[i] = [i]; for (let j = 1; j <= b.length; j++)d[0][j] = j; for (let i = 1; i <= a.length; i++)for (let j = 1; j <= b.length; j++)d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] == b[j - 1] ? 0 : 1)); return d[a.length][b.length] }
