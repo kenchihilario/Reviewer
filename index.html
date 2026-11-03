@@ -257,11 +257,18 @@
       font-weight: 600
     }
 
-    .q img {
+    .q img,
+    .opt img,
+    .miss img {
       max-width: 100%;
       height: auto;
       display: block;
-      margin: 10px 0
+      margin: 6px auto
+    }
+
+    .opt img {
+      max-height: 80px;
+      object-fit: contain
     }
   </style>
   <script>
@@ -477,6 +484,33 @@
           ["Who may witness or validate functionality testing, according to the exam review?", "A QA/QC officer or a qualified specialist", "Only the equipment supplier", "Only the operator", "No witness is required"],
           ["After a project is commissioned, what should happen to its documentation?", "Update it to match the installation as built", "Delete the draft and keep no records", "Leave it unchanged", "Replace it with the PLC source code only"],
           ["Site testing is part of functionality testing.", "True", "False", "Only for mechanical equipment", "Only after the system is decommissioned"]
+        ]
+      },
+      {
+        n: "Instrumentation Tools", q: [
+          ["Gripping tools such as an adjustable wrench can also be used as a bending tool.", "False", "True", "Only for soft copper tubing", "Only when heated"],
+          ["Which proper tool will be used to install a transmitter with hex fitting?", "<img src=\"img/wrench_open.png\" alt=\"Open-ended wrench\">", "<img src=\"img/wrench_pipe.png\" alt=\"Pipe wrench\">", "<img src=\"img/pliers_slip_joint.png\" alt=\"Slip-joint pliers\">", "<img src=\"img/tool_tube_cutter.png\" alt=\"Tube cutter\">"],
+          ["Best tool to cut an aluminum impulse tube with an inner diameter of 1/4 inch and a wall thickness of 0.89mm?", "<img src=\"img/tool_tube_cutter.png\" alt=\"Tube cutter\">", "<img src=\"img/machine_horizontal_bandsaw.png\" alt=\"Horizontal bandsaw machine\">", "<img src=\"img/machine_chop_saw.png\" alt=\"Cut-off saw\">", "<img src=\"img/tool_air_cutoff.png\" alt=\"Cut-off air tool\">"],
+          ["Which of the following images is best for crimping terminal lugs into square type?", "<img src=\"img/crimper_square_ferrule.png\" alt=\"Square ferrule crimper\">", "<img src=\"img/crimper_network_rj45.png\" alt=\"Network crimper\">", "<img src=\"img/crimper_ratchet_terminal.png\" alt=\"Ratchet terminal crimper\">", "<img src=\"img/crimper_wire_pliers.png\" alt=\"Wire crimper\">"],
+          ["What do you call this tool?<br><img src=\"img/tool_tube_bender.png\" style=\"max-width:180px;margin:8px auto;display:block;\">", "Tube Bender", "Heavy Duty Wire Cutting tool", "Vice grip tool", "High Voltage Electrical Plier"]
+        ]
+      },
+      {
+        n: "Instrumentation Drawings & Symbols", q: [
+          ["A document containing specification and information of an instrument device (tag number identification, service description, location, P&ID reference, process data, calibrated range, accuracy, etc.):", "Instrument Data Sheets", "Instrument Location Plan", "Instrument Installation (Hookup) Detailed Drawing", "Instrument Index"],
+          ["Drawing of the plant's layout which identifies the location of hazardous gas areas classified as Zone 0, Zone 1, and Zone 2:", "Hazardous Area Classification Drawing", "Cable Schedule", "Cable Route", "Instrument Loop Diagram"],
+          ["A document which defines where the power lines and instrument cables are laid from one location to another, identifying whether cable tray, conduit, or busway is used:", "Cable Route", "Junction Box Detailed Drawing", "Cable Schedule", "Instrument Location Plan"],
+          ["A document containing a list of all instrument devices within a plant, including physical instruments and pseudo instruments ('soft tags' such as DCS indication, alarm, controller):", "Instrument Index", "Instrument Location Plan", "Instrument Installation (Hookup) Detailed Drawing", "Instrument Data Sheets"],
+          ["What kind of instrument line symbol is shown below?<br><img src=\"img/symbol_line_datalink.png\" style=\"max-width:200px;margin:8px auto;display:block;\">", "Data link", "Process line", "Pneumatic line", "Electrical line"],
+          ["A detailed diagram in the process industry which shows the piping and process equipment together with the instrumentation and control devices:", "Piping and Instrument Diagram (P&ID)", "Process Flow Diagram (PFD)", "Process Data Sheets", "Instrument Installation Drawing"],
+          ["Where would the instrument, with the symbol shown, be installed?<br><img src=\"img/symbol_isa_gbz_211.png\" style=\"max-width:160px;margin:8px auto;display:block;\">", "Front of main control panel normally accessible to an operator", "Front of auxiliary control panel normally accessible to an operator", "Rear of auxiliary control panel normally accessible to an operator", "Rear of main control panel normally inaccessible to an operator"],
+          ["Where would the instrument, with the symbol shown, be installed?<br><img src=\"img/symbol_isa_fy_211.png\" style=\"max-width:160px;margin:8px auto;display:block;\">", "Rear of main control panel normally inaccessible to an operator", "Front of main control panel normally accessible to an operator", "Front of auxiliary control panel normally accessible to an operator", "Rear of auxiliary control panel normally inaccessible to an operator"],
+          ["What kind of instrument line symbol is shown below?<br><img src=\"img/symbol_line_pneumatic.png\" style=\"max-width:200px;margin:8px auto;display:block;\">", "Pneumatic line", "Process line", "Data link", "Electrical line"],
+          ["Where would the instrument, with the symbol shown, be installed?<br><img src=\"img/symbol_isa_ty_69.png\" style=\"max-width:100px;margin:8px auto;display:block;\">", "Outside the control panel, in the field", "On a control panel, in a control room", "Inside a control panel, in a control room", "Inside a control panel, in the field"],
+          ["What three (3) drawing documents are needed for you to determine the exact tapping point on a process equipment where an instrument is to be installed?", "The instrument location plan, the plant layout and the installation detail drawing", "The loop diagram, the specification sheets and the plant layout", "The P&ID, the loop diagram and the specification sheets", "The P&ID, the loop diagram and the instrument index"],
+          ["Where would the instrument, with the symbol shown, be installed?<br><img src=\"img/symbol_isa_hza_211.png\" style=\"max-width:160px;margin:8px auto;display:block;\">", "Front of auxiliary control panel normally accessible to an operator", "Front of main control panel normally accessible to an operator", "Rear of main control panel normally inaccessible to an operator", "Rear of auxiliary control panel normally inaccessible to an operator"],
+          ["A table of information about cables for a particular installation which can include information such as length, type, size:", "Cable Schedule", "Junction Box Detailed Drawing", "Cable Route", "Hazardous Area Classification Drawing"],
+          ["What kind of instrument is symbolized by the figure shown?<br><img src=\"img/symbol_isa_fi_123.png\" style=\"max-width:100px;margin:8px auto;display:block;\">", "A front-panel mounted flow indicator, loop 123", "A field indicator, unit 123", "A front-panel mounted flow information, loop 123", "An inside-panel mounted flow indicator, loop 123"]
         ]
       }
     ];
@@ -695,7 +729,26 @@
       ["A PLC network address commonly configured before download is its ____ address.", "ip"],
       ["Before commissioning, a PLC program should be checked and ____.", "debugged|debug"],
       ["After commissioning, documentation should reflect the actual ____ details.", "installation|as built"],
-      ["QA/QC or a qualified specialist may witness functionality ____.", "testing"]]
+      ["QA/QC or a qualified specialist may witness functionality ____.", "testing"]],
+      [["Gripping tools such as an adjustable wrench should not be used as a ____ tool.", "bending"],
+      ["An ____-ended wrench is the proper tool to install a transmitter with hex fitting.", "open"],
+      ["The best tool to cut an aluminum impulse tube (1/4\" ID, 0.89mm wall) is a tube ____.", "cutter"],
+      ["A ferrule crimper crimps terminal lugs into a ____ type.", "square"],
+      ["A tube ____ is used to bend instrument tubing without kinking.", "bender"]],
+      [["An Instrument Data ____ specifies tag number, location, calibrated range, and performance details of an instrument.", "sheet|sheets"],
+      ["A Hazardous Area ____ Drawing identifies plant locations classified as Zone 0, Zone 1, and Zone 2.", "classification"],
+      ["A Cable ____ defines where power lines and instrument cables are laid from one location to another.", "route"],
+      ["An Instrument ____ contains a list of all physical and pseudo instruments (soft tags) in a plant.", "index"],
+      ["A line with circles (-o-o-o-) represents a data ____ line symbol.", "link"],
+      ["A ____ shows piping, process equipment, and instrumentation/control devices.", "p&id|pid|piping and instrument diagram"],
+      ["A solid line across an instrument bubble indicates the front of the ____ control panel.", "main"],
+      ["A single dashed line across an instrument bubble indicates the ____ of the main control panel.", "rear|back"],
+      ["A line with slanted double hashes (// // //) represents a ____ signal line.", "pneumatic"],
+      ["A plain circle with no internal line indicates an instrument mounted in the ____.", "field"],
+      ["List the 3 drawings needed to find an instrument's tapping point.", ["location plan|instrument location plan", "plant layout|layout", "installation detail|hookup|installation drawing"]],
+      ["Double solid lines across an instrument bubble indicate the front of an ____ control panel.", "auxiliary"],
+      ["A Cable ____ is a table containing cable information such as length, type, and size.", "schedule"],
+      ["In ISA 5.1 tag FI 123, FI stands for flow ____.", "indicator"]]
     ];
     const norm = s => String(s).toLowerCase().replace(/[“”"’'‘.,;:!?()%]/g, "").replace(/[-&]/g, " ").replace(/\s+/g, " ").trim();
     function lev(a, b) { const d = []; for (let i = 0; i <= a.length; i++)d[i] = [i]; for (let j = 1; j <= b.length; j++)d[0][j] = j; for (let i = 1; i <= a.length; i++)for (let j = 1; j <= b.length; j++)d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] == b[j - 1] ? 0 : 1)); return d[a.length][b.length] }
