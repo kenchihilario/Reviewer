@@ -270,6 +270,59 @@
       max-height: 80px;
       object-fit: contain
     }
+
+    .notes {
+      line-height: 1.6;
+      font-size: 14px;
+      margin-bottom: 20px
+    }
+
+    .notes h3 {
+      font-size: 16px;
+      color: var(--tx);
+      border-bottom: 1px solid var(--bd);
+      padding-bottom: 6px;
+      margin: 18px 0 8px
+    }
+
+    .notes p,
+    .notes ul {
+      margin: 8px 0;
+      color: var(--mut)
+    }
+
+    .notes ul {
+      padding-left: 20px
+    }
+
+    .notes li {
+      margin: 4px 0
+    }
+
+    .notes code {
+      font-family: monospace;
+      background: var(--sf);
+      border: 1px solid var(--bd);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 13px;
+      color: var(--tx)
+    }
+
+    .notes pre {
+      background: var(--sf);
+      border: 1px solid var(--bd);
+      border-radius: 6px;
+      padding: 10px;
+      overflow-x: auto;
+      margin: 8px 0
+    }
+
+    .notes pre code {
+      border: none;
+      padding: 0;
+      background: transparent
+    }
   </style>
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -514,6 +567,144 @@
         ]
       }
     ];
+    // ===== SQL Reviewer =====
+    const SW = [
+      {
+        n: "Part 1: MySQL Fundamentals", q: [
+          ["A row is also commonly called a record.", "True", "False"],
+          ["Which software package commonly includes MySQL or MariaDB, Apache, PHP, and Perl?", "XAMPP", "NetBeans", "Eclipse", "Microsoft 365", "Visual Studio"],
+          ["Which company became the owner of MySQL following the Sun Microsystems acquisition in 2010?", "Oracle", "Google", "IBM", "Apple", "Microsoft"],
+          ["Who were the original developers of MySQL?", "David Axmark and Michael Widenius", "Larry Page and Sergey Brin", "Bill Gates and Paul Allen", "Steve Jobs and Steve Wozniak", "Larry Ellison and Bob Miner"],
+          ["A database schema defines the structure of a database rather than the actual records stored in its tables.", "True", "False"],
+          ["Which language is primarily used to write commands for adding new records, searching for specific information, and updating existing data?", "SQL", "HTML", "CSS", "Java", "XML"],
+          ["MySQL is a programming language similar to Java and Python.", "False", "True"],
+          ["In the DEPT and EMP sample tables, department 40 has no assigned employee in EMP table.", "True", "False"],
+          ["phpMyAdmin provides a web-based interface for managing MySQL databases. Which correctly identifies its three main administrative levels, from broadest to most specific?", "Server, Database, Table", "Application, Server, Database", "Database, Table, Records", "Server, Table, Records"],
+          ["Which is a common use of MySQL?", "Data storage", "Video editing", "Sound mixing", "Photo enhancing", "Screen recording"],
+          ["Which category of a computer system does MySQL belong to, considering that it is installed and used to store, manage, and retrieve data?", "Software", "Procedure", "Hardware", "Data", "Network"],
+          ["Which of the following are the common sample tables used in learning MySQL database?", "Department and Employee", "Course and Section", "Hello and World", "Teacher and Student", "Name and Address"],
+          ["In which year was MySQL first released publicly?", "1995", "2001", "1996", "2005", "1998"],
+          ["Which of the following best describes MySQL software?", "Database Server", "Application Server", "Operating System", "Network Server", "Programming Language"],
+          ["You cannot access the phpMyAdmin web interface through your browser if you only start the MYSQL server and without starting the APACHE server.", "True", "False"],
+          ["Which is an example of a database?", "Student Records", "Subject Code", "Employee Name", "Department Location", "Number of Voters"],
+          ["MariaDB is early version and former name of MySQL.", "False", "True"],
+          ["MySQL was originally developed by Microsoft Corporation.", "False", "True"],
+          ["What was the name of the Swedish company that originally developed MySQL?", "MySQL AB", "Sun Microsystems", "Netscape", "Oracle Labs", "Red Hat"],
+          ["Which category includes CREATE, ALTER, and DROP?", "DDL", "DML", "TCL", "DCL", "DQL"],
+          ["A colon (:) is commonly used to terminate SQL statements in MySQL scripts and command-line sessions.", "False", "True"],
+          ["MySQL became popular for its fast performance and reliable operations, but its difficulty of use makes it unsuitable for web-based applications.", "False", "True"],
+          ["In database, what does RDBMS stand for?", "Relational Database Management System", "Remote Data Backup Management System", "Rapid Database Monitoring Software", "Relational Data Mapping Service", "Real-time Data Management Software"],
+          ["A database schema describes the organization of various objects within a database. Which of the following groups a database schema may define?", "Tables, columns, data types", "Usernames, passwords, email messages", "Web browsers, Operating systems, device drivers", "Student names, home addresses, telephone numbers", "Menus, buttons, dialog boxes, and application windows"],
+          ["Which of the following is not a category of SQL command?", "ACL", "DDL", "DML", "DCL", "TCL"],
+          ["Which database component stores related records in rows and columns?", "Table", "Folder", "Window", "Procedure", "Function"],
+          ["Which punctuation mark is commonly used at the end of an SQL statement to indicate that the command is complete and ready to be executed?", "Semi-colon", "Period", "Colon", "Slash", "Dash"],
+          ["In some SQL discussion, SELECT is also classified as DML command because it retrieves data from database tables.", "True", "False"],
+          ["Which of the following technology companies acquired MySQL AB, the original developer of the MySQL database management system, in 2008?", "Sun Microsystems", "Google", "Microsoft", "IBM", "Amazon"],
+          ["Which application is commonly used to administer MySQL through a web browser?", "phpMyAdmin", "Google Chrome", "XAMPP", "Joomla", "Workbench"]
+        ]
+      },
+      {
+        n: "Part 2: Stored Procedures", q: [
+          ["What is the default parameter mode when no mode is specified?", "IN", "OUT", "RETURN", "INOUT", "NULL"],
+          ["Which parameter mode supplies input to a procedure?", "IN", "INPUT", "ENTRY", "DEFINE", "PARAM"],
+          ["Which statement creates a stored procedure?", "CREATE PROCEDURE", "REPLACE PROCEDURE", "NEW PROCEDURE", "START PROCEDURE", "BUILD PROCEDURE"],
+          ["A stored procedure without parameters receives:", "No values", "One value", "Two values", "Input only", "Output only"],
+          ["In MySQL, which SQL statement is used to invoke a stored procedure and execute the instructions defined within it?", "CALL", "INVOKE", "SELECT", "OPEN", "RUN"],
+          ["Which statement initializes a session variable to 10?", "SET @count = 10;", "DECLARE @count = 10;", "CREATE @count = 10;", "SHOW @count = 10;", "INIT @count = 10;"],
+          ["Which statement displays the value of @total after a procedure call?", "SELECT @total;", "CALL @total;", "PRINT @total;", "SHOW @total;", "DISPLAY @total;"],
+          ["A procedure can have more than one OUT parameter.", "True", "False"],
+          ["Every procedure parameter must use the same parameter mode.", "False", "True"],
+          ["In the MySQL command-line client, you must change the default semicolon delimiter even when a stored procedure has a single SQL statement and omits the BEGIN ... END block.", "False", "True"],
+          ["Which keyword begins the executable section of a stored procedure?", "BEGIN", "START", "OPEN", "EXECUTE", "FIRST"],
+          ["Which prefix is commonly used as a naming convention for parameters?", "p_", "@_", "#_", "$_", "v_"],
+          ["Which parameter mode both receives and returns a value?", "INOUT", "BOTH", "DUAL", "OUT", "RETURN"],
+          ["In MARIADB, if a stored procedure already exists in the current database, you can use CREATE OR REPLACE PROCEDURE to replace it with a new procedure having the same name.", "True", "False"],
+          ["Which keyword terminates a stored procedure block?", "END", "STOP", "FINISH", "CLOSE", "EXIT"],
+          ["If you omit the parameter mode in a MySQL procedure declaration, the default is INOUT.", "False", "True"],
+          ["Which parameter mode sends a value back to the caller?", "OUT", "EXTRACT", "OUTPUT", "RETURNS", "SEND"],
+          ["You can change the value of the local variable inside the procedure using SELECT INTO or SET statement.", "True", "False"],
+          ["Which keyword changes the delimiter?", "DELIMITER", "CHANGE", "SEPARATOR", "MODIFY", "ALTER"],
+          ["What is the minimum number of parameters a stored procedure can have?", "Zero", "Four", "Three", "Two", "One"],
+          ["In MySQL, once a stored procedure name is used in one database, that name cannot be used for a stored procedure in another database on the same server.", "False", "True"],
+          ["Which characters are commonly used as delimiter when creating a stored procedure?", "//", "||", "**", "%%", ";;"],
+          ["What is the correct syntax when declaring IN parameter?", "procedure_name(IN param_name data_type)", "procedure_name(param_name IN data_type)", "procedure_name(param_name data_type IN)", "procedure_name(IN data_type param_name)", "procedure_name(data_type IN param_name)"],
+          ["Which symbols enclose a procedure's parameter list?", "Parentheses", "Brackets", "Braces", "Quotes", "Backticks"],
+          ["Which is a major benefit of using stored procedures?", "Code reuse", "Unlimited storage", "Automatic backups", "Password removal", "Table duplication"],
+          ["Which statement will delete the procedure?", "DROP PROCEDURE", "ERASE PROCEDURE", "DELETE PROCEDURE", "CUT PROCEDURE", "REMOVE PROCEDURE"],
+          ["What separates multiple parameter declarations?", "Comma", "Period", "Colon", "Semicolon", "Slash"],
+          ["Every stored procedure must have at least one parameter.", "False", "True"],
+          ["In MySQL or MariaDB, naming a stored procedure generally follows the same identifier rules used for naming a table.", "True", "False"],
+          ["The DECLARE statement is used to define local variables.", "True", "False"]
+        ]
+      }
+    ];
+
+    const SQL_NOTES = `
+<div class="note-sec">
+  <h3>1. MySQL Basics</h3>
+  <p><b>RDBMS</b>: <i>Relational Database Management System</i>. MySQL is a relational database server software used to store, manage, and retrieve structured data in tables.</p>
+  <p><b>XAMPP</b>: A popular software stack bundling <b>Apache</b> (web server), <b>MySQL / MariaDB</b> (database server), <b>PHP</b>, and <b>Perl</b>.</p>
+  <p><b>phpMyAdmin</b>: A web-based administration tool for MySQL. Its three main administrative levels from broadest to most specific are: <b>Server &rarr; Database &rarr; Table</b>. Both <b>Apache</b> and <b>MySQL</b> must be running to access phpMyAdmin in your web browser.</p>
+  <p><b>Database Schema</b>: Defines the structure, blueprint, and organization of database objects (tables, columns, data types, constraints) rather than the actual records stored within tables.</p>
+  <p><b>Table, Row, and Column</b>: A table stores related data in rows and columns. A <b>row</b> is also called a <b>record</b> (or tuple), while a <b>column</b> represents an attribute (or field).</p>
+</div>
+
+<div class="note-sec">
+  <h3>2. SQL Command Categories</h3>
+  <p>SQL statements are terminated by a <b>semi-colon (<code>;</code>)</b>.</p>
+  <ul>
+    <li><b>DDL (Data Definition Language)</b>: Commands that define, alter, and delete database structure. Examples: <code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, <code>TRUNCATE</code>.</li>
+    <li><b>DML (Data Manipulation Language)</b>: Commands that add, modify, query, and delete data records. Examples: <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, and <code>SELECT</code> (also classified as DQL - Data Query Language).</li>
+    <li><b>DCL (Data Control Language)</b>: Commands that control access permissions and privileges. Examples: <code>GRANT</code>, <code>REVOKE</code>.</li>
+    <li><b>TCL (Transaction Control Language)</b>: Commands that manage database transactions. Examples: <code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT</code>.</li>
+  </ul>
+</div>
+
+<div class="note-sec">
+  <h3>3. MySQL History</h3>
+  <ul>
+    <li><b>Original Developers</b>: Created in Sweden by <b>David Axmark</b> and <b>Michael "Monty" Widenius</b> at <b>MySQL AB</b>.</li>
+    <li><b>Public Release</b>: First released publicly in <b>1995</b>.</li>
+    <li><b>Acquisitions</b>: Acquired by <b>Sun Microsystems</b> in <b>2008</b>; Sun Microsystems was subsequently acquired by <b>Oracle Corporation</b> in <b>2010</b>.</li>
+    <li><b>MariaDB</b>: A community-developed open-source fork of MySQL created by original developers after the Oracle acquisition (not an early version or former name of MySQL).</li>
+  </ul>
+</div>
+
+<div class="note-sec">
+  <h3>4. Stored Procedures</h3>
+  <p>A stored procedure is a prepared, compiled set of SQL statements stored in the database for code reuse, security, and performance.</p>
+  <ul>
+    <li><b>DELIMITER</b>: Changes the statement termination character in command-line clients (commonly to <code>//</code> or <code>$$</code>) so inner semicolons within the procedure body do not execute prematurely.</li>
+    <li><b>Structure & Keywords</b>:
+      <pre><code>DELIMITER //
+CREATE PROCEDURE procedure_name(IN p_id INT, OUT p_name VARCHAR(50))
+BEGIN
+  -- executable statements
+END //
+DELIMITER ;</code></pre>
+    </li>
+    <li><b>Invocation & Deletion</b>:
+      <ul>
+        <li>Execute with <code>CALL procedure_name(...);</code>.</li>
+        <li>Delete with <code>DROP PROCEDURE procedure_name;</code>.</li>
+        <li>In MariaDB, <code>CREATE OR REPLACE PROCEDURE</code> replaces an existing procedure with the same name.</li>
+      </ul>
+    </li>
+    <li><b>Parameter Modes</b>:
+      <ul>
+        <li><code>IN</code> (Default): Supplies input values into the procedure. Syntax: <code>procedure_name(IN param_name data_type)</code>.</li>
+        <li><code>OUT</code>: Returns a value back to the caller. A procedure can have more than one <code>OUT</code> parameter.</li>
+        <li><code>INOUT</code>: Both receives an input value and returns a modified value back.</li>
+      </ul>
+    </li>
+    <li><b>Naming Conventions</b>: Parameters commonly use the <code>p_</code> prefix (e.g. <code>p_deptno</code>) to avoid collision with column names. Procedure names follow standard identifier rules.</li>
+    <li><b>Local Variables</b>: Declared inside <code>BEGIN...END</code> using <code>DECLARE var_name data_type;</code>. Assigned using <code>SET var_name = value;</code> or <code>SELECT col INTO var_name FROM ...;</code>.</li>
+    <li><b>Session Variables</b>: Prefixed with <code>@</code> (e.g. <code>SET @count = 10;</code>), displayed with <code>SELECT @count;</code>.</li>
+  </ul>
+</div>
+`;
+
+
     const $ = s => document.querySelector(s), A = $("#app");
     let best = {}, S = {}, T, leaderboardRefreshTimer = null, leaderboardViewToken = 0, SUB;
     try { best = JSON.parse(localStorage.getItem("tca") || "{}") } catch (e) { }
@@ -526,7 +717,14 @@
       stopLeaderboardRefresh();
       A.innerHTML = `<h1>${SUB.title}</h1><p class="m">Choose a topic. You have 3 lives and 15 seconds per question. Consecutive correct answers raise your score multiplier.</p><div class="grid">` +
         W.map((w, i) => `<button class="world" onclick="start(${i})"><span class="num">Topic ${i + 1}</span><b>${w.n}</b><small>${w.q.length} questions &middot; Best ${best[i] || 0}</small></button>`).join("") +
-        `</div>` + (W.length > 1 ? `<button class="world boss" onclick="start(-1)"><b>Mixed Challenge</b><small>12 random questions from all topics &middot; Best ${best.b || 0}</small></button>` : "") + `<button class="btn alt" onclick="showLb()">View leaderboards</button><button class="btn alt" onclick="subjects()">Change subject</button>`;
+        `</div>` + (W.length > 1 ? `<button class="world boss" onclick="start(-1)"><b>Mixed Challenge</b><small>12 random questions from all topics &middot; Best ${best.b || 0}</small></button>` : "") +
+        (SUB.notes ? `<button class="btn alt" onclick="showNotes()">Study notes</button>` : "") +
+        `<button class="btn alt" onclick="showLb()">View leaderboards</button><button class="btn alt" onclick="subjects()">Change subject</button>`;
+    }
+    function showNotes() {
+      clearInterval(T);
+      stopLeaderboardRefresh();
+      A.innerHTML = `<h1>${SUB.name} Study Notes</h1><p class="m">Key concepts, definitions, and references for ${SUB.name}.</p><div class="notes">${SUB.notes || ""}</div><button class="btn alt" onclick="home()">Back to topics</button>`;
     }
     function start(i) {
       stopLeaderboardRefresh();
@@ -535,7 +733,7 @@
     }
     function ask() {
       if (S.n >= S.qs.length || S.hp <= 0) return end();
-      const q = S.qs[S.n], w = W[q[5]]; S.o = sh(q.slice(1, 5)); S.t = 15; S.lock = false;
+      const q = S.qs[S.n], w = W[q[q.length - 1]]; S.o = sh(q.slice(1, -1)); S.t = 15; S.lock = false;
       A.innerHTML = `<div class="hud"><span>Lives <b>${S.hp}/3</b></span><span>Multiplier <b>x${Math.min(1 + S.st * .5, 3)}</b></span><span>Score <b>${S.sc}</b></span></div>
  <div class="bar"><i style="width:${S.n / S.qs.length * 100}%"></i></div>
  <div class="bar"><i id="tm" style="width:100%"></i></div>
@@ -750,6 +948,41 @@
       ["A Cable ____ is a table containing cable information such as length, type, and size.", "schedule"],
       ["In ISA 5.1 tag FI 123, FI stands for flow ____.", "indicator"]]
     ];
+    // SQL redo round (fill in the blanks + enumeration)
+    const SF = [
+      [
+        ["A row is also commonly called a ____.", "record"],
+        ["____ is a popular software package bundling Apache, MySQL/MariaDB, PHP, and Perl.", "xampp"],
+        ["Sun Microsystems and MySQL were acquired in 2010 by ____ Corporation.", "oracle"],
+        ["MySQL was originally created by David Axmark and Michael ____.", "widenius"],
+        ["A database ____ defines the structure and organization of database objects.", "schema"],
+        ["The standard language used to query and manipulate relational databases is ____.", "sql"],
+        ["MySQL is classified as a database ____ rather than a general programming language.", "server|software|rdbms"],
+        ["List the 3 main administration levels in phpMyAdmin from broadest to most specific.", ["server", "database|db", "table"]],
+        ["MySQL was first released publicly in the year ____.", "1995"],
+        ["To access phpMyAdmin in a browser, both MySQL and the ____ web server must be running.", "apache"],
+        ["The Swedish company that originally developed MySQL was MySQL ____.", "ab"],
+        ["CREATE, ALTER, and DROP belong to the ____ category of SQL commands.", "ddl"],
+        ["RDBMS stands for Relational ____ Management System.", "database"],
+        ["SQL statements are terminated by a ____.", "semicolon|semi colon|;"],
+        ["List the 4 main categories of SQL commands.", ["ddl", "dml", "dcl", "tcl"]]
+      ],
+      [
+        ["The default parameter mode for a stored procedure is ____.", "in"],
+        ["The SQL statement used to invoke a stored procedure is ____.", "call"],
+        ["The keyword that changes the statement termination character in MySQL client is ____.", "delimiter"],
+        ["The executable body of a procedure begins with ____ and finishes with END.", "begin"],
+        ["Procedure parameters commonly use the ____ prefix convention.", "p_"],
+        ["A parameter mode that both accepts an input and returns a value is ____.", "inout"],
+        ["In MariaDB, you can replace an existing procedure with CREATE OR ____ PROCEDURE.", "replace"],
+        ["Session variables in MySQL are prefixed with the ____ symbol.", "@"],
+        ["The statement used to remove a stored procedure is ____ PROCEDURE.", "drop"],
+        ["Local variables inside a procedure block are declared using the ____ keyword.", "declare"],
+        ["To assign a value to a local or session variable, use the ____ statement.", "set|select into"],
+        ["List the 3 parameter modes supported by MySQL stored procedures.", ["in", "out", "inout"]]
+      ]
+    ];
+
     const norm = s => String(s).toLowerCase().replace(/[“”"’'‘.,;:!?()%]/g, "").replace(/[-&]/g, " ").replace(/\s+/g, " ").trim();
     function lev(a, b) { const d = []; for (let i = 0; i <= a.length; i++)d[i] = [i]; for (let j = 1; j <= b.length; j++)d[0][j] = j; for (let i = 1; i <= a.length; i++)for (let j = 1; j <= b.length; j++)d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] == b[j - 1] ? 0 : 1)); return d[a.length][b.length] }
     const hit = (v, acc) => { v = norm(v); return v && acc.split("|").some(a => { a = norm(a); return v === a || (a.length > 3 && v.includes(a)) || (a.length > 5 && lev(v, a) < 2) }) };
@@ -786,7 +1019,8 @@
     // ===== Subjects: choose Tech Comm or Mechatronics. Each has its own topics, best scores and leaderboards. =====
     const SUBJECTS = [
       { id: "tc", name: "Tech Comm", title: "Tech Comm Arena", W: W, F: F, bk: "tca", bp: "", ranks: ["Tech Comm Legend", "Report Pro", "Rising Writer"] },
-      { id: "mt", name: "Mechatronics", title: "Mechatronics Arena", W: MW, F: MF, bk: "tca_mt", bp: "m", ranks: ["Mechatronics Master", "Control Pro", "Rising Technician"] }
+      { id: "mt", name: "Mechatronics", title: "Mechatronics Arena", W: MW, F: MF, bk: "tca_mt", bp: "m", ranks: ["Mechatronics Master", "Control Pro", "Rising Technician"] },
+      { id: "sql", name: "SQL", title: "SQL Arena", W: SW, F: SF, bk: "tca_sql", bp: "s", ranks: ["SQL Master", "Database Pro", "Query Builder"], notes: SQL_NOTES }
     ];
     function subjects() {
       clearInterval(T);

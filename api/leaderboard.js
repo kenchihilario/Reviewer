@@ -29,6 +29,10 @@ const BOARDS = new Set(["0", "1", "2", "3", "4", "5", "b"]);
 for (let i = 0; i <= 9; i++) BOARDS.add(`m${i}`);
 BOARDS.add("mb");
 
+// SQL boards: s0-s9 and sb (mixed). Saved separately.
+for (let i = 0; i <= 9; i++) BOARDS.add(`s${i}`);
+BOARDS.add("sb");
+
 async function redis(command, retries = 2) {
   if (!URL_ || !TOKEN) {
     throw new Error("Redis environment variables are missing.");
