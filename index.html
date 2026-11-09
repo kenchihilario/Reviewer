@@ -333,7 +333,6 @@
 <body>
   <div class="app" id="app"></div>
   <script>
-    // Question format: [question, CORRECT, wrong, wrong, wrong]
     let W = [
       {
         n: "Tech Comm Intro", q: [
@@ -472,9 +471,6 @@
           ["The sample letter template has which body paragraphs?", "Intro, explain, close", "Only one paragraph", "Four summary paragraphs", "No paragraphs"]]
       }
     ];
-    // ===== Mechatronics (second subject). Same format: [question, CORRECT, wrong, wrong, wrong] =====
-    // To add a topic: copy the whole {n:"...",q:[...]} block, add a comma after it, and paste a new one.
-    // For a picture question, put an <img src="img/name.png"> tag inside the question text.
     const MW = [
       {
         n: "Mechatronics Quiz 1", q: [
@@ -565,9 +561,229 @@
           ["A table of information about cables for a particular installation which can include information such as length, type, size:", "Cable Schedule", "Junction Box Detailed Drawing", "Cable Route", "Hazardous Area Classification Drawing"],
           ["What kind of instrument is symbolized by the figure shown?<br><img src=\"img/symbol_isa_fi_123.png\" style=\"max-width:100px;margin:8px auto;display:block;\">", "A front-panel mounted flow indicator, loop 123", "A field indicator, unit 123", "A front-panel mounted flow information, loop 123", "An inside-panel mounted flow indicator, loop 123"]
         ]
+      },
+      {
+        n: "Units & Conversions", q: [
+          ["Which are the most commonly used primary fundamental units?","Length, mass and time","Voltage, current and power","Area, volume and speed","Force, pressure and energy"],
+          ["Which is NOT an SI base unit?","Newton","Kelvin","Mole","Candela"],
+          ["Voltage (volt) is an example of a…","Derived unit","Fundamental unit","Base unit","Prefix"],
+          ["The metric prefix for 10⁻³ is…","Milli","Centi","Kilo","Deci"],
+          ["4,500,000 s in scientific notation is…","4.5 × 10⁶ s","4.5 × 10⁵ s","4.5 × 10⁷ s","45 × 10⁻⁶ s"],
+          ["Which temperature is the same in °F and °C?","−40","0","32","100"],
+          ["To convert °F to °C, use…","(°F − 32) × 5/9","(°F + 32) × 5/9","(°F × 9/5) + 32","(°F − 32) × 9/5"],
+          ["Adding 25.2 + 1.34, the final answer should be…","26.5","26.54","26.6","27"]
+        ]
+      },
+      {
+        n: "Mensuration & Gas Laws", q: [
+          ["Perimeter of a rectangle with l = 10 in and w = 3 in is…","26 in","30 in","13 in","60 in"],
+          ["Area of a triangle with b = 6 in and h = 4 in is…","12 sq in","24 sq in","10 sq in","48 sq in"],
+          ["Area of a trapezoid with b1 = 6, b2 = 10, h = 4 (in) is…","32 sq in","64 sq in","24 sq in","16 sq in"],
+          ["Area of a circle with r = 5 in (π ≈ 3.14) is…","78.5 sq in","31.4 sq in","15.7 sq in","25 sq in"],
+          ["A cone’s volume is what fraction of a cylinder with the same r and h?","One-third","One-half","Two-thirds","One-quarter"],
+          ["Boyle’s Law (constant T and n) says pressure and volume are…","Inversely related","Directly proportional","Unrelated","Both constant"],
+          ["Charles’s Law says that at constant pressure, volume is directly proportional to…","Absolute temperature (K)","Temperature in °F","Gas density","Time"],
+          ["At sea level, a barometer’s mercury column stands at about…","760 mm","101 mm","1013 mm","76 mm"]
+        ]
+      },
+      {
+        n: "Measuring Instruments", q: [
+          ["A voltmeter is connected to a circuit in…","Parallel","Series","Either way","Open loop"],
+          ["An ammeter is connected to a circuit in…","Series","Parallel","Neither","Shunt only"],
+          ["Electric power can be found indirectly using…","P = U·I","P = U/I","P = I/U","P = U + I"],
+          ["Which instrument directly measures electric power?","Wattmeter","Ohmmeter","Barometer","Voltmeter"],
+          ["Instruments used for calibration against precise systems are for…","Metrological use","Common use","Paper recording","Contactless use"],
+          ["Water and electricity meters that accumulate totals have what output?","Incremental","Direct","Paper recording","Analog only"],
+          ["The part of a loop that first senses a process variable is the…","Sensor","Controller","Recorder","Alarm"],
+          ["Which is a mechanical pressure measuring element?","Bourdon tube","Strain gage","Capacitance","Piezo-electric"],
+          ["Which is an electrical temperature measuring method?","Thermocouple","Bimetal","Liquid-in-glass","Filled system"]
+        ]
+      },
+      {
+        n: "Technical Drawings & Documents", q: [
+          ["A drawing’s title block is located at the…","Bottom right corner","Top left corner","Center of the sheet","Outside the border"],
+          ["Which is the primary schematic for laying out a process control installation?","P&ID","General layout drawing","Civil drawing","Erection drawing"],
+          ["A PFD normally leaves out…","Minor lines and block/relief valves","Major equipment","Main process lines","The material balance table"],
+          ["Which drawing shows how to place and install items on their supporting structure?","Erection drawing","Assembly drawing","Civil drawing","Layout drawing"],
+          ["Which is the most detailed type of control system diagram?","Instrument loop drawing","PFD","P&ID","General arrangement drawing"],
+          ["In a loop drawing, dashed lines represent…","Individual copper wires","Whole cables","Process piping","Pneumatic tubing"],
+          ["Unlike a schematic, a wiring diagram shows components…","In their actual physical location","As abstract symbols only","Without labels","Without terminals"],
+          ["A schematic diagram uses…","Abstract graphic symbols","Realistic pictures","Photographs","Only text"]
+        ]
+      },
+      {
+        n: "Lines, Dimensions & ASME", q: [
+          ["A thick continuous line showing visible outlines is a…","Object line","Hidden line","Center line","Phantom line"],
+          ["Hidden edges are drawn with…","Medium-weight short dashes","Long-short-long lines","Thick continuous lines","Zigzag lines"],
+          ["Phantom lines (long-short-short-long) show…","Alternate positions of moving parts","Hidden edges","Sliced surfaces","Drawing borders"],
+          ["Leader lines are preferably drawn at…","45°","90°","30°","60°"],
+          ["In unidirectional dimensioning, text is read from…","The bottom of the drawing","Parallel to the dimension line","The right side","Any direction"],
+          ["If a hole goes completely through, which abbreviation follows the dimension?","THRU","BLIND","DEEP","TYP"],
+          ["Under ASME, a drawing’s first version is identified by…","A revision dash “-”","Revision letter A","Revision number 1","Revision letter Z"],
+          ["Which letters are NOT used as ASME revision letters?","I, O, Q, S, X, Z","A, B, C, D","E, F, G, H","J, K, L, M"]
+        ]
+      },
+      {
+        n: "Electrical Symbols & Motor Control", q: [
+          ["A switch’s “pole” refers to the number of…","Switch contact sets","Conducting positions","Normally open states","Coils"],
+          ["SPDT stands for…","Single Pole, Double Throw","Single Phase, Double Terminal","Double Pole, Single Throw","Single Pole, Dual Terminal"],
+          ["A diode acts as…","A one-way switch for current","A voltage amplifier","A two-way resistor","An energy storage coil"],
+          ["Which transistor type is current-controlled?","BJT","FET","MOSFET","Unipolar transistor"],
+          ["The three terminals of a BJT are…","Collector, base, emitter","Source, gate, drain","Anode, cathode, gate","Input, output, ground"],
+          ["Which standard body expresses motor-control dimensions in the metric system?","IEC","NEMA","ANSI","NFPA"],
+          ["In a ladder diagram, power-circuit wiring is drawn as a…","Heavy line","Light line","Dashed line","Double line"],
+          ["The thermal overload relay protects a motor from…","Gradual excessive current","Short circuits","Lightning","Low voltage"]
+        ]
+      },
+      {
+        n: "Pneumatics", q: [
+          ["Pneumatics uses what to produce mechanical motion?","Pressurized gas","Pressurized oil","Electric current","Springs only"],
+          ["The recommended economical operating pressure is…","5–6 bar","1–2 bar","10–12 bar","15–20 bar"],
+          ["The FRL air service unit has a filter, a regulator and a…","Lubricator","Lamp","Relay","Limit switch"],
+          ["A one-way flow control valve combines a needle valve with a…","Check valve","Shuttle valve","Pressure switch","Solenoid"],
+          ["Which valve solves the two-3/2-valves OR problem?","Shuttle valve","Check valve","Needle valve","Pressure sequence valve"],
+          ["An AND (interlock) function works only when…","Both valves are operated","Either valve is operated","No valve is operated","Pressure drops"],
+          ["A double-acting cylinder is directly controlled by a…","5/2 directional control valve","3/2 directional control valve","Shuttle valve","Pressure regulator"],
+          ["Flow amplification (indirect control) is used mainly to…","Make large-flow valves safe to operate","Increase pressure","Shorten the stroke","Remove the need for air"]
+        ]
+      },
+      {
+        n: "PLC I/O, Wiring & Installation", q: [
+          ["The three types of PLC digital output are…","Relay, triac, transistor","Relay, diode, resistor","Triac, SCR, capacitor","Transistor, inductor, relay"],
+          ["Which digital output type switches only AC loads?","Triac","Transistor","Relay","All of them"],
+          ["Which digital output type has high load current capacity but a shorter life span?","Relay","Triac","Transistor","SSR"],
+          ["A 3-wire NPN sensor must connect to a…","Sourcing PLC DI","Sinking PLC DI","Relay output","Analog input"],
+          ["A 3-wire PNP sensor must connect to a…","Sinking PLC DI","Sourcing PLC DI","Triac output","Analog input"],
+          ["Which PLC memory keeps the user program through power loss?","Load memory","Work memory","Cache","Buffer"],
+          ["The maximum recommended PLC installation temperature is…","55 °C","85 °C","30 °C","100 °C"],
+          ["The minimum distance between a PLC and nearby power lines is…","200 mm","20 mm","2 m","50 mm"],
+          ["A bleeding resistor is placed across an input to handle…","Leaky inputs","Inductive loads","Grounding","Cooling"]
+        ]
+      },
+      {
+        n: "PLC Communication", q: [
+          ["Modbus RTU was developed by…","Modicon (Schneider Electric)","Siemens","Allen-Bradley","Mitsubishi"],
+          ["Modbus RTU uses which architecture?","Master/slave","Peer-to-peer only","Token ring","Broadcast only"],
+          ["Per the standard, RS-485 supports up to how many devices?","32","8","2","1,000"],
+          ["The maximum RS-485 end-to-end distance is about…","1200 m","15 m","50 ft","10 km"],
+          ["Profibus is based on…","RS-485","RJ-45 Ethernet","RS-232","Wi-Fi"],
+          ["Valid Profibus device addresses range from…","1 to 127","0 to 255","1 to 32","1 to 1023"],
+          ["Profibus DP runs at a maximum of…","12 Mbps","31.25 kbps","100 Mbps","9600 bps"],
+          ["Profinet runs at…","100 Mbps over RJ-45 Ethernet","12 Mbps over RS-485","31.25 kbps","20 kbps over RS-232"],
+          ["EtherNet/IP is built on the…","Common Industrial Protocol (CIP)","Profibus DP","RS-485","PROFIT model"]
+        ]
+      },
+      {
+        n: "Quality Standards & ISO", q: [
+          ["ISO stands for…","International Organization for Standardization","International Office of Standard Operations","Industrial Standards Organization","International Order of Specifications"],
+          ["Who certifies an organization to ISO 9001?","Registrars that audit it","ISO directly","Only governments","The customer"],
+          ["Which ISO 9000-series document gives guidelines for performance improvement?","ISO 9004","ISO 9001","ISO 9000","ISO/IEC 17021"],
+          ["Quality Control is…","The ongoing effort to maintain a process’s integrity","A purposeful change to a process","Only final inspection","A marketing activity"],
+          ["PDCA stands for…","Plan, Do, Check, Act","Plan, Draft, Control, Approve","Prepare, Do, Confirm, Adjust","Process, Design, Check, Audit"],
+          ["In the PROFIT model, “R” stands for…","Root cause identification and analysis","Report","Revise","Record"],
+          ["Which tool ranks problems so the biggest are fixed first?","Pareto diagram","Histogram","Scatter diagram","Check sheet"],
+          ["Which is NOT one of the seven quality tools?","Gantt chart","Control chart","Check sheet","Scatter diagram"]
+        ]
+      },
+      {
+        n: "Computer, Tools & Communication", q: [
+          ["Which is external (peripheral) hardware?","Printer","Motherboard","RAM","CPU"],
+          ["The three main types of software are system, application and…","Malicious software","Hardware","Peripheral","Cloud"],
+          ["An SSD stores data in…","Flash memory","Magnetic platters","Optical discs","Magnetic tape"],
+          ["The left-hand home row keys are…","A S D F","J K L ;","Z X C V","Q W E R"],
+          ["Which keys have bumps to help find the home row?","F and J","A and ;","S and L","D and K"],
+          ["Which is part of the computer OH&S guidelines?","Turn off and unplug the computer","Work alone","Keep drinks nearby","Skip grounding"],
+          ["A wire crimper is used to…","Attach terminal lugs to wire ends","Strip insulation only","Cut tubing","Measure wire"],
+          ["Which is a barrier that creates misunderstanding?","Differing frames of reference","Active listening","Giving feedback","Adapting the message"]
+        ]
+      },
+      {
+        n: "Drawing Tools (Pictures)", q: [
+          ["Identify this drawing tool:<br><img src=\"img/draw_tsquare.png\" style=\"max-width:260px;margin:8px auto;display:block;\">","T-square","Set square","Protractor","French curve"],
+          ["Identify this drawing tool:<br><img src=\"img/draw_setsquare.png\" style=\"max-width:220px;margin:8px auto;display:block;\">","Set squares (triangles)","T-square","Compass","Protractor"],
+          ["Identify this drawing tool:<br><img src=\"img/draw_compass.png\" style=\"max-width:160px;margin:8px auto;display:block;\">","Compass","Protractor","French curve","Divider ruler"],
+          ["Identify this item:<br><img src=\"img/draw_table.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Drawing table","Workbench","Lathe table","Filing cabinet"],
+          ["Identify this drawing template:<br><img src=\"img/draw_french_curve.png\" style=\"max-width:180px;margin:8px auto;display:block;\">","French (irregular) curve","Protractor","Set square","Compass"],
+          ["Identify this instrument, used to measure angles:<br><img src=\"img/draw_protractor.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Protractor","T-square","French curve","Compass"],
+          ["Identify this drawing item (graphite is the most popular marking substance):<br><img src=\"img/draw_pencils.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Drawing pencils","Markers","Chalk","Crayons"],
+          ["Identify this item, used to remove pencil markings:<br><img src=\"img/draw_erasers.png\" style=\"max-width:220px;margin:8px auto;display:block;\">","Erasers","Sharpeners","Rulers","Glue sticks"],
+          ["The two forms of set squares have angles of…","90-45-45 and 90-60-30","90-30-30 and 90-45-60","45-45-45 and 60-60-60","90-90-0 only"]
+        ]
+      },
+      {
+        n: "Hand Tools (Pictures)", q: [
+          ["Identify this tool:<br><img src=\"img/tool_tape_measure.png\" style=\"max-width:200px;margin:8px auto;display:block;\">","Tape measure","Caliper","Ruler","Protractor"],
+          ["Identify this measuring tool:<br><img src=\"img/tool_caliper.png\" style=\"max-width:260px;margin:8px auto;display:block;\">","Caliper","Tape measure","Micrometer screw","Protractor"],
+          ["Identify this tool, used to drive and pull out nails:<br><img src=\"img/tool_claw_hammer.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Claw hammer","Mallet","Pipe wrench","Pliers"],
+          ["Identify this tool:<br><img src=\"img/tool_screwdriver.png\" style=\"max-width:260px;margin:8px auto;display:block;\">","Screwdriver","Chisel","Awl","Wire stripper"],
+          ["Identify this set of tools:<br><img src=\"img/tool_wrenches.png\" style=\"max-width:260px;margin:8px auto;display:block;\">","Spanners / wrenches","Pliers","Clamps","Cutters"],
+          ["Identify this set of holding tools:<br><img src=\"img/tool_pliers_set.png\" style=\"max-width:260px;margin:8px auto;display:block;\">","Pliers","Wrenches","Hammers","Snips"],
+          ["Identify this locking tool that applies inward pressure:<br><img src=\"img/tool_c_clamp.png\" style=\"max-width:200px;margin:8px auto;display:block;\">","Clamp","Pliers","Vise grip","Wrench"],
+          ["Identify this tool, useful for cutting wires with precision:<br><img src=\"img/tool_diagonal_pliers.png\" style=\"max-width:220px;margin:8px auto;display:block;\">","Diagonal pliers","Slip-joint pliers","Pipe wrench","Needle-nose pliers"],
+          ["Identify this tool:<br><img src=\"img/tool_selfadj_stripper.png\" style=\"max-width:220px;margin:8px auto;display:block;\">","Self-adjusting wire stripper","Wire crimper","Tube cutter","Diagonal pliers"]
+        ]
+      },
+      {
+        n: "Types of Line (Pictures)", q: [
+          ["Identify this line type (thick, as pointed to):<br><img src=\"img/line_object.png\" style=\"max-width:260px;margin:8px auto;display:block;\">","Object (visible) lines","Hidden lines","Section lines","Center lines"],
+          ["Identify this line type (medium, dashed):<br><img src=\"img/line_hidden.png\" style=\"max-width:260px;margin:8px auto;display:block;\">","Hidden lines","Object lines","Phantom lines","Break lines"],
+          ["Identify this line type (thin, slanted):<br><img src=\"img/line_section.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Section lines","Leader lines","Center lines","Extension lines"],
+          ["Identify this line type:<br><img src=\"img/line_center.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Center lines","Hidden lines","Phantom lines","Border lines"],
+          ["What is the line labeled in this drawing?<br><img src=\"img/line_dimension.png\" style=\"max-width:260px;margin:8px auto;display:block;\">","Dimension line","Extension line","Leader line","Cutting plane line"],
+          ["Identify this line type pointing to Ø.50:<br><img src=\"img/line_leader.png\" style=\"max-width:200px;margin:8px auto;display:block;\">","Leader line","Dimension line","Center line","Section line"],
+          ["Identify this line type, with arrows marked A at the ends:<br><img src=\"img/line_cutting_plane.png\" style=\"max-width:200px;margin:8px auto;display:block;\">","Cutting plane line","Break line","Phantom line","Border line"],
+          ["Identify this set of lines:<br><img src=\"img/line_break.png\" style=\"max-width:260px;margin:8px auto;display:block;\">","Break lines","Hidden lines","Section lines","Phantom lines"],
+          ["Identify this line type:<br><img src=\"img/line_border.png\" style=\"max-width:260px;margin:8px auto;display:block;\">","Border lines","Center lines","Break lines","Leader lines"]
+        ]
+      },
+      {
+        n: "Storage Media (Pictures)", q: [
+          ["Identify this storage device:<br><img src=\"img/store_hdd.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Hard disk drive (HDD)","Solid-state drive","Floppy disk","Optical drive"],
+          ["Identify this storage media:<br><img src=\"img/store_floppy.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Floppy disks","SD cards","CDs","Magnetic tape"],
+          ["Identify this storage media:<br><img src=\"img/store_tape.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Magnetic tape","Floppy disk","CD-ROM","USB flash drive"],
+          ["Identify this storage media:<br><img src=\"img/store_cd.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Compact discs (CD)","Floppy disks","SD cards","Hard disks"],
+          ["Identify this storage media, a single layer holds 25 GB:<br><img src=\"img/store_bluray.png\" style=\"max-width:200px;margin:8px auto;display:block;\">","Blu-ray disc","CD-ROM","Floppy disk","SD card"],
+          ["Identify this storage device:<br><img src=\"img/store_usb.png\" style=\"max-width:220px;margin:8px auto;display:block;\">","USB flash drive","SD card","SSD","Hard disk"],
+          ["Identify this storage media, with one side “chipped off”:<br><img src=\"img/store_sd.png\" style=\"max-width:220px;margin:8px auto;display:block;\">","SD card","USB flash drive","Floppy disk","DVD"],
+          ["Identify this storage device, faster and quieter than an HDD:<br><img src=\"img/store_ssd.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Solid-state drive (SSD)","Hard disk drive","Magnetic tape","Floppy disk"],
+          ["Identify this storage type:<br><img src=\"img/store_cloud.png\" style=\"max-width:240px;margin:8px auto;display:block;\">","Cloud storage","Optical storage","Magnetic storage","Flash storage"]
+        ]
+      },
+      {
+        n: "More: Drawings, Sensors & PLC", q: [
+          ["A dimension is a numerical value used to define a part’s…","Size, location, orientation and form","Color only","Drawing scale only","Material only"],
+          ["Chain dimensioning is…","A series of point-to-point dimensions","Dimensions from one common point","Dimensions in a circle","Dimensions without units"],
+          ["Parallel (common-point) dimensions start from…","The same reference point or line","Each previous dimension","The title block","The border"],
+          ["On US manufacturing drawings, dimensions are in ____ unless stated.","Inches","Millimeters","Centimeters","Feet"],
+          ["Drawings should never be…","Folded","Covered when not in use","Lifted when moved","Kept at about 21 °C"],
+          ["Which should be avoided when fastening drawings?","Staples or drawing pins","Tape","Drawing clips","Large reference tables"],
+          ["The PLC power supply does NOT power the…","Field devices","CPU","Communication module","I/O modules"],
+          ["Digital input cards typically have how many channels?","4, 8, 16 or 32","1, 2 or 3","64 or 128","Only 2"],
+          ["Pneumatic cylinder piston speed is typically…","0.1 to 1.5 m/s","10 to 50 m/s","5 to 10 m/s","0.001 m/s"],
+          ["Pneumatic components are designed for a maximum of about…","8–10 bar","1–2 bar","20–30 bar","50–60 bar"],
+          ["Reed switches must NOT be used near…","Strong magnetic fields","Water pipes","Light bulbs","Cold air"],
+          ["Capacitive proximity sensors can sense…","Metal and non-metal materials","Only metal","Only magnets","Only glass"],
+          ["A retro-reflective optical sensor uses a…","Reflector","Magnet","Coil","Pressure plate"],
+          ["Which is an active (self-generating) transducer?","Thermocouple","LDR","RTD","Resistor"]
+        ]
+      },
+      {
+        n: "More: Quality, Units & Communication", q: [
+          ["Use of quality standards is…","Voluntary, but may be required by some groups","Illegal","Mandatory worldwide","Only for banks"],
+          ["ISO 9000 focuses more on…","Prevention rather than inspection and rework","Inspection only","Rework only","Advertising"],
+          ["Which is NOT a desired characteristic of materials?","Decorative","Good quality","Reliable","Suitable for the application"],
+          ["Check sheets are used to…","Tally how often defects occur","Draw cause and effect","Rank data","Plot control limits"],
+          ["A control chart shows the mean and the…","Upper and lower control limits","Pareto order","Scatter points only","Fishbone"],
+          ["Which is a formal channel of communication?","Memos","The grapevine","Gossip","Rumors"],
+          ["Which is a kind of sentence?","Imperative","Narrative","Expressive","Descriptive"],
+          ["1 yard equals…","3 feet","12 inches","5.5 feet","10 feet"],
+          ["1 mile equals…","5,280 feet","1,760 feet","3,280 feet","10,560 feet"],
+          ["1 atm equals…","101,325 Pa","1,013 Pa","760 Pa","10,132 Pa"],
+          ["1 liter is about…","1.057 quarts","10 quarts","0.5 quart","2.2 quarts"],
+          ["1 kilogram is about…","2.2 pounds","0.45 pound","16 pounds","10 pounds"]
+        ]
       }
     ];
-    // ===== SQL Reviewer =====
     const SW = [
       {
         n: "Part 1: MySQL Fundamentals", q: [
@@ -841,8 +1057,6 @@ DELIMITER ;</code></pre>
       await refresh();
       leaderboardRefreshTimer = setInterval(refresh, 5000);
     }
-    // ===== Redo round: type the answers (fill in the blank + enumeration) =====
-    // Item: [text, answer, optionalHowManyToList]. String answer = fill in the blank. Array = enumeration; "a|b" = accepted spellings.
     let F = [
       [["Technical communication is a ____ field that conveys complex information clearly, accurately and accessibly.", "broad"],
       ["Technical ____ is a skill set within technical communication.", "writing"],
@@ -883,7 +1097,6 @@ DELIMITER ;</code></pre>
       ["A ____ should follow the complimentary close.", "comma"],
       ["List the 3 body paragraphs in the sample template.", ["introductory|introduction", "explanatory", "closing"]],
       ["List the 6 parts of a business letter.", ["heading", "address", "salutation|greeting", "body", "close|closing", "signature"]]]];
-    // Mechatronics redo round. Same format as F above: one list of items per topic.
     const MF = [
       [["____ is the synergistic combination of mechanical engineering, electronic engineering and software engineering.", "mechatronics"],
       ["List the 3 fields combined in mechatronics.", ["mechanical", "electronic|electronics", "software|computer|computers"]],
@@ -946,9 +1159,87 @@ DELIMITER ;</code></pre>
       ["List the 3 drawings needed to find an instrument's tapping point.", ["location plan|instrument location plan", "plant layout|layout", "installation detail|hookup|installation drawing"]],
       ["Double solid lines across an instrument bubble indicate the front of an ____ control panel.", "auxiliary"],
       ["A Cable ____ is a table containing cable information such as length, type, and size.", "schedule"],
-      ["In ISA 5.1 tag FI 123, FI stands for flow ____.", "indicator"]]
+      ["In ISA 5.1 tag FI 123, FI stands for flow ____.", "indicator"]],
+      [
+        ["The metric prefix for 10³ is ____.","kilo"],
+        ["The SI unit of thermodynamic temperature is the ____.","kelvin"],
+        ["List the 3 most common primary fundamental units.",["length","mass","time"]]
+      ],
+      [
+        ["The area of a triangle is 1/2 × base × ____.","height|h"],
+        ["Boyle’s Law describes the ____ relationship between pressure and volume.","inverse"],
+        ["Charles’s Law relates volume and ____ at constant pressure.","temperature"]
+      ],
+      [
+        ["A voltmeter is connected in ____ with the circuit.","parallel"],
+        ["An ammeter is connected in ____ with the circuit.","series"],
+        ["A ____ is the part of a loop that first senses a process variable.","sensor"]
+      ],
+      [
+        ["A ____ drawing is the most detailed control system diagram.","loop|instrument loop"],
+        ["The ____ block is at the bottom right of a technical drawing.","title"],
+        ["A ____ diagram shows components in their actual physical location.","wiring"]
+      ],
+      [
+        ["A ____ line is a thick continuous line showing visible outlines.","object|visible"],
+        ["Center lines are long-short-____ lines.","long"],
+        ["The abbreviation ____ follows a dimension for a hole that goes all the way through.","thru"]
+      ],
+      [
+        ["SPDT stands for Single Pole, ____ Throw.","double"],
+        ["The ____ relay protects motors from gradual excessive current.","thermal overload|overload|thermal"],
+        ["List the 3 BJT terminals.",["collector","base","emitter"]]
+      ],
+      [
+        ["The FRL unit has a filter, a regulator and a ____.","lubricator"],
+        ["Pneumatics uses pressurized ____ to produce motion.","gas|air"],
+        ["A double-acting cylinder is controlled by a ____ directional control valve.","5/2"]
+      ],
+      [
+        ["List the 3 types of PLC digital output.",["relay","triac","transistor"]],
+        ["A 3-wire NPN sensor needs a ____ PLC digital input.","sourcing"],
+        ["A 3-wire PNP sensor needs a ____ PLC digital input.","sinking"]
+      ],
+      [
+        ["Profibus addresses range from 1 to ____.","127"],
+        ["RS-485 can connect up to ____ devices per the standard.","32"],
+        ["Profinet is based on ____.","ethernet"]
+      ],
+      [
+        ["PDCA stands for Plan, Do, Check, ____.","act"],
+        ["A ____ diagram ranks data so the biggest problems are fixed first.","pareto"],
+        ["ISO 9001 sets requirements for a quality ____ system.","management"]
+      ],
+      [
+        ["The left-hand home row keys are ____.","asdf|a s d f"],
+        ["An ____ stores data in flash memory and is faster than an HDD.","ssd|solid state drive"],
+        ["List the 3 main types of software.",["system","application","malicious|malware"]]
+      ],
+      [
+        ["A ____ is used to draw horizontal lines on a drafting table.","t-square|t square"],
+        ["Set squares come in 90-45-45 and 90-60-____ degrees.","30"]
+      ],
+      [
+        ["A ____ is a hand tool used to loosen and tighten screws.","screwdriver"],
+        ["Pliers and clamps are examples of ____ tools.","holding"]
+      ],
+      [
+        ["A thin line that points to a note on a drawing is a ____ line.","leader"],
+        ["Lines that show the drawing boundary and title block are ____ lines.","border"]
+      ],
+      [
+        ["A ____ disc holds 25 GB on a single layer; a CD holds 700 MB.","blu-ray|bluray|bd"],
+        ["Floppy disk sizes were 8, 5.25 and ____ inches.","3.5"]
+      ],
+      [
+        ["The ____ of a PLC is its brain.","cpu"],
+        ["A ____ switch must not be used near strong magnetic fields.","reed"]
+      ],
+      [
+        ["The grapevine carries ____ messages.","unofficial"],
+        ["1 foot = ____ inches.","12"]
+      ]
     ];
-    // SQL redo round (fill in the blanks + enumeration)
     const SF = [
       [
         ["A row is also commonly called a ____.", "record"],
@@ -1016,7 +1307,6 @@ DELIMITER ;</code></pre>
         `<button class="btn" onclick="startT(${S.i})">Redo again</button><button class="btn alt" onclick="start(${S.i})">Play multiple choice</button><button class="btn alt" onclick="home()">Back to topics</button>`;
     }
 
-    // ===== Subjects: choose Tech Comm or Mechatronics. Each has its own topics, best scores and leaderboards. =====
     const SUBJECTS = [
       { id: "tc", name: "Tech Comm", title: "Tech Comm Arena", W: W, F: F, bk: "tca", bp: "", ranks: ["Tech Comm Legend", "Report Pro", "Rising Writer"] },
       { id: "mt", name: "Mechatronics", title: "Mechatronics Arena", W: MW, F: MF, bk: "tca_mt", bp: "m", ranks: ["Mechatronics Master", "Control Pro", "Rising Technician"] },
