@@ -971,7 +971,7 @@ DELIMITER ;</code></pre>
       const q = S.qs[S.n], right = q[1], good = k >= 0 && S.o[k] === right, bs = document.querySelectorAll(".opt");
       bs.forEach((b, j) => { b.disabled = true; if (S.o[j] === right) b.classList.add("ok"); else if (j === k) b.classList.add("no") });
       if (good) {
-        const m = Math.min(1 + S.st * .5, 3), p = Math.round((100 + Math.max(S.t, 0) * 6) * m); S.sc += p; S.st++; S.ok++; snd(660, .15); const fast = mt() && S.t >= 10 && S.hp < 5; if (fast) S.hp++;
+        const m = Math.min(1 + S.st * .5, 3), p = Math.round((100 + Math.max(S.t, 0) * 6) * m); S.sc += p; S.st++; S.ok++; snd(660, .15); const fast = mt() && S.t >= 10 && S.hp < 5; if (fast) { S.hp++; const lv = document.querySelector(".hud b"); if (lv) lv.textContent = S.hp }
         $("#fb").textContent = (S.st > 1 ? "Correct, streak bonus. " : "Correct. ") + "+" + p + " pts" + (fast ? ". Quick answer: +1 life!" : "")
       }
       else { S.hp--; S.st = 0; S.miss.push([q[0], right, mt() ? why(q) : ""]); snd(180, .3); $("#fb").textContent = k < 0 ? "Time’s up. One life lost." : "Incorrect. One life lost."; if (mt()) $("#fb").innerHTML += `<div class="miss"><b>Correct answer:</b> ${right}${k >= 0 ? `<br><b>You chose:</b> ${S.o[k]}` : ""}<br><b>Why:</b> ${why(q)}</div>` }
