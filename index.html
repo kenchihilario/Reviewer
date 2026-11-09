@@ -927,13 +927,22 @@ DELIMITER ;</code></pre>
     const save = () => { try { localStorage.setItem(SUB.bk, JSON.stringify(best)) } catch (e) { } };
     const sh = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0;[a[i], a[j]] = [a[j], a[i]] } return a };
     function snd(f, d) { try { const c = snd.c || (snd.c = new AudioContext()), o = c.createOscillator(), g = c.createGain(); o.frequency.value = f; g.gain.value = .05; o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + d) } catch (e) { } }
+    const EXP = [["Which is NOT an SI base unit", "Newton is a derived unit (kg·m·s⁻²). The SI base units are metre, kilogram, second, ampere, kelvin, mole and candela."], ["Voltage (volt) is an example", "Derived units are formed by multiplying or dividing fundamental units."], ["To convert °F to °C", "Subtract 32 first, then multiply by 5/9. Water freezes at 32°F and boils at 212°F."], ["Adding 25.2 + 1.34", "When adding, keep the decimal places of the measurement with the fewest (one), so 26.54 becomes 26.5."], ["Boyle", "Boyle’s Law: p1V1 = p2V2 at constant T and n, so pressure and volume are inversely related."], ["Charles", "Charles’s Law: V/T stays constant at constant pressure, using kelvin (°C + 273.15)."], ["A voltmeter is connected", "Voltmeters connect in parallel across the load; ammeters connect in series."], ["An ammeter is connected", "Ammeters connect in series; voltmeters connect in parallel."], ["Perimeter of a rectangle", "P = 2(l + w) = 2(10 + 3) = 26 in."], ["Area of a trapezoid", "A = ½(b1 + b2)h = ½(16)(4) = 32 sq in."], ["Area of a circle", "A = πr² = 3.14 × 25 = 78.5 sq in."], ["A cone’s volume", "Cone = ⅓πr²h, exactly one third of a cylinder’s πr²h."], ["title block", "Technical drawings are identified by a title block in the bottom right corner."], ["primary schematic for laying out", "The P&ID shows piping, vessels and instrumentation, and is the main drawing for a process control installation."], ["most detailed type of control system", "Loop drawings include every element left out of PFDs and P&IDs."], ["wiring diagram shows", "A wiring diagram shows actual physical locations for installers; a schematic is conceptual."], ["Phantom lines", "Phantom lines (long-short-short-long) show alternate positions or adjacent features."], ["Leader lines are preferably", "Leaders point to notes and are preferably drawn at 45°."], ["THRU", "If a through-hole is not clearly shown, “THRU” follows the dimension."], ["first version is identified", "The first version uses a dash “-”. Letters I, O, Q, S, X and Z are skipped to avoid confusion."], ["SPDT", "Pole = number of contact sets; throw = number of conducting positions."], ["thermal overload relay protects", "A thermal overload relay guards against gradual excess current and overheating, not short circuits."], ["A 3-wire NPN sensor", "NPN sensors need a sourcing PLC DI; PNP sensors need a sinking PLC DI."], ["A 3-wire PNP sensor", "PNP sensors need a sinking PLC DI; NPN sensors need a sourcing PLC DI."], ["three types of PLC digital output", "Relay (AC or DC, high current, shorter life), triac (AC only) and transistor (DC only, fast, low current)."], ["switches only AC", "Triac outputs connect only AC to the common terminal."], ["maximum recommended PLC installation", "Install PLCs below 55 °C, at 10–90% RH, away from sunlight, vibration, and flammable gases."], ["RS-485 supports up to", "RS-485 is multi-drop: up to 32 devices over as much as 1200 m."], ["Valid Profibus device addresses", "Profibus addresses run from 1 to 127; Profibus DP reaches 12 Mbps over RS-485."], ["Profinet runs at", "Profinet is Ethernet-based: 100 Mbps over RJ-45, up to 100 m."], ["Quality Control is", "QC maintains a process, QI purposefully changes it, and QA is planned action giving confidence."], ["PDCA stands", "PDCA (Plan, Do, Check, Act) is a continuous improvement spiral."], ["Which tool ranks problems", "A Pareto diagram orders problems by frequency so the biggest are fixed first."], ["recommended economical operating pressure", "Components are rated 8–10 bar, but 5–6 bar is economical in practice."], ["FRL air service unit", "FRL = filter, regulator, lubricator."], ["AND (interlock)", "AND needs both conditions, for example safety door closed and manual valve operated."], ["Which valve solves", "A shuttle valve stops one valve exhausting through the other in an OR circuit."], ["Reed switches must NOT", "Strong magnetic fields (for example resistance welders) can falsely actuate reed switches."], ["Capacitive proximity sensors can sense", "Capacitive sensors use an electrostatic field and detect metal, paper, glass and liquids."], ["polarity of the output signal of a PNP", "A PNP sensor outputs a positive signal when active."]];
+    const mt = () => SUB.id === "mt";
+    function why(q) { const e = EXP.find(x => q[0].includes(x[0])); const t = W[q[q.length - 1]].n; return e ? e[1] : "Review the topic “" + t + "” in your lesson notes." }
+    function mixed() {
+      if (!mt()) return sh(W.flatMap((w, k) => w.q.map(q => [...q, k]))).slice(0, 12);
+      const L = sh(W.map((w, k) => k)).map(k => sh(W[k].q).map(q => [...q, k])), o = [];
+      for (let r = 0; o.length < 20; r++) { let a = false; L.forEach(l => { if (o.length < 20 && l[r]) { o.push(l[r]); a = true } }); if (!a) break }
+      return sh(o);
+    }
     function home() {
       document.title = SUB.title;
       clearInterval(T);
       stopLeaderboardRefresh();
-      A.innerHTML = `<h1>${SUB.title}</h1><p class="m">Choose a topic. You have 3 lives and 15 seconds per question. Consecutive correct answers raise your score multiplier.</p><div class="grid">` +
+      A.innerHTML = `<h1>${SUB.title}</h1><p class="m">Choose a topic. You have 3 lives and 15 seconds per question.${mt() ? " Answer correctly within 5 seconds to earn an extra life (max 5)." : ""} Consecutive correct answers raise your score multiplier.</p><div class="grid">` +
         W.map((w, i) => `<button class="world" onclick="start(${i})"><span class="num">Topic ${i + 1}</span><b>${w.n}</b><small>${w.q.length} questions &middot; Best ${best[i] || 0}</small></button>`).join("") +
-        `</div>` + (W.length > 1 ? `<button class="world boss" onclick="start(-1)"><b>Mixed Challenge</b><small>12 random questions from all topics &middot; Best ${best.b || 0}</small></button>` : "") +
+        `</div>` + (W.length > 1 ? `<button class="world boss" onclick="start(-1)"><b>Mixed Challenge</b><small>${mt() ? 20 : 12} random questions from all topics &middot; Best ${best.b || 0}</small></button>` : "") +
         (SUB.notes ? `<button class="btn alt" onclick="showNotes()">Study notes</button>` : "") +
         `<button class="btn alt" onclick="showLb()">View leaderboards</button><button class="btn alt" onclick="subjects()">Change subject</button>`;
     }
@@ -944,13 +953,13 @@ DELIMITER ;</code></pre>
     }
     function start(i) {
       stopLeaderboardRefresh();
-      const qs = i < 0 ? sh(W.flatMap((w, k) => w.q.map(q => [...q, k]))).slice(0, 12) : sh(W[i].q).map(q => [...q, i]);
+      const qs = i < 0 ? mixed() : sh(W[i].q).map(q => [...q, i]);
       S = { i, qs, n: 0, hp: 3, sc: 0, st: 0, ok: 0, miss: [] }; ask();
     }
     function ask() {
       if (S.n >= S.qs.length || S.hp <= 0) return end();
       const q = S.qs[S.n], w = W[q[q.length - 1]]; S.o = sh(q.slice(1, -1)); S.t = 15; S.lock = false;
-      A.innerHTML = `<div class="hud"><span>Lives <b>${S.hp}/3</b></span><span>Multiplier <b>x${Math.min(1 + S.st * .5, 3)}</b></span><span>Score <b>${S.sc}</b></span></div>
+      A.innerHTML = `<div class="hud"><span>Lives <b>${S.hp}${mt() ? "" : "/3"}</b></span><span>Multiplier <b>x${Math.min(1 + S.st * .5, 3)}</b></span><span>Score <b>${S.sc}</b></span></div>
  <div class="bar"><i style="width:${S.n / S.qs.length * 100}%"></i></div>
  <div class="bar"><i id="tm" style="width:100%"></i></div>
  <div class="tag">${w.n} &middot; ${S.n + 1} of ${S.qs.length} &middot; <span id="sec">15s</span></div><div class="q">${q[0]}</div>` +
@@ -962,10 +971,10 @@ DELIMITER ;</code></pre>
       const q = S.qs[S.n], right = q[1], good = k >= 0 && S.o[k] === right, bs = document.querySelectorAll(".opt");
       bs.forEach((b, j) => { b.disabled = true; if (S.o[j] === right) b.classList.add("ok"); else if (j === k) b.classList.add("no") });
       if (good) {
-        const m = Math.min(1 + S.st * .5, 3), p = Math.round((100 + Math.max(S.t, 0) * 6) * m); S.sc += p; S.st++; S.ok++; snd(660, .15);
-        $("#fb").textContent = (S.st > 1 ? "Correct, streak bonus. " : "Correct. ") + "+" + p + " pts"
+        const m = Math.min(1 + S.st * .5, 3), p = Math.round((100 + Math.max(S.t, 0) * 6) * m); S.sc += p; S.st++; S.ok++; snd(660, .15); const fast = mt() && S.t >= 10 && S.hp < 5; if (fast) S.hp++;
+        $("#fb").textContent = (S.st > 1 ? "Correct, streak bonus. " : "Correct. ") + "+" + p + " pts" + (fast ? ". Quick answer: +1 life!" : "")
       }
-      else { S.hp--; S.st = 0; S.miss.push([q[0], right]); snd(180, .3); $("#fb").textContent = k < 0 ? "Time’s up. One life lost." : "Incorrect. One life lost." }
+      else { S.hp--; S.st = 0; S.miss.push([q[0], right, mt() ? why(q) : ""]); snd(180, .3); $("#fb").textContent = k < 0 ? "Time’s up. One life lost." : "Incorrect. One life lost."; if (mt()) $("#fb").innerHTML += `<div class="miss"><b>Correct answer:</b> ${right}${k >= 0 ? `<br><b>You chose:</b> ${S.o[k]}` : ""}<br><b>Why:</b> ${why(q)}</div>` }
       S.n++; $("#nx").innerHTML = `<button class="btn" onclick="ask()">${S.n >= S.qs.length || S.hp <= 0 ? "See results" : "Next"}</button>`;
     }
     function end() {
@@ -974,7 +983,7 @@ DELIMITER ;</code></pre>
       const nb = S.sc > (best[k] || 0); if (nb) { best[k] = S.sc; save() }
       const r = dead ? "Out of lives" : acc >= 90 ? SUB.ranks[0] : acc >= 70 ? SUB.ranks[1] : acc >= 50 ? SUB.ranks[2] : "Keep practicing";
       A.innerHTML = `<div class="tag" style="margin-top:0">Results</div><h1>${r}</h1><p class="m">Score <b>${S.sc}</b>${nb ? " (new best)" : ""} &middot; ${S.ok} of ${S.n} correct (${acc}%)</p>` +
-        (S.miss.length ? `<h3>Review</h3>` + S.miss.map(m => `<div class="miss"><b>${m[0]}</b><br>Answer: ${m[1]}</div>`).join("") : `<p class="m">No mistakes to review.</p>`) +
+        (S.miss.length ? `<h3>Review</h3>` + S.miss.map(m => `<div class="miss"><b>${m[0]}</b><br>Answer: ${m[1]}${m[2] ? `<br>Why: ${m[2]}` : ""}</div>`).join("") : `<p class="m">No mistakes to review.</p>`) +
         `<div id="lb"></div><p class="m">Next: redo this topic from memory. No choices this time, you type the answers (fill in the blanks and enumerations).</p><button class="btn" onclick="startT(${S.i})">Start redo: type the answers</button><button class="btn alt" onclick="start(${S.i})">Play multiple choice again</button><button class="btn alt" onclick="home()">Back to topics</button>`;
       let nm = ""; try { nm = localStorage.getItem("tca_name") || "" } catch (e) { }
       if (nm) submitScore(nm);
