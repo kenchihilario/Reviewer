@@ -1,13 +1,3 @@
-
-// api/leaderboard.js
-// GET  /api/leaderboard?board=0..5|b
-// POST /api/leaderboard
-//
-// Keeps each player's personal best per board.
-// Returns all leaderboard entries.
-// No arbitrary score cap.
-// GET always reads the latest data from Redis.
-
 const URL_ =
   process.env.UPSTASH_REDIS_REST_URL_KV_REST_API_URL ||
   process.env.UPSTASH_REDIS_REST_API_URL ||
@@ -22,14 +12,11 @@ const TOKEN =
   process.env.KV_REST_API_TOKEN ||
   process.env.UPSTASH_REDIS_REST_TOKEN;
 
-// Tech Comm boards: 0-5 and b (mixed).
 const BOARDS = new Set(["0", "1", "2", "3", "4", "5", "b"]);
 
-// Mechatronics boards: m0-m9 and mb (mixed). Saved separately from Tech Comm.
-for (let i = 0; i <= 9; i++) BOARDS.add(`m${i}`);
+for (let i = 0; i <= 49; i++) BOARDS.add(`m${i}`);
 BOARDS.add("mb");
 
-// SQL boards: s0-s9 and sb (mixed). Saved separately.
 for (let i = 0; i <= 9; i++) BOARDS.add(`s${i}`);
 BOARDS.add("sb");
 
@@ -198,12 +185,9 @@ async function top(board) {
         });
       }
     } catch {
-      // Skip malformed entries without breaking the leaderboard.
     }
   }
 
-  // Sort by highest score first.
-  // No entry-count limit.
   return rows
     .sort((a, b) => b.score - a.score || a.t - b.t)
     .map(({ name, dev, ip, score }) => ({
@@ -214,8 +198,6 @@ async function top(board) {
     }));
 }
 
-// Atomically preserve each player's personal best.
-// A lower or equal score never replaces the existing record.
 const SAVE_IF_BETTER = `
 local old = redis.call("HGET", KEYS[1], ARGV[1])
 
@@ -255,7 +237,6 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // Fetch the current leaderboard from Redis.
     if (req.method === "GET") {
       const board = parseBoard(req.query?.board);
 
@@ -269,7 +250,6 @@ module.exports = async (req, res) => {
       });
     }
 
-    // Submit a score while preserving the player's personal best.
     if (req.method === "POST") {
       let body = req.body;
 
@@ -298,7 +278,6 @@ module.exports = async (req, res) => {
 
       if (!validBoard(board, res)) return;
 
-      // No arbitrary maximum score.
       if (!Number.isSafeInteger(score) || score < 0) {
         return res.status(400).json({
           error: "Score must be a non-negative safe integer.",
@@ -334,7 +313,6 @@ module.exports = async (req, res) => {
         record,
       ]);
 
-      // Read the latest leaderboard after the write.
       const rows = await top(board);
 
       return res.status(200).json({
