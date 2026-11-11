@@ -17,7 +17,7 @@ const BOARDS = new Set(["0", "1", "2", "3", "4", "5", "b"]);
 for (let i = 0; i <= 49; i++) BOARDS.add(`m${i}`);
 BOARDS.add("mb");
 
-for (let i = 0; i <= 9; i++) BOARDS.add(`s${i}`);
+for (let i = 0; i <= 49; i++) BOARDS.add(`s${i}`);
 BOARDS.add("sb");
 
 async function redis(command, retries = 2) {

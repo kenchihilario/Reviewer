@@ -852,70 +852,304 @@
           ["In MySQL or MariaDB, naming a stored procedure generally follows the same identifier rules used for naming a table.", "True", "False"],
           ["The DECLARE statement is used to define local variables.", "True", "False"]
         ]
+      },
+      {
+        n: "Part 3: SQL Command Categories (DDL, DML, DQL, DCL, TCL)", q: [
+          ["Which category of SQL commands is primarily concerned with defining and modifying database structure?", "DDL", "DML", "DCL", "TCL", "DQL"],
+          ["Which command is used to remove an existing database object completely from the database?", "DROP", "DELETE", "TRUNCATE", "REMOVE", "CLEAR"],
+          ["Which DDL command removes all rows from a table while keeping its structure intact?", "TRUNCATE", "DELETE", "DROP", "ALTER", "CLEAR"],
+          ["The WHERE clause is commonly used with DML statements such as UPDATE and DELETE to specify which records should be modified.", "True", "False"],
+          ["Which category of SQL commands is primarily used to retrieve and search data stored in database tables?", "DQL", "DDL", "DCL", "TCL", "CCL"],
+          ["Which of the following is considered the principal command of DQL?", "SELECT", "INSERT", "FETCH", "SEARCH", "QUERY"],
+          ["Which clause in a SELECT query is used to sort the retrieved records in ascending or descending order?", "ORDER BY", "GROUP BY", "SORT BY", "ARRANGE BY", "FILTER BY"],
+          ["Which SQL clause is used to eliminate duplicate rows from query results?", "DISTINCT", "UNIQUE", "DIFFERENT", "FILTER", "SINGLE"],
+          ["Which aggregate function returns the total number of records that match specified criteria?", "COUNT()", "SUM()", "TOTAL()", "NUM()", "ROWS()"],
+          ["Which SQL clause is used to filter records after an aggregate function or grouping has been applied?", "HAVING", "WHERE", "ORDER BY", "LIMIT", "FILTER"],
+          ["DCL stands for Data Control Language and is primarily concerned with database security and user access privileges.", "True", "False"],
+          ["Which two statements are the principal DCL commands commonly taught in MySQL?", "GRANT and REVOKE", "COMMIT and ROLLBACK", "INSERT and UPDATE", "CREATE and DROP", "ALLOW and DENY"],
+          ["What does TCL stand for in SQL database management?", "Transaction Control Language", "Table Control Language", "Total Command Language", "Terminal Control Logic", "Transaction Communication Link"],
+          ["A transaction is a sequence of one or more SQL statements treated as a single logical unit of work.", "True", "False"],
+          ["Which TCL statement permanently saves all changes made during the current transaction?", "COMMIT", "SAVEPOINT", "ROLLBACK", "START TRANSACTION", "APPLY"],
+          ["Which TCL statement undoes or reverses changes made during a transaction that has not yet been committed?", "ROLLBACK", "COMMIT", "UNDO", "REVERSE", "RESET"],
+          ["By default, MySQL commonly operates with autocommit enabled, automatically committing each individual statement.", "True", "False"],
+          ["Which TCL command creates a named checkpoint within a transaction to which you can later roll back?", "SAVEPOINT", "CHECKPOINT", "BOOKMARK", "MARKER", "SNAPSHOT"],
+          ["SQL keywords in MySQL are case-sensitive and must strictly be written in lowercase.", "False", "True"],
+          ["In an SQL statement, what punctuation mark separates multiple column names in a list?", "Comma (,)", "Semicolon (;)", "Colon (:)", "Period (.)", "Slash (/)"],
+          ["Which DML statement is used to modify values in existing records in a table?", "UPDATE", "ALTER", "CHANGE", "MODIFY", "REVISE"],
+          ["Which command is used to add new records into a database table?", "INSERT", "ADD", "CREATE", "APPEND", "PUT"],
+          ["A single SQL statement cannot extend across multiple lines in MySQL.", "False", "True"],
+          ["Which clause is used to restrict the number of rows returned by a query in MySQL?", "LIMIT", "TOP", "RESTRICT", "STOP", "MAX"],
+          ["In the standard classification treating retrieval separately, what are the three principal DML commands?", "INSERT, UPDATE, and DELETE", "CREATE, ALTER, and DROP", "GRANT, REVOKE, and DENY", "START, COMMIT, and ROLLBACK", "SELECT, PROJECT, and JOIN"]
+        ]
+      },
+      {
+        n: "Part 4: Database Architecture, phpMyAdmin & MariaDB", q: [
+          ["phpMyAdmin is classified as a Database Management System (DBMS).", "False", "True"],
+          ["Which programming language was used to develop phpMyAdmin?", "PHP", "Python", "JavaScript", "C++", "Java"],
+          ["Which three administrative levels does phpMyAdmin provide, from broadest to most specific?", "Server, Database, Table", "Application, Server, Database", "Database, Table, Record", "Cluster, Server, Table", "System, Database, View"],
+          ["At which phpMyAdmin level can an administrator manage database users, server settings, and view all databases?", "Server Level", "Database Level", "Table Level", "Record Level", "Column Level"],
+          ["In MySQL and MariaDB, the terms DATABASE and SCHEMA are used interchangeably to refer to a named collection of objects.", "True", "False"],
+          ["A database schema defines the structure and constraints of a database rather than its actual stored row data.", "True", "False"],
+          ["In phpMyAdmin, where is the active database schema name typically displayed?", "Left navigation panel", "Top breadcrumbs only", "Status bar at bottom", "Server configuration tab", "Query history modal"],
+          ["What type of software is MariaDB?", "Relational Database Management System (RDBMS)", "Web Server", "Operating System", "Programming IDE", "File System"],
+          ["MariaDB originated as a fork of which database management system?", "MySQL", "PostgreSQL", "Oracle Database", "SQLite", "Microsoft SQL Server"],
+          ["In which year was MariaDB created by developers led by Michael 'Monty' Widenius?", "2009", "1995", "2005", "2012", "2015"],
+          ["Why was MariaDB created in 2009?", "To preserve an open-source alternative during Oracle's acquisition of Sun", "Because MySQL was discontinued", "To create a proprietary closed-source database", "To replace Apache web server", "To support only Windows operating systems"],
+          ["Which MySQL storage engine provides full transaction support (ACID) and foreign key constraints?", "InnoDB", "MyISAM", "MEMORY", "CSV", "ARCHIVE"],
+          ["Which MariaDB storage engine is designed for storing temporary table data in RAM for fast access?", "MEMORY", "InnoDB", "Aria", "Federated", "Blackhole"],
+          ["What software stack component is represented by the 'A' in XAMPP?", "Apache HTTP Server", "Apple OS", "ActiveMQ", "Application Layer", "Aria Engine"],
+          ["In the XAMPP acronym, what does the letter 'X' represent?", "Cross-platform support", "XML Support", "Xen Virtualization", "XFree86 Display", "Extended Storage"],
+          ["XAMPP is primarily intended for production cloud deployment rather than local development.", "False", "True"],
+          ["Which constraint ensures that a column cannot contain NULL or empty values?", "NOT NULL", "UNIQUE", "CHECK", "PRIMARY KEY", "DEFAULT"],
+          ["A foreign key in a relational database table establishes a relationship by referencing a key in another table.", "True", "False"],
+          ["Which database object is a virtual table defined by an underlying SQL query?", "View", "Trigger", "Stored Procedure", "Index", "Schema"],
+          ["Which database object automatically executes when an INSERT, UPDATE, or DELETE event occurs on a table?", "Trigger", "Stored Procedure", "Stored Function", "View", "Transaction"],
+          ["What is the primary purpose of creating an index on a database table column?", "To speed up searching, filtering, and retrieval of records", "To encrypt column values", "To reduce table disk space", "To automatically backup the table", "To prevent writing data"],
+          ["In the DEPT sample table, which column serves as the Primary Key?", "DEPTNO", "DNAME", "LOC", "MGR", "SAL"],
+          ["In the sample database, which department in DEPT (department 40, OPERATIONS in BOSTON) has no assigned employees in EMP?", "Department 40", "Department 10", "Department 20", "Department 30", "Department 50"],
+          ["Which column in the EMP table establishes a foreign key relationship to the DEPT table?", "DEPTNO", "EMPNO", "MGR", "JOB", "COMM"],
+          ["What is the intersection of a row and a column in a database table called?", "Cell (individual value)", "Table", "Entity", "Schema", "Record"]
+        ]
+      },
+      {
+        n: "Part 5: Conditional Statements & Control Flow (IF & CASE)", q: [
+          ["Which built-in MySQL function evaluates a condition and returns one of two values depending on whether it is true or false?", "IF()", "CASE()", "WHEN()", "CHOOSE()", "EVAL()"],
+          ["What is the correct syntax for the built-in IF() function in MySQL?", "IF(condition, value_if_true, value_if_false)", "IF(value_if_true, value_if_false, condition)", "IF(condition THEN value_if_true ELSE value_if_false)", "IF condition (value_if_true : value_if_false)", "IF[condition, true, false]"],
+          ["Can the built-in IF() function be nested within another IF() function in an expression?", "True", "False"],
+          ["Which conditional statement in MySQL stored procedures executes a block of code only when a condition evaluates to TRUE, with no alternative branch?", "IF .. THEN .. END IF", "IF .. THEN .. ELSE .. END IF", "CASE WHEN .. END CASE", "WHILE .. DO", "REPEAT .. UNTIL"],
+          ["Which keyword terminates an IF statement block in a MySQL stored procedure?", "END IF;", "END;", "STOP IF;", "FI;", "CLOSE IF;"],
+          ["What type of control flow statement provides two distinct branches: one when true and another when false?", "IF .. THEN .. ELSE .. END IF", "IF .. THEN .. END IF", "WHILE .. DO", "LOOP .. LEAVE", "REPEAT .. UNTIL"],
+          ["Which statement structure is used in a MySQL stored procedure to evaluate multiple conditions sequentially from top to bottom?", "IF .. THEN .. ELSEIF .. ELSE .. END IF", "IF .. THEN .. OR .. END IF", "SWITCH .. CASE .. BREAK", "CHOOSE .. WHEN .. END", "SELECT .. WHEN .. END"],
+          ["In an IF .. THEN .. ELSEIF ladder, once a matching condition evaluates to TRUE, the remaining ELSEIF branches are skipped.", "True", "False"],
+          ["Which statement is an alternative to multi-branch IF statements that uses WHEN and THEN clauses to match values?", "CASE statement", "FOR statement", "GOTO statement", "WHILE statement", "LOOP statement"],
+          ["Which keyword terminates a CASE statement block in a MySQL stored procedure?", "END CASE;", "END;", "CLOSE CASE;", "ESAC;", "FINISH CASE;"],
+          ["In a CASE statement, what optional clause executes if none of the WHEN conditions match?", "ELSE", "DEFAULT", "OTHERWISE", "CATCH", "FINALLY"],
+          ["If no WHEN condition matches in a CASE statement and no ELSE clause is provided, MySQL will raise an error.", "True", "False"],
+          ["Conditional statements such as procedural IF and CASE statements can only be executed inside stored programs (such as procedures, functions, and triggers).", "True", "False"],
+          ["What value does IF(5 > 3, 'Yes', 'No') return in MySQL?", "'Yes'", "'No'", "NULL", "TRUE", "1"],
+          ["What value does IF(10 = 20, 'Equal', 'Not Equal') return?", "'Not Equal'", "'Equal'", "NULL", "FALSE", "0"],
+          ["In MySQL, can a CASE expression also be used inside a SELECT query outside of stored procedures?", "True", "False"],
+          ["Which keyword follows the condition in an IF statement within a stored procedure?", "THEN", "DO", "BEGIN", "EXEC", "GO"],
+          ["In a stored procedure, what separates multiple statements inside an IF ... THEN branch?", "Semicolon (;)", "Comma (,)", "Colon (:)", "Ampersand (&)", "Pipe (|)"],
+          ["The ELSE branch in an IF statement is mandatory and cannot be omitted in a stored procedure.", "False", "True"],
+          ["Which clause in a CASE statement specifies the result to return when its corresponding condition is met?", "THEN", "WHEN", "RESULT", "RETURN", "OUTPUT"]
+        ]
+      },
+      {
+        n: "Part 6: MySQL Milestones & Schema Objects", q: [
+          ["In which month and year was the very first version of MySQL released?", "May 1995", "January 1996", "October 2000", "April 2008", "January 2010"],
+          ["Who were the three programmers credited with developing MySQL for MySQL AB?", "Michael Widenius, David Axmark, and Allan Larsson", "Larry Ellison, Bob Miner, and Ed Oates", "Ken Thompson, Dennis Ritchie, and Brian Kernighan", "Linus Torvalds, Richard Stallman, and Alan Cox", "Bill Gates, Paul Allen, and Steve Ballmer"],
+          ["Michael 'Monty' Widenius, the principal developer of MySQL, is from which country?", "Finland", "Sweden", "Norway", "Denmark", "Germany"],
+          ["What earlier database engine did the MySQL founders work with before developing MySQL?", "UNIREG", "Ingres", "PostgreSQL", "mSQL", "DB2"],
+          ["In which year did MySQL adopt the GNU General Public License (GPL) for open-source distribution?", "2000", "1995", "1998", "2005", "2008"],
+          ["Which major release of MySQL in 2005 introduced stored procedures, triggers, and views?", "MySQL 5.0", "MySQL 4.0", "MySQL 5.5", "MySQL 5.7", "MySQL 8.0"],
+          ["How much was the acquisition of MySQL AB by Sun Microsystems valued at in 2008?", "Approximately US$1 billion", "Approximately US$100 million", "Approximately US$5 billion", "Approximately US$500 million", "Approximately US$10 billion"],
+          ["In which year did Oracle complete its acquisition of Sun Microsystems, taking over stewardship of MySQL?", "2010", "2008", "2012", "2015", "2006"],
+          ["Which 2015 MySQL release introduced native JSON data type handling and performance improvements?", "MySQL 5.7", "MySQL 5.0", "MySQL 5.1", "MySQL 8.0", "MySQL 8.4"],
+          ["Which major version released in 2018 brought substantial improvements in SQL functionality, administration, and performance?", "MySQL 8.0", "MySQL 6.0", "MySQL 7.0", "MySQL 9.0", "MySQL 5.8"],
+          ["In 2024, which release version of MySQL introduced the first Long-Term Support (LTS) series?", "MySQL 8.4 LTS", "MySQL 8.0 LTS", "MySQL 9.0 LTS", "MySQL 7.5 LTS", "MySQL 10.0 LTS"],
+          ["Which 2024 MySQL release series continued the newer innovation-focused release track alongside the LTS series?", "MySQL 9.0", "MySQL 8.5", "MySQL 10.0", "MySQL 8.1", "MySQL 7.0"],
+          ["Which popular content management systems (CMS) widely use MySQL as their underlying database?", "WordPress, Drupal, and Joomla", "Shopify, Squarespace, and Wix", "Photoshop, Premiere, and Illustrator", "Excel, Access, and Word", "Android, iOS, and Windows"],
+          ["What is the difference between a Stored Procedure and a Stored Function in MySQL?", "A stored function returns a single value, whereas a procedure performs actions and can return multiple or no values", "A procedure can only be called from Python", "A function cannot take any parameters", "They are identical in every way", "A procedure cannot modify database tables"],
+          ["What is the maximum allowed length for database identifiers (such as table and procedure names) in MySQL?", "64 characters", "32 characters", "128 characters", "255 characters", "16 characters"],
+          ["Which constraint ensures that all values in a column are distinct from each other across all rows?", "UNIQUE", "NOT NULL", "CHECK", "FOREIGN KEY", "DEFAULT"],
+          ["Which constraint specifies a condition that all values in a column must satisfy before insertion or update?", "CHECK", "DEFAULT", "UNIQUE", "NOT NULL", "PRIMARY KEY"],
+          ["In phpMyAdmin, table names and stored procedure names are generally case-insensitive on Windows.", "True", "False"],
+          ["Which statement can be used in MariaDB to replace a stored procedure if it already exists?", "CREATE OR REPLACE PROCEDURE", "UPDATE PROCEDURE", "MODIFY PROCEDURE", "ALTER OR NEW PROCEDURE", "RECREATE PROCEDURE"],
+          ["Which MySQL command-line keyword tells the client to use a different sequence of characters as the statement terminator?", "DELIMITER", "TERMINATOR", "SEPARATOR", "ENDMARK", "SPLIT"]
+        ]
       }
     ];
 
-    const SQL_NOTES = `
+            const MT_NOTES = `
+<div class="note-sec">
+  <h3>1. Instrumentation Hand Tools</h3>
+  <p><b>Open-Ended Wrench</b>: The proper tool used to install transmitters with hex fittings. It applies torque evenly across hexagonal flats without rounding corners or crushing the fitting body.</p>
+  <p><b>Tube Cutter</b>: The best tool for cutting thin-walled aluminum or stainless steel impulse tubing (e.g., 1/4" ID, 0.89 mm wall). It provides a clean, square 90° cut without pinching or generating loose chips.</p>
+  <p><b>Tube Bender</b>: Lever-type hand bender with graduated shoes and roller guide used to bend impulse tubing to specific angles without flattening, crimping, or kinking.</p>
+  <p><b>Square Ferrule Crimper</b>: A ratchet-action crimper designed specifically for wire bootlace ferrules, producing a compact square profile that fits cleanly into European terminal blocks.</p>
+  <p><b>Safety & Proper Tool Use</b>: Gripping tools (such as adjustable wrenches, pipe wrenches, or pliers) must <i>never</i> be used as tube benders as they will crush and ruin instrument tubing.</p>
+</div>
+<div class="note-sec">
+  <h3>2. Engineering Drawings & Documents</h3>
+  <p><b>Piping & Instrumentation Diagram (P&ID)</b>: Detailed process industry drawing displaying equipment, vessels, piping, and all inline instrumentation and control loops.</p>
+  <p><b>Instrument Index</b>: Complete master list of every instrument device in a facility, including physical field instruments and pseudo instruments / "soft tags" (DCS alarms, controller blocks, indicators).</p>
+  <p><b>Instrument Data Sheets (Specification Sheets)</b>: Documents detailing specific technical parameters for each instrument (tag ID, calibrated range, accuracy, operating pressure/temp, body material, vendor details).</p>
+  <p><b>Cable Route</b>: Drawing defining physical paths where power and instrument cables run from one location to another, identifying whether cable trays, conduits, or busways are utilized.</p>
+  <p><b>Cable Schedule</b>: Tabular document listing all installed cables with data such as cable tag, type, conductor count, gauge/size, length, and routing termination points.</p>
+  <p><b>Hazardous Area Classification Drawing</b>: Plant layout diagram identifying regions where flammable or explosive atmospheres exist (Zone 0: continuous, Zone 1: intermittent during normal ops, Zone 2: abnormal/infrequent).</p>
+  <p><b>Determining Instrument Tapping Points</b>: Three drawings are required:
+    <br>&bull; <b>Instrument Location Plan</b>: General physical location of the instrument.
+    <br>&bull; <b>Plant Layout Drawing</b>: Equipment coordinates and structural orientation.
+    <br>&bull; <b>Installation Detail (Hookup) Drawing</b>: Exact process nozzle connection, valves, and tapping arrangement.
+  </p>
+</div>
+<div class="note-sec">
+  <h3>3. ISA-5.1 Symbols & Mounting Locations</h3>
+  <p><b>Instrument Geometric Enclosures</b>:
+    <br>&bull; <b>Plain Circle</b>: Discrete, standalone instrument.
+    <br>&bull; <b>Circle in Square</b>: Shared display / shared control (e.g., DCS screen).
+    <br>&bull; <b>Diamond in Square</b>: Computer function or Programmable Logic Controller (PLC).
+    <br>&bull; <b>Hexagon</b>: Computer calculation / software calculation function.
+  </p>
+  <p><b>Mounting Location Dividing Lines</b>:
+    <br>&bull; <b>No internal line</b>: Field mounted / outside control panel (e.g., <code>TY 69</code>).
+    <br>&bull; <b>Single solid horizontal line</b>: Front of main control panel, normally accessible to operator (e.g., <code>FI 123</code>, <code>GBZ 211</code>).
+    <br>&bull; <b>Single dashed horizontal line</b>: Rear of main control panel, normally inaccessible to operator (e.g., <code>FY 211</code>).
+    <br>&bull; <b>Double solid horizontal lines</b>: Front of auxiliary control panel, normally accessible to operator (e.g., <code>HZA 211</code>).
+    <br>&bull; <b>Double dashed horizontal lines</b>: Rear of auxiliary control panel, normally inaccessible to operator.
+  </p>
+  <p><b>Signal Line Symbols</b>:
+    <br>&bull; <b>Continuous Solid Line</b>: Process piping / connection.
+    <br>&bull; <b>Diagonal Double Hashes (// // //)</b>: Pneumatic signal line (compressed air).
+    <br>&bull; <b>Dashed Line (- - -)</b>: Electrical signal line.
+    <br>&bull; <b>Line with Circles (-o-o-o-)</b>: Shared data link, system bus, or internal software link.
+  </p>
+  <p><b>Standard ISA Letter Identifiers</b>:
+    <br>&bull; First Letter: <b>F</b> (Flow), <b>T</b> (Temperature), <b>P</b> (Pressure), <b>L</b> (Level), <b>H</b> (Manual/Hand).
+    <br>&bull; Succeeding Letters: <b>I</b> (Indicator), <b>C</b> (Controller), <b>T</b> (Transmitter), <b>V</b> (Valve), <b>Y</b> (Relay/Compute), <b>A</b> (Alarm), <b>Z</b> (Safety/Emergency).
+  </p>
+</div>`;
+
+const SQL_NOTES = `
 <div class="note-sec">
   <h3>1. MySQL Basics</h3>
-  <p><b>RDBMS</b>: <i>Relational Database Management System</i>. MySQL is a relational database server software used to store, manage, and retrieve structured data in tables.</p>
-  <p><b>XAMPP</b>: A popular software stack bundling <b>Apache</b> (web server), <b>MySQL / MariaDB</b> (database server), <b>PHP</b>, and <b>Perl</b>.</p>
-  <p><b>phpMyAdmin</b>: A web-based administration tool for MySQL. Its three main administrative levels from broadest to most specific are: <b>Server &rarr; Database &rarr; Table</b>. Both <b>Apache</b> and <b>MySQL</b> must be running to access phpMyAdmin in your web browser.</p>
-  <p><b>Database Schema</b>: Defines the structure, blueprint, and organization of database objects (tables, columns, data types, constraints) rather than the actual records stored within tables.</p>
-  <p><b>Table, Row, and Column</b>: A table stores related data in rows and columns. A <b>row</b> is also called a <b>record</b> (or tuple), while a <b>column</b> represents an attribute (or field).</p>
+  <p><b>RDBMS</b>: <i>Relational Database Management System</i>. MySQL is an open-source relational database server software used to store, organize, manage, and retrieve structured data in tables.</p>
+  <p><b>XAMPP</b>: A free, cross-platform software package developed by Apache Friends that bundles:
+    <br>&bull; <b>X</b>: Cross-platform support (Windows, Linux, macOS)
+    <br>&bull; <b>A</b>: Apache HTTP Web Server
+    <br>&bull; <b>M</b>: MariaDB (community-developed fork and replacement for MySQL)
+    <br>&bull; <b>P</b>: PHP (server-side scripting language)
+    <br>&bull; <b>P</b>: Perl (programming language)
+    <br><i>Note</i>: XAMPP is primarily intended for local development and testing, not production deployment.
+  </p>
+  <p><b>phpMyAdmin</b>: A free web-based graphical database administration application written in PHP. It is <i>not</i> a DBMS itself, but connects to a MySQL or MariaDB server. Both <b>Apache</b> and <b>MySQL</b> must be running to access phpMyAdmin in your web browser.</p>
+  <p><b>Three Levels of phpMyAdmin</b> (from broadest to most specific):
+    <br>1. <b>Server Level</b>: Manage database server, user privileges, server settings, and view all databases.
+    <br>2. <b>Database Level</b>: Manage tables, views, routines, and operations within a selected database.
+    <br>3. <b>Table Level</b>: Manage table columns, records, indexes, and row operations (insert, view, update, delete).
+  </p>
+  <p><b>Database Schema</b>: The logical blueprint defining the structure and organization of database objects (tables, columns, data types, keys, constraints) rather than the actual stored row records. In MySQL and MariaDB, the terms <b>DATABASE</b> and <b>SCHEMA</b> are used interchangeably.</p>
+  <p><b>Table, Row, and Column</b>: A table arranges data into horizontal rows (records/tuples) and vertical columns (attributes/fields). The intersection holds an individual value or cell.</p>
 </div>
 
 <div class="note-sec">
-  <h3>2. SQL Command Categories</h3>
-  <p>SQL statements are terminated by a <b>semi-colon (<code>;</code>)</b>.</p>
+  <h3>2. MariaDB Database & Storage Engines</h3>
+  <p><b>MariaDB</b>: An open-source RDBMS created in <b>2009</b> by developers led by <b>Michael 'Monty' Widenius</b>. It originated as a fork of MySQL during Oracle's proposed acquisition of Sun Microsystems (announced April 2009, completed January 2010) to preserve an open-source alternative.</p>
+  <p><b>Storage Engines</b>:
+    <br>&bull; <b>InnoDB</b>: Supports full transactions (ACID properties), foreign keys, row-level locking, and data integrity (COMMIT, ROLLBACK).
+    <br>&bull; <b>Aria</b>: Crash-safe transactional/non-transactional engine developed for MariaDB.
+    <br>&bull; <b>MEMORY</b>: Stores table data in RAM for ultra-fast temporary access.
+  </p>
+</div>
+
+<div class="note-sec">
+  <h3>3. Five Categories of SQL Commands</h3>
+  <p>Statements are terminated by a <b>semi-colon (<code>;</code>)</b>. A single statement may span multiple lines. Keywords are case-insensitive, but uppercase keywords with lowercase table/column names are standard practice.</p>
   <ul>
-    <li><b>DDL (Data Definition Language)</b>: Commands that define, alter, and delete database structure. Examples: <code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, <code>TRUNCATE</code>.</li>
-    <li><b>DML (Data Manipulation Language)</b>: Commands that add, modify, query, and delete data records. Examples: <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, and <code>SELECT</code> (also classified as DQL - Data Query Language).</li>
-    <li><b>DCL (Data Control Language)</b>: Commands that control access permissions and privileges. Examples: <code>GRANT</code>, <code>REVOKE</code>.</li>
-    <li><b>TCL (Transaction Control Language)</b>: Commands that manage database transactions. Examples: <code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT</code>.</li>
+    <li><b>DDL (Data Definition Language)</b>: Defines, alters, or removes database structure. Commands: <code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, <code>TRUNCATE</code>, <code>RENAME</code>.</li>
+    <li><b>DML (Data Manipulation Language)</b>: Inserts, modifies, and deletes records inside tables. Commands: <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>. The <code>WHERE</code> clause specifies which rows to update or remove.</li>
+    <li><b>DQL (Data Query Language)</b>: Retrieves and searches stored data. Principal command: <code>SELECT</code>.
+      <br>Clauses: <code>WHERE</code>, <code>ORDER BY</code> (sorts results), <code>GROUP BY</code>, <code>HAVING</code> (filters after aggregation), <code>DISTINCT</code> (removes duplicates), <code>LIMIT</code> (restricts row count).
+      <br>Aggregate Functions: <code>COUNT()</code>, <code>SUM()</code>, <code>AVG()</code>, <code>MIN()</code>, <code>MAX()</code>.
+    </li>
+    <li><b>DCL (Data Control Language)</b>: Controls security, user permissions, and access privileges. Principal commands: <code>GRANT</code>, <code>REVOKE</code>.</li>
+    <li><b>TCL (Transaction Control Language)</b>: Manages database transactions (sequences treated as a single logical unit). MySQL operates with <b>autocommit enabled</b> by default.
+      <br>Statements: <code>START TRANSACTION</code>, <code>COMMIT</code> (permanently saves), <code>ROLLBACK</code> (undoes uncommitted changes), <code>SAVEPOINT</code> (creates named checkpoint), <code>ROLLBACK TO SAVEPOINT</code>.
+    </li>
   </ul>
 </div>
 
 <div class="note-sec">
-  <h3>3. MySQL History</h3>
+  <h3>4. Sample Tables: DEPT and EMP</h3>
+  <p><b>DEPT Table</b>: Stores department information. Columns: <code>DEPTNO</code> (Primary Key), <code>DNAME</code>, <code>LOC</code>.
+    <br>Departments: 10 ACCOUNTING (NEW YORK), 20 RESEARCH (DALLAS), 30 SALES (CHICAGO), <b>40 OPERATIONS (BOSTON)</b>.
+  </p>
+  <p><b>EMP Table</b>: Stores employee records. Columns: <code>EMPNO</code> (PK), <code>ENAME</code>, <code>JOB</code>, <code>MGR</code>, <code>HIREDATE</code>, <code>SAL</code>, <code>COMM</code>, <code>DEPTNO</code> (Foreign Key referencing DEPT).
+    <br><i>Key Exam Note</i>: <b>Department 40 has no assigned employees in the EMP table!</b>
+  </p>
+</div>
+
+<div class="note-sec">
+  <h3>5. MySQL History & Milestones</h3>
   <ul>
-    <li><b>Original Developers</b>: Created in Sweden by <b>David Axmark</b> and <b>Michael "Monty" Widenius</b> at <b>MySQL AB</b>.</li>
-    <li><b>Public Release</b>: First released publicly in <b>1995</b>.</li>
-    <li><b>Acquisitions</b>: Acquired by <b>Sun Microsystems</b> in <b>2008</b>; Sun Microsystems was subsequently acquired by <b>Oracle Corporation</b> in <b>2010</b>.</li>
-    <li><b>MariaDB</b>: A community-developed open-source fork of MySQL created by original developers after the Oracle acquisition (not an early version or former name of MySQL).</li>
+    <li><b>Founders</b>: Developed at Swedish company <b>MySQL AB</b> by <b>David Axmark</b> (Swedish), <b>Allan Larsson</b> (Swedish), and <b>Michael 'Monty' Widenius</b> (Finnish, principal developer). Sweden and Finland are independent Northern European nations. Originally evolved from an earlier engine called <b>UNIREG</b>.</li>
+    <li><b>1995</b>: First version of MySQL released in May 1995.</li>
+    <li><b>1996</b>: First external public release.</li>
+    <li><b>2000</b>: Adopted GNU General Public License (GPL) for open-source distribution.</li>
+    <li><b>2005</b>: <b>MySQL 5.0</b> introduced stored procedures, stored functions, triggers, and views.</li>
+    <li><b>2008</b>: Acquired by <b>Sun Microsystems</b> for approx. US$1 billion.</li>
+    <li><b>2010</b>: <b>Oracle Corporation</b> completed acquisition of Sun Microsystems, taking ownership of MySQL.</li>
+    <li><b>2015</b>: <b>MySQL 5.7</b> brought native JSON support and performance enhancements.</li>
+    <li><b>2018</b>: <b>MySQL 8.0</b> major release with advanced SQL features, CTEs, and administrative improvements.</li>
+    <li><b>2024</b>: Introduced <b>MySQL 8.4 LTS</b> (Long-Term Support) alongside <b>MySQL 9.0</b> (innovation release track).</li>
+    <li><b>Adoption</b>: Powering major web platforms such as Meta (Facebook), WordPress, Drupal, and Joomla.</li>
   </ul>
 </div>
 
 <div class="note-sec">
-  <h3>4. Stored Procedures</h3>
-  <p>A stored procedure is a prepared, compiled set of SQL statements stored in the database for code reuse, security, and performance.</p>
+  <h3>6. Stored Procedures & Parameters</h3>
+  <p>A stored procedure is a reusable SQL program stored on the server and executed using <code>CALL procedure_name();</code>. Names follow general identifier rules (max 64 characters).</p>
   <ul>
-    <li><b>DELIMITER</b>: Changes the statement termination character in command-line clients (commonly to <code>//</code> or <code>$$</code>) so inner semicolons within the procedure body do not execute prematurely.</li>
-    <li><b>Structure & Keywords</b>:
+    <li><b>DELIMITER</b>: Changes the termination character in command-line tools (e.g. <code>DELIMITER // ... END // DELIMITER ;</code>) so internal semicolons do not execute prematurely.</li>
+    <li><b>Syntax</b>:
       <pre><code>DELIMITER //
-CREATE PROCEDURE procedure_name(IN p_id INT, OUT p_name VARCHAR(50))
+CREATE PROCEDURE procedure_name(IN param_name data_type)
 BEGIN
-  -- executable statements
+  -- SQL statements
 END //
 DELIMITER ;</code></pre>
     </li>
-    <li><b>Invocation & Deletion</b>:
-      <ul>
-        <li>Execute with <code>CALL procedure_name(...);</code>.</li>
-        <li>Delete with <code>DROP PROCEDURE procedure_name;</code>.</li>
-        <li>In MariaDB, <code>CREATE OR REPLACE PROCEDURE</code> replaces an existing procedure with the same name.</li>
-      </ul>
-    </li>
     <li><b>Parameter Modes</b>:
-      <ul>
-        <li><code>IN</code> (Default): Supplies input values into the procedure. Syntax: <code>procedure_name(IN param_name data_type)</code>.</li>
-        <li><code>OUT</code>: Returns a value back to the caller. A procedure can have more than one <code>OUT</code> parameter.</li>
-        <li><code>INOUT</code>: Both receives an input value and returns a modified value back.</li>
-      </ul>
+      <br>&bull; <code>IN</code> (Default): Supplies input values to procedure (read-only to procedure, caller cannot see modifications). Syntax: <code>procedure_name(IN param_name data_type)</code>.
+      <br>&bull; <code>OUT</code>: Passes a value back to caller. Starts as NULL inside procedure. Called using session variable: <code>CALL get_val(@my_var);</code>. Multiple OUT parameters are allowed.
+      <br>&bull; <code>INOUT</code>: Both passes a value in and returns an updated value back.
     </li>
-    <li><b>Naming Conventions</b>: Parameters commonly use the <code>p_</code> prefix (e.g. <code>p_deptno</code>) to avoid collision with column names. Procedure names follow standard identifier rules.</li>
-    <li><b>Local Variables</b>: Declared inside <code>BEGIN...END</code> using <code>DECLARE var_name data_type;</code>. Assigned using <code>SET var_name = value;</code> or <code>SELECT col INTO var_name FROM ...;</code>.</li>
-    <li><b>Session Variables</b>: Prefixed with <code>@</code> (e.g. <code>SET @count = 10;</code>), displayed with <code>SELECT @count;</code>.</li>
+    <li><b>Prefix Convention</b>: Parameters commonly use <code>p_</code> (e.g. <code>p_id</code>) to avoid shadowing column names.</li>
+    <li><b>Session Variables</b>: Prefixed with <code>@</code> (e.g. <code>SET @count = 10;</code>, displayed with <code>SELECT @count;</code>).</li>
+    <li><b>Local Variables</b>: Declared inside <code>BEGIN...END</code> with <code>DECLARE var_name data_type;</code> and updated using <code>SET</code> or <code>SELECT INTO</code>.</li>
+    <li><b>Removal</b>: <code>DROP PROCEDURE [IF EXISTS] procedure_name;</code>. (In MariaDB, <code>CREATE OR REPLACE PROCEDURE</code> can update in-place).</li>
+  </ul>
+</div>
+
+<div class="note-sec">
+  <h3>7. Conditional Statements in MySQL</h3>
+  <p><b>1. Built-in IF() Function</b>:
+    <br>Used in SQL expressions and queries: <code>IF(condition, value_if_true, value_if_false)</code>.
+    <br>Example: <code>SELECT ENAME, IF(SAL >= 3000, 'High', 'Standard') AS SalLevel FROM EMP;</code>. Can be nested for multi-tier logic.
+  </p>
+  <p><b>2. Procedural IF Statements</b> (inside Stored Procedures / Functions / Triggers):
+    <br>&bull; <b>One-way</b>: <code>IF condition THEN ... END IF;</code>
+    <br>&bull; <b>Two-way</b>: <code>IF condition THEN ... ELSE ... END IF;</code>
+    <br>&bull; <b>Multi-way ladder</b>: <code>IF condition1 THEN ... ELSEIF condition2 THEN ... ELSE ... END IF;</code>
+  </p>
+  <p><b>3. CASE Statement</b>:
+    <br>Provides clean conditional branching using <code>WHEN</code> clauses:
+    <pre><code>CASE
+  WHEN condition1 THEN statement1;
+  WHEN condition2 THEN statement2;
+  ELSE default_statement;
+END CASE;</code></pre>
+    <br><i>Note</i>: The <code>ELSE</code> clause prevents an error if no <code>WHEN</code> conditions match.
+  </p>
+</div>
+
+<div class="note-sec">
+  <h3>8. Schema Components & Constraints</h3>
+  <ul>
+    <li><b>Data Types</b>: <code>INT</code>, <code>VARCHAR</code>, <code>DATE</code>, <code>DECIMAL</code>, <code>TEXT</code>, <code>JSON</code>.</li>
+    <li><b>Constraints</b>:
+      <br>&bull; <code>NOT NULL</code>: Precludes NULL values.
+      <br>&bull; <code>UNIQUE</code>: Guarantees unique values across all rows.
+      <br>&bull; <code>PRIMARY KEY</code>: Uniquely identifies each row (implies NOT NULL and UNIQUE).
+      <br>&bull; <code>FOREIGN KEY</code>: Preserves referential integrity by referencing a key in a parent table.
+      <br>&bull; <code>CHECK</code>: Enforces specific boolean validation criteria.
+      <br>&bull; <code>DEFAULT</code>: Provides fallback value when no value is specified.
+    </li>
+    <li><b>Indexes</b>: Data structures that optimize query search and retrieval speed.</li>
+    <li><b>Views</b>: Virtual tables defined by SQL queries.</li>
+    <li><b>Triggers</b>: Automatically executed SQL blocks upon <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code>.</li>
+    <li><b>Stored Functions</b>: Reusable programs that accept inputs and return a single scalar value.</li>
   </ul>
 </div>
 `;
@@ -927,7 +1161,7 @@ DELIMITER ;</code></pre>
     const save = () => { try { localStorage.setItem(SUB.bk, JSON.stringify(best)) } catch (e) { } };
     const sh = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0;[a[i], a[j]] = [a[j], a[i]] } return a };
     function snd(f, d) { try { const c = snd.c || (snd.c = new AudioContext()), o = c.createOscillator(), g = c.createGain(); o.frequency.value = f; g.gain.value = .05; o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + d) } catch (e) { } }
-    const EXP = [["Which is NOT an SI base unit", "Newton is a derived unit (kg·m·s⁻²). The SI base units are metre, kilogram, second, ampere, kelvin, mole and candela."], ["Voltage (volt) is an example", "Derived units are formed by multiplying or dividing fundamental units."], ["To convert °F to °C", "Subtract 32 first, then multiply by 5/9. Water freezes at 32°F and boils at 212°F."], ["Adding 25.2 + 1.34", "When adding, keep the decimal places of the measurement with the fewest (one), so 26.54 becomes 26.5."], ["Boyle", "Boyle’s Law: p1V1 = p2V2 at constant T and n, so pressure and volume are inversely related."], ["Charles", "Charles’s Law: V/T stays constant at constant pressure, using kelvin (°C + 273.15)."], ["A voltmeter is connected", "Voltmeters connect in parallel across the load; ammeters connect in series."], ["An ammeter is connected", "Ammeters connect in series; voltmeters connect in parallel."], ["Perimeter of a rectangle", "P = 2(l + w) = 2(10 + 3) = 26 in."], ["Area of a trapezoid", "A = ½(b1 + b2)h = ½(16)(4) = 32 sq in."], ["Area of a circle", "A = πr² = 3.14 × 25 = 78.5 sq in."], ["A cone’s volume", "Cone = ⅓πr²h, exactly one third of a cylinder’s πr²h."], ["title block", "Technical drawings are identified by a title block in the bottom right corner."], ["primary schematic for laying out", "The P&ID shows piping, vessels and instrumentation, and is the main drawing for a process control installation."], ["most detailed type of control system", "Loop drawings include every element left out of PFDs and P&IDs."], ["wiring diagram shows", "A wiring diagram shows actual physical locations for installers; a schematic is conceptual."], ["Phantom lines", "Phantom lines (long-short-short-long) show alternate positions or adjacent features."], ["Leader lines are preferably", "Leaders point to notes and are preferably drawn at 45°."], ["THRU", "If a through-hole is not clearly shown, “THRU” follows the dimension."], ["first version is identified", "The first version uses a dash “-”. Letters I, O, Q, S, X and Z are skipped to avoid confusion."], ["SPDT", "Pole = number of contact sets; throw = number of conducting positions."], ["thermal overload relay protects", "A thermal overload relay guards against gradual excess current and overheating, not short circuits."], ["A 3-wire NPN sensor", "NPN sensors need a sourcing PLC DI; PNP sensors need a sinking PLC DI."], ["A 3-wire PNP sensor", "PNP sensors need a sinking PLC DI; NPN sensors need a sourcing PLC DI."], ["three types of PLC digital output", "Relay (AC or DC, high current, shorter life), triac (AC only) and transistor (DC only, fast, low current)."], ["switches only AC", "Triac outputs connect only AC to the common terminal."], ["maximum recommended PLC installation", "Install PLCs below 55 °C, at 10–90% RH, away from sunlight, vibration, and flammable gases."], ["RS-485 supports up to", "RS-485 is multi-drop: up to 32 devices over as much as 1200 m."], ["Valid Profibus device addresses", "Profibus addresses run from 1 to 127; Profibus DP reaches 12 Mbps over RS-485."], ["Profinet runs at", "Profinet is Ethernet-based: 100 Mbps over RJ-45, up to 100 m."], ["Quality Control is", "QC maintains a process, QI purposefully changes it, and QA is planned action giving confidence."], ["PDCA stands", "PDCA (Plan, Do, Check, Act) is a continuous improvement spiral."], ["Which tool ranks problems", "A Pareto diagram orders problems by frequency so the biggest are fixed first."], ["recommended economical operating pressure", "Components are rated 8–10 bar, but 5–6 bar is economical in practice."], ["FRL air service unit", "FRL = filter, regulator, lubricator."], ["AND (interlock)", "AND needs both conditions, for example safety door closed and manual valve operated."], ["Which valve solves", "A shuttle valve stops one valve exhausting through the other in an OR circuit."], ["Reed switches must NOT", "Strong magnetic fields (for example resistance welders) can falsely actuate reed switches."], ["Capacitive proximity sensors can sense", "Capacitive sensors use an electrostatic field and detect metal, paper, glass and liquids."], ["polarity of the output signal of a PNP", "A PNP sensor outputs a positive signal when active."]];
+    const EXP = [["adjustable wrench can also be used as a bending tool", "Gripping tools such as adjustable wrenches are designed for turning fasteners; using them to bend tubing kinks and deforms the tube wall. A specialized tube bender must be used."], ["transmitter with hex fitting", "An open-ended wrench fits securely over hexagonal flats without damaging the fitting or applying crushing force, unlike pipe wrenches or pliers."], ["aluminum impulse tube", "A miniature tube cutter produces a square, clean, burr-minimized cut on thin-walled aluminum impulse tubing without flattening or deforming the diameter."], ["crimping terminal lugs into square type", "A square ferrule crimper (bootlace ferrule tool) compresses the wire and sleeve into a quadrilateral profile ideal for terminal blocks."], ["tool_tube_bender", "A tube bender is used to bend instrument tubing smoothly to precise angles without pinching, kinking, or flattening the tube cross-section."], ["specification and information of an instrument device", "An Instrument Data Sheet (spec sheet) details all physical, mechanical, process, and electrical properties, including calibrated range and accuracy."], ["classified as Zone 0, Zone 1, and Zone 2", "A Hazardous Area Classification Drawing identifies areas of the plant where flammable gases, vapors, or mists may accumulate, categorized into Zone 0, 1, or 2."], ["power lines and instrument cables are laid", "A Cable Route drawing lays out the physical pathways of cables through the plant, showing raceways, cable trays, conduits, or busways."], ["all instrument devices within a plant", "The Instrument Index is the master register listing all physical field instruments and pseudo instruments ('soft tags' such as DCS indications, controllers, and alarms)."], ["symbol_line_datalink", "In ISA-5.1 standards, a line with spaced circles (-o-o-o-) designates an internal system bus, data link, or software communication link."], ["piping and process equipment together with", "A Piping and Instrument Diagram (P&ID) is the primary schematic showing all process equipment, piping, valves, and instrumentation control loops."], ["symbol_isa_gbz_211", "A square enclosing a diamond denotes a PLC/shared logic function; a single solid horizontal line indicates primary mounting on the front of the main control panel (operator-accessible)."], ["symbol_isa_fy_211", "A single dashed horizontal line indicates mounting behind the panel / rear of the main control panel (normally inaccessible to the operator)."], ["symbol_line_pneumatic", "In ISA-5.1 standards, a line with diagonal double slashes (// // //) indicates a pneumatic signal line."], ["symbol_isa_ty_69", "A plain circle without any internal horizontal line indicates a discrete field-mounted instrument located outside the control room."], ["exact tapping point on a process equipment", "Determining the exact instrument tapping point requires the Instrument Location Plan, Plant Layout, and Installation Detail (hookup) drawing."], ["symbol_isa_hza_211", "Double horizontal solid lines indicate primary mounting on the front of an auxiliary control panel normally accessible to an operator."], ["table of information about cables", "A Cable Schedule is a tabular log listing all cables with specifications such as tag, source, destination, conductor size, type, and length."], ["symbol_isa_fi_123", "In ISA-5.1 tag FI 123, FI stands for Flow Indicator (loop 123); the solid horizontal line indicates mounting on the front of the main control panel."], ["Which is NOT an SI base unit", "Newton is a derived unit (kg·m·s⁻²). The SI base units are metre, kilogram, second, ampere, kelvin, mole and candela."], ["Voltage (volt) is an example", "Derived units are formed by multiplying or dividing fundamental units."], ["To convert °F to °C", "Subtract 32 first, then multiply by 5/9. Water freezes at 32°F and boils at 212°F."], ["Adding 25.2 + 1.34", "When adding, keep the decimal places of the measurement with the fewest (one), so 26.54 becomes 26.5."], ["Boyle", "Boyle’s Law: p1V1 = p2V2 at constant T and n, so pressure and volume are inversely related."], ["Charles", "Charles’s Law: V/T stays constant at constant pressure, using kelvin (°C + 273.15)."], ["A voltmeter is connected", "Voltmeters connect in parallel across the load; ammeters connect in series."], ["An ammeter is connected", "Ammeters connect in series; voltmeters connect in parallel."], ["Perimeter of a rectangle", "P = 2(l + w) = 2(10 + 3) = 26 in."], ["Area of a trapezoid", "A = ½(b1 + b2)h = ½(16)(4) = 32 sq in."], ["Area of a circle", "A = πr² = 3.14 × 25 = 78.5 sq in."], ["A cone’s volume", "Cone = ⅓πr²h, exactly one third of a cylinder’s πr²h."], ["title block", "Technical drawings are identified by a title block in the bottom right corner."], ["primary schematic for laying out", "The P&ID shows piping, vessels and instrumentation, and is the main drawing for a process control installation."], ["most detailed type of control system", "Loop drawings include every element left out of PFDs and P&IDs."], ["wiring diagram shows", "A wiring diagram shows actual physical locations for installers; a schematic is conceptual."], ["Phantom lines", "Phantom lines (long-short-short-long) show alternate positions or adjacent features."], ["Leader lines are preferably", "Leaders point to notes and are preferably drawn at 45°."], ["THRU", "If a through-hole is not clearly shown, “THRU” follows the dimension."], ["first version is identified", "The first version uses a dash “-”. Letters I, O, Q, S, X and Z are skipped to avoid confusion."], ["SPDT", "Pole = number of contact sets; throw = number of conducting positions."], ["thermal overload relay protects", "A thermal overload relay guards against gradual excess current and overheating, not short circuits."], ["A 3-wire NPN sensor", "NPN sensors need a sourcing PLC DI; PNP sensors need a sinking PLC DI."], ["A 3-wire PNP sensor", "PNP sensors need a sinking PLC DI; NPN sensors need a sourcing PLC DI."], ["three types of PLC digital output", "Relay (AC or DC, high current, shorter life), triac (AC only) and transistor (DC only, fast, low current)."], ["switches only AC", "Triac outputs connect only AC to the common terminal."], ["maximum recommended PLC installation", "Install PLCs below 55 °C, at 10–90% RH, away from sunlight, vibration, and flammable gases."], ["RS-485 supports up to", "RS-485 is multi-drop: up to 32 devices over as much as 1200 m."], ["Valid Profibus device addresses", "Profibus addresses run from 1 to 127; Profibus DP reaches 12 Mbps over RS-485."], ["Profinet runs at", "Profinet is Ethernet-based: 100 Mbps over RJ-45, up to 100 m."], ["Quality Control is", "QC maintains a process, QI purposefully changes it, and QA is planned action giving confidence."], ["PDCA stands", "PDCA (Plan, Do, Check, Act) is a continuous improvement spiral."], ["Which tool ranks problems", "A Pareto diagram orders problems by frequency so the biggest are fixed first."], ["recommended economical operating pressure", "Components are rated 8–10 bar, but 5–6 bar is economical in practice."], ["FRL air service unit", "FRL = filter, regulator, lubricator."], ["AND (interlock)", "AND needs both conditions, for example safety door closed and manual valve operated."], ["Which valve solves", "A shuttle valve stops one valve exhausting through the other in an OR circuit."], ["Reed switches must NOT", "Strong magnetic fields (for example resistance welders) can falsely actuate reed switches."], ["Capacitive proximity sensors can sense", "Capacitive sensors use an electrostatic field and detect metal, paper, glass and liquids."], ["polarity of the output signal of a PNP", "A PNP sensor outputs a positive signal when active."]];
     const mt = () => SUB.id === "mt";
     function why(q) { const e = EXP.find(x => q[0].includes(x[0])); const t = W[q[q.length - 1]].n; return e ? e[1] : "Review the topic “" + t + "” in your lesson notes." }
     function mixed() {
@@ -1280,6 +1514,66 @@ DELIMITER ;</code></pre>
         ["Local variables inside a procedure block are declared using the ____ keyword.", "declare"],
         ["To assign a value to a local or session variable, use the ____ statement.", "set|select into"],
         ["List the 3 parameter modes supported by MySQL stored procedures.", ["in", "out", "inout"]]
+      ],
+      [
+        ["DDL stands for Data ____ Language.", "definition"],
+        ["DML stands for Data ____ Language.", "manipulation"],
+        ["DQL stands for Data ____ Language.", "query"],
+        ["DCL stands for Data ____ Language.", "control"],
+        ["TCL stands for Transaction ____ Language.", "control"],
+        ["The DDL command used to remove all rows while preserving table structure is ____.", "truncate"],
+        ["The principal command of DQL used to retrieve data is ____.", "select"],
+        ["The clause used to sort query results is ORDER ____.", "by"],
+        ["To eliminate duplicate rows from a query result, use the ____ keyword.", "distinct"],
+        ["The aggregate function that calculates the number of rows matching a criteria is ____().", "count"],
+        ["The clause used to filter grouped or aggregated data is ____.", "having"],
+        ["List the 2 principal DCL commands.", ["grant", "revoke"]],
+        ["The TCL command that makes all database changes permanent is ____.", "commit"],
+        ["The TCL command used to undo uncommitted changes is ____.", "rollback"],
+        ["A named checkpoint within a transaction is created with the ____ statement.", "savepoint"]
+      ],
+      [
+        ["phpMyAdmin is developed using the ____ programming language.", "php"],
+        ["List the 3 administrative levels of phpMyAdmin from broadest to most specific.", ["server", "database|db", "table"]],
+        ["In MySQL and MariaDB, DATABASE and ____ are used interchangeably.", "schema"],
+        ["MariaDB was created in the year ____.", "2009"],
+        ["MariaDB originated as a ____ of MySQL.", "fork"],
+        ["The MySQL storage engine that supports ACID transactions and foreign keys is ____.", "innodb"],
+        ["The MariaDB storage engine that stores temporary tables in RAM is ____.", "memory"],
+        ["In the XAMPP acronym, the letter A stands for the ____ HTTP server.", "apache"],
+        ["In the XAMPP acronym, the letter X stands for ____-platform.", "cross"],
+        ["A ____ key uniquely identifies each record in a database table.", "primary"],
+        ["A ____ key establishes a relationship by referencing a key in another table.", "foreign"],
+        ["A ____ is a virtual table defined by an SQL query.", "view"],
+        ["In the sample database, department ____ has no assigned employees in EMP.", "40"],
+        ["A database ____ automatically executes when an INSERT, UPDATE, or DELETE occurs.", "trigger"],
+        ["The intersection of a row and a column holds an individual ____.", "value|cell"]
+      ],
+      [
+        ["The built-in function that chooses between two values in an expression is ____().", "if"],
+        ["The syntax for the IF function is IF(condition, value_if_true, value_if_____).", "false"],
+        ["In stored procedures, an IF statement block is closed with the keywords END ____.", "if"],
+        ["In an IF statement, the keyword that follows the condition is ____.", "then"],
+        ["The multi-way conditional structure in stored procedures uses IF .. THEN .. ____ .. ELSE.", "elseif"],
+        ["A conditional control-flow statement using WHEN clauses to match values is the ____ statement.", "case"],
+        ["In a CASE statement, the optional catch-all clause when no condition matches is ____.", "else"],
+        ["A CASE statement in a MySQL stored procedure is terminated with END ____.", "case"],
+        ["What does IF(5 > 3, 'Yes', 'No') evaluate to: ____.", "yes"],
+        ["Procedural IF and CASE statements can only be executed inside stored ____.", "programs|procedures|routines"]
+      ],
+      [
+        ["The first version of MySQL was released in May of the year ____.", "1995"],
+        ["Michael 'Monty' Widenius, one of MySQL's principal creators, is from ____.", "finland"],
+        ["David Axmark and Allan Larsson are from ____.", "sweden"],
+        ["MySQL adopted the GNU GPL open-source license in the year ____.", "2000"],
+        ["MySQL version ____.0 introduced stored procedures, triggers, and views in 2005.", "5"],
+        ["Sun Microsystems acquired MySQL AB in the year ____.", "2008"],
+        ["Oracle completed its acquisition of Sun Microsystems in the year ____.", "2010"],
+        ["MySQL version 5.7 introduced support for the ____ data type.", "json"],
+        ["In 2024, MySQL 8.4 was introduced as the first ____ series.", "lts|long term support"],
+        ["The maximum length for table and procedure identifiers in MySQL is ____ characters.", "64"],
+        ["A ____ function in MySQL returns a single value, whereas a procedure returns zero or more.", "stored|function"],
+        ["The constraint that ensures all values in a column are distinct is ____.", "unique"]
       ]
     ];
 
@@ -1318,7 +1612,7 @@ DELIMITER ;</code></pre>
 
     const SUBJECTS = [
       { id: "tc", name: "Tech Comm", title: "Tech Comm Arena", W: W, F: F, bk: "tca", bp: "", ranks: ["Tech Comm Legend", "Report Pro", "Rising Writer"] },
-      { id: "mt", name: "Mechatronics", title: "Mechatronics Arena", W: MW, F: MF, bk: "tca_mt", bp: "m", ranks: ["Mechatronics Master", "Control Pro", "Rising Technician"] },
+      { id: "mt", name: "Mechatronics", title: "Mechatronics Arena", W: MW, F: MF, bk: "tca_mt", bp: "m", ranks: ["Mechatronics Master", "Control Pro", "Rising Technician"], notes: MT_NOTES },
       { id: "sql", name: "SQL", title: "SQL Arena", W: SW, F: SF, bk: "tca_sql", bp: "s", ranks: ["SQL Master", "Database Pro", "Query Builder"], notes: SQL_NOTES }
     ];
     function subjects() {
