@@ -790,11 +790,11 @@
           ["A row is also commonly called a record.", "True", "False"],
           ["Which software package commonly includes MySQL or MariaDB, Apache, PHP, and Perl?", "XAMPP", "NetBeans", "Eclipse", "Microsoft 365", "Visual Studio"],
           ["Which company became the owner of MySQL following the Sun Microsystems acquisition in 2010?", "Oracle", "Google", "IBM", "Apple", "Microsoft"],
-          ["Who were the original developers of MySQL?", "David Axmark and Michael Widenius", "Larry Page and Sergey Brin", "Bill Gates and Paul Allen", "Steve Jobs and Steve Wozniak", "Larry Ellison and Bob Miner"],
+          ["Who were the original developers of MySQL?<br><img src=\"img/mysql_founders.png\" style=\"max-width:360px;border-radius:6px;margin:10px auto;display:block;\">", "David Axmark and Michael Widenius", "Larry Page and Sergey Brin", "Bill Gates and Paul Allen", "Steve Jobs and Steve Wozniak", "Larry Ellison and Bob Miner"],
           ["A database schema defines the structure of a database rather than the actual records stored in its tables.", "True", "False"],
           ["Which language is primarily used to write commands for adding new records, searching for specific information, and updating existing data?", "SQL", "HTML", "CSS", "Java", "XML"],
           ["MySQL is a programming language similar to Java and Python.", "False", "True"],
-          ["In the DEPT and EMP sample tables, department 40 has no assigned employee in EMP table.", "True", "False"],
+          ["In the DEPT and EMP sample tables, department 40 has no assigned employee in EMP table.<br><img src=\"img/mysql_dept_emp_tables.png\" style=\"max-width:440px;border-radius:6px;margin:10px auto;display:block;\">", "True", "False"],
           ["phpMyAdmin provides a web-based interface for managing MySQL databases. Which correctly identifies its three main administrative levels, from broadest to most specific?", "Server, Database, Table", "Application, Server, Database", "Database, Table, Records", "Server, Table, Records"],
           ["Which is a common use of MySQL?", "Data storage", "Video editing", "Sound mixing", "Photo enhancing", "Screen recording"],
           ["Which category of a computer system does MySQL belong to, considering that it is installed and used to store, manage, and retrieve data?", "Software", "Procedure", "Hardware", "Data", "Network"],
@@ -821,9 +821,9 @@
       },
       {
         n: "Part 2: Stored Procedures", q: [
-          ["What is the default parameter mode when no mode is specified?", "IN", "OUT", "RETURN", "INOUT", "NULL"],
+          ["What is the default parameter mode when no mode is specified?<br><img src=\"img/mysql_parameter_modes.png\" style=\"max-width:420px;border-radius:6px;margin:10px auto;display:block;\">", "IN", "OUT", "RETURN", "INOUT", "NULL"],
           ["Which parameter mode supplies input to a procedure?", "IN", "INPUT", "ENTRY", "DEFINE", "PARAM"],
-          ["Which statement creates a stored procedure?", "CREATE PROCEDURE", "REPLACE PROCEDURE", "NEW PROCEDURE", "START PROCEDURE", "BUILD PROCEDURE"],
+          ["Which statement creates a stored procedure?<br><img src=\"img/mysql_sp_general_syntax.png\" style=\"max-width:400px;border-radius:6px;margin:10px auto;display:block;\">", "CREATE PROCEDURE", "REPLACE PROCEDURE", "NEW PROCEDURE", "START PROCEDURE", "BUILD PROCEDURE"],
           ["A stored procedure without parameters receives:", "No values", "One value", "Two values", "Input only", "Output only"],
           ["In MySQL, which SQL statement is used to invoke a stored procedure and execute the instructions defined within it?", "CALL", "INVOKE", "SELECT", "OPEN", "RUN"],
           ["Which statement initializes a session variable to 10?", "SET @count = 10;", "DECLARE @count = 10;", "CREATE @count = 10;", "SHOW @count = 10;", "INIT @count = 10;"],
@@ -833,7 +833,7 @@
           ["In the MySQL command-line client, you must change the default semicolon delimiter even when a stored procedure has a single SQL statement and omits the BEGIN ... END block.", "False", "True"],
           ["Which keyword begins the executable section of a stored procedure?", "BEGIN", "START", "OPEN", "EXECUTE", "FIRST"],
           ["Which prefix is commonly used as a naming convention for parameters?", "p_", "@_", "#_", "$_", "v_"],
-          ["Which parameter mode both receives and returns a value?", "INOUT", "BOTH", "DUAL", "OUT", "RETURN"],
+          ["Which parameter mode both receives and returns a value?<br><img src=\"img/mysql_parameters_comparison.png\" style=\"max-width:440px;border-radius:6px;margin:10px auto;display:block;\">", "INOUT", "BOTH", "DUAL", "OUT", "RETURN"],
           ["In MARIADB, if a stored procedure already exists in the current database, you can use CREATE OR REPLACE PROCEDURE to replace it with a new procedure having the same name.", "True", "False"],
           ["Which keyword terminates a stored procedure block?", "END", "STOP", "FINISH", "CLOSE", "EXIT"],
           ["If you omit the parameter mode in a MySQL procedure declaration, the default is INOUT.", "False", "True"],
@@ -843,7 +843,7 @@
           ["What is the minimum number of parameters a stored procedure can have?", "Zero", "Four", "Three", "Two", "One"],
           ["In MySQL, once a stored procedure name is used in one database, that name cannot be used for a stored procedure in another database on the same server.", "False", "True"],
           ["Which characters are commonly used as delimiter when creating a stored procedure?", "//", "||", "**", "%%", ";;"],
-          ["What is the correct syntax when declaring IN parameter?", "procedure_name(IN param_name data_type)", "procedure_name(param_name IN data_type)", "procedure_name(param_name data_type IN)", "procedure_name(IN data_type param_name)", "procedure_name(data_type IN param_name)"],
+          ["What is the correct syntax when declaring IN parameter?<br><img src=\"img/mysql_in_parameter_syntax.png\" style=\"max-width:420px;border-radius:6px;margin:10px auto;display:block;\">", "procedure_name(IN param_name data_type)", "procedure_name(param_name IN data_type)", "procedure_name(param_name data_type IN)", "procedure_name(IN data_type param_name)", "procedure_name(data_type IN param_name)"],
           ["Which symbols enclose a procedure's parameter list?", "Parentheses", "Brackets", "Braces", "Quotes", "Backticks"],
           ["Which is a major benefit of using stored procedures?", "Code reuse", "Unlimited storage", "Automatic backups", "Password removal", "Table duplication"],
           ["Which statement will delete the procedure?", "DROP PROCEDURE", "ERASE PROCEDURE", "DELETE PROCEDURE", "CUT PROCEDURE", "REMOVE PROCEDURE"],
@@ -905,10 +905,10 @@
           ["Which database object is a virtual table defined by an underlying SQL query?", "View", "Trigger", "Stored Procedure", "Index", "Schema"],
           ["Which database object automatically executes when an INSERT, UPDATE, or DELETE event occurs on a table?", "Trigger", "Stored Procedure", "Stored Function", "View", "Transaction"],
           ["What is the primary purpose of creating an index on a database table column?", "To speed up searching, filtering, and retrieval of records", "To encrypt column values", "To reduce table disk space", "To automatically backup the table", "To prevent writing data"],
-          ["In the DEPT sample table, which column serves as the Primary Key?", "DEPTNO", "DNAME", "LOC", "MGR", "SAL"],
-          ["In the sample database, which department in DEPT (department 40, OPERATIONS in BOSTON) has no assigned employees in EMP?", "Department 40", "Department 10", "Department 20", "Department 30", "Department 50"],
-          ["Which column in the EMP table establishes a foreign key relationship to the DEPT table?", "DEPTNO", "EMPNO", "MGR", "JOB", "COMM"],
-          ["What is the intersection of a row and a column in a database table called?", "Cell (individual value)", "Table", "Entity", "Schema", "Record"]
+          ["In the DEPT sample table, which column serves as the Primary Key?<br><img src=\"img/mysql_dept_structure.png\" style=\"max-width:420px;border-radius:6px;margin:10px auto;display:block;\">", "DEPTNO", "DNAME", "LOC", "MGR", "SAL"],
+          ["In the sample database, which department in DEPT (department 40, OPERATIONS in BOSTON) has no assigned employees in EMP?<br><img src=\"img/mysql_dept_table.png\" style=\"max-width:380px;border-radius:6px;margin:10px auto;display:block;\">", "Department 40", "Department 10", "Department 20", "Department 30", "Department 50"],
+          ["Which column in the EMP table establishes a foreign key relationship to the DEPT table?<br><img src=\"img/mysql_emp_table.png\" style=\"max-width:440px;border-radius:6px;margin:10px auto;display:block;\">", "DEPTNO", "EMPNO", "MGR", "JOB", "COMM"],
+          ["What is the intersection of a row and a column in a database table called?<br><img src=\"img/mysql_dept_structure.png\" style=\"max-width:420px;border-radius:6px;margin:10px auto;display:block;\">", "Cell (individual value)", "Table", "Entity", "Schema", "Record"]
         ]
       },
       {
@@ -916,10 +916,10 @@
           ["Which built-in MySQL function evaluates a condition and returns one of two values depending on whether it is true or false?", "IF()", "CASE()", "WHEN()", "CHOOSE()", "EVAL()"],
           ["What is the correct syntax for the built-in IF() function in MySQL?", "IF(condition, value_if_true, value_if_false)", "IF(value_if_true, value_if_false, condition)", "IF(condition THEN value_if_true ELSE value_if_false)", "IF condition (value_if_true : value_if_false)", "IF[condition, true, false]"],
           ["Can the built-in IF() function be nested within another IF() function in an expression?", "True", "False"],
-          ["Which conditional statement in MySQL stored procedures executes a block of code only when a condition evaluates to TRUE, with no alternative branch?", "IF .. THEN .. END IF", "IF .. THEN .. ELSE .. END IF", "CASE WHEN .. END CASE", "WHILE .. DO", "REPEAT .. UNTIL"],
+          ["Which conditional statement in MySQL stored procedures executes a block of code only when a condition evaluates to TRUE, with no alternative branch?<br><img src=\"img/mysql_if_then_diagram.png\" style=\"max-width:400px;border-radius:6px;margin:10px auto;display:block;\">", "IF .. THEN .. END IF", "IF .. THEN .. ELSE .. END IF", "CASE WHEN .. END CASE", "WHILE .. DO", "REPEAT .. UNTIL"],
           ["Which keyword terminates an IF statement block in a MySQL stored procedure?", "END IF;", "END;", "STOP IF;", "FI;", "CLOSE IF;"],
-          ["What type of control flow statement provides two distinct branches: one when true and another when false?", "IF .. THEN .. ELSE .. END IF", "IF .. THEN .. END IF", "WHILE .. DO", "LOOP .. LEAVE", "REPEAT .. UNTIL"],
-          ["Which statement structure is used in a MySQL stored procedure to evaluate multiple conditions sequentially from top to bottom?", "IF .. THEN .. ELSEIF .. ELSE .. END IF", "IF .. THEN .. OR .. END IF", "SWITCH .. CASE .. BREAK", "CHOOSE .. WHEN .. END", "SELECT .. WHEN .. END"],
+          ["What type of control flow statement provides two distinct branches: one when true and another when false?<br><img src=\"img/mysql_if_then_else_diagram.png\" style=\"max-width:400px;border-radius:6px;margin:10px auto;display:block;\">", "IF .. THEN .. ELSE .. END IF", "IF .. THEN .. END IF", "WHILE .. DO", "LOOP .. LEAVE", "REPEAT .. UNTIL"],
+          ["Which statement structure is used in a MySQL stored procedure to evaluate multiple conditions sequentially from top to bottom?<br><img src=\"img/mysql_if_elseif_else_diagram.png\" style=\"max-width:400px;border-radius:6px;margin:10px auto;display:block;\">", "IF .. THEN .. ELSEIF .. ELSE .. END IF", "IF .. THEN .. OR .. END IF", "SWITCH .. CASE .. BREAK", "CHOOSE .. WHEN .. END", "SELECT .. WHEN .. END"],
           ["In an IF .. THEN .. ELSEIF ladder, once a matching condition evaluates to TRUE, the remaining ELSEIF branches are skipped.", "True", "False"],
           ["Which statement is an alternative to multi-branch IF statements that uses WHEN and THEN clauses to match values?", "CASE statement", "FOR statement", "GOTO statement", "WHILE statement", "LOOP statement"],
           ["Which keyword terminates a CASE statement block in a MySQL stored procedure?", "END CASE;", "END;", "CLOSE CASE;", "ESAC;", "FINISH CASE;"],
@@ -938,7 +938,7 @@
       {
         n: "Part 6: MySQL Milestones & Schema Objects", q: [
           ["In which month and year was the very first version of MySQL released?", "May 1995", "January 1996", "October 2000", "April 2008", "January 2010"],
-          ["Who were the three programmers credited with developing MySQL for MySQL AB?", "Michael Widenius, David Axmark, and Allan Larsson", "Larry Ellison, Bob Miner, and Ed Oates", "Ken Thompson, Dennis Ritchie, and Brian Kernighan", "Linus Torvalds, Richard Stallman, and Alan Cox", "Bill Gates, Paul Allen, and Steve Ballmer"],
+          ["Who were the three programmers credited with developing MySQL for MySQL AB?<br><img src=\"img/mysql_founders.png\" style=\"max-width:360px;border-radius:6px;margin:10px auto;display:block;\">", "Michael Widenius, David Axmark, and Allan Larsson", "Larry Ellison, Bob Miner, and Ed Oates", "Ken Thompson, Dennis Ritchie, and Brian Kernighan", "Linus Torvalds, Richard Stallman, and Alan Cox", "Bill Gates, Paul Allen, and Steve Ballmer"],
           ["Michael 'Monty' Widenius, the principal developer of MySQL, is from which country?", "Finland", "Sweden", "Norway", "Denmark", "Germany"],
           ["What earlier database engine did the MySQL founders work with before developing MySQL?", "UNIREG", "Ingres", "PostgreSQL", "mSQL", "DB2"],
           ["In which year did MySQL adopt the GNU General Public License (GPL) for open-source distribution?", "2000", "1995", "1998", "2005", "2008"],
@@ -1031,6 +1031,7 @@ const SQL_NOTES = `
   </p>
   <p><b>Database Schema</b>: The logical blueprint defining the structure and organization of database objects (tables, columns, data types, keys, constraints) rather than the actual stored row records. In MySQL and MariaDB, the terms <b>DATABASE</b> and <b>SCHEMA</b> are used interchangeably.</p>
   <p><b>Table, Row, and Column</b>: A table arranges data into horizontal rows (records/tuples) and vertical columns (attributes/fields). The intersection holds an individual value or cell.</p>
+  <img src="img/mysql_dept_structure.png" style="max-width:100%;border-radius:6px;margin:12px auto;display:block;">
 </div>
 
 <div class="note-sec">
@@ -1062,6 +1063,7 @@ const SQL_NOTES = `
 
 <div class="note-sec">
   <h3>4. Sample Tables: DEPT and EMP</h3>
+  <img src="img/mysql_dept_emp_tables.png" style="max-width:100%;border-radius:6px;margin:12px auto;display:block;">
   <p><b>DEPT Table</b>: Stores department information. Columns: <code>DEPTNO</code> (Primary Key), <code>DNAME</code>, <code>LOC</code>.
     <br>Departments: 10 ACCOUNTING (NEW YORK), 20 RESEARCH (DALLAS), 30 SALES (CHICAGO), <b>40 OPERATIONS (BOSTON)</b>.
   </p>
@@ -1072,6 +1074,7 @@ const SQL_NOTES = `
 
 <div class="note-sec">
   <h3>5. MySQL History & Milestones</h3>
+  <img src="img/mysql_founders.png" style="max-width:380px;border-radius:6px;margin:12px auto;display:block;">
   <ul>
     <li><b>Founders</b>: Developed at Swedish company <b>MySQL AB</b> by <b>David Axmark</b> (Swedish), <b>Allan Larsson</b> (Swedish), and <b>Michael 'Monty' Widenius</b> (Finnish, principal developer). Sweden and Finland are independent Northern European nations. Originally evolved from an earlier engine called <b>UNIREG</b>.</li>
     <li><b>1995</b>: First version of MySQL released in May 1995.</li>
@@ -1101,6 +1104,7 @@ END //
 DELIMITER ;</code></pre>
     </li>
     <li><b>Parameter Modes</b>:
+      <img src="img/mysql_parameters_comparison.png" style="max-width:100%;border-radius:6px;margin:10px auto;display:block;">
       <br>&bull; <code>IN</code> (Default): Supplies input values to procedure (read-only to procedure, caller cannot see modifications). Syntax: <code>procedure_name(IN param_name data_type)</code>.
       <br>&bull; <code>OUT</code>: Passes a value back to caller. Starts as NULL inside procedure. Called using session variable: <code>CALL get_val(@my_var);</code>. Multiple OUT parameters are allowed.
       <br>&bull; <code>INOUT</code>: Both passes a value in and returns an updated value back.
@@ -1114,6 +1118,11 @@ DELIMITER ;</code></pre>
 
 <div class="note-sec">
   <h3>7. Conditional Statements in MySQL</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:12px 0;">
+    <img src="img/mysql_if_then_diagram.png" style="max-width:320px;border-radius:6px;">
+    <img src="img/mysql_if_then_else_diagram.png" style="max-width:320px;border-radius:6px;">
+    <img src="img/mysql_if_elseif_else_diagram.png" style="max-width:320px;border-radius:6px;">
+  </div>
   <p><b>1. Built-in IF() Function</b>:
     <br>Used in SQL expressions and queries: <code>IF(condition, value_if_true, value_if_false)</code>.
     <br>Example: <code>SELECT ENAME, IF(SAL >= 3000, 'High', 'Standard') AS SalLevel FROM EMP;</code>. Can be nested for multi-tier logic.
